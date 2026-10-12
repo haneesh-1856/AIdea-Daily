@@ -1,0 +1,265 @@
+# Where the agent looks every day. Everything here is free and meant to be
+# read by programs (RSS feeds, sitemaps and the official Hacker News search API).
+#
+# kind = "primary"    -> the organisation announcing its own news
+# kind = "press"      -> journalists reporting on it
+# kind = "newsletter" -> individual analysts and curators
+#
+# general = true      -> the feed covers more than AI, so only items matching
+#                        ai_keywords are kept
+# type = "sitemap"    -> for sites with no RSS feed: new pages are found through
+#                        the site's sitemap, limited to path_prefix
+
+[settings]
+max_age_days = 3        # ignore anything older than this
+hn_min_points = 50      # Hacker News stories below this are ignored
+# Hacker News stories and items from general feeds are kept only if they
+# match one of these.
+ai_keywords = [
+    "ai", "a.i.", "llm", "llms", "gpt", "chatgpt", "openai", "anthropic", "claude",
+    "gemini", "deepmind", "mistral", "llama", "nvidia", "hugging face", "huggingface",
+    "copilot", "agent", "agents", "agentic", "transformer", "diffusion", "inference",
+    "fine-tuning", "finetuning", "neural", "machine learning", "deep learning",
+    "model", "models", "rag", "mcp", "xai", "grok", "deepseek", "qwen", "agi",
+]
+# More words that keep a Hacker News story or a general-feed item. They are kept apart from ai_keywords because
+# step 4 treats every word of that list as too common to tell one story from another: a product's name must stay
+# out of it, or two articles about that product would no longer be grouped by it. Step 3 alone reads this list.
+# Added on 9 October 2026: without them, "I gave Opus 5.5 one prompt and six hours..." (274 points) was dropped.
+also_keep = [
+    "artificial intelligence", "generative", "chatbot", "chatbots", "deepfake", "deepfakes", "superintelligence",
+    "voice clone", "voice cloning", "humanoid", "robotics", "vibe coding", "prompt injection", "open weights",
+    "opus", "sonnet", "codex", "sora", "veo", "midjourney", "perplexity", "cursor", "elevenlabs", "suno",
+    "ollama", "cohere", "groq", "cerebras", "notebooklm",
+]
+
+# --- Primary sources -------------------------------------------------------
+
+[[feed]]
+name = "OpenAI"
+kind = "primary"
+url = "https://openai.com/news/rss.xml"
+
+[[feed]]
+name = "Anthropic"
+kind = "primary"
+type = "sitemap"
+url = "https://www.anthropic.com/sitemap.xml"
+path_prefix = "/news/"
+
+[[feed]]
+name = "Google DeepMind"
+kind = "primary"
+url = "https://deepmind.google/blog/rss.xml"
+
+[[feed]]
+name = "Google AI"
+kind = "primary"
+url = "https://blog.google/technology/ai/rss/"
+
+[[feed]]
+name = "Google Research"
+kind = "primary"
+url = "https://research.google/blog/rss/"
+
+[[feed]]
+name = "Nvidia"
+kind = "primary"
+url = "https://blogs.nvidia.com/feed/"
+
+[[feed]]
+name = "Meta Newsroom"
+kind = "primary"
+general = true
+url = "https://about.fb.com/news/feed/"
+
+[[feed]]
+name = "Microsoft AI"
+kind = "primary"
+url = "https://www.microsoft.com/en-us/ai/blog/feed/"
+
+[[feed]]
+name = "Hugging Face"
+kind = "primary"
+url = "https://huggingface.co/blog/feed.xml"
+
+[[feed]]
+name = "Mistral"
+kind = "primary"
+url = "https://mistral.ai/rss.xml"
+
+[[feed]]
+name = "GitHub Blog"
+kind = "primary"
+general = true
+url = "https://github.blog/feed/"
+
+[[feed]]
+name = "NIST"
+kind = "primary"
+general = true
+url = "https://www.nist.gov/news-events/news/rss.xml"
+
+# Smaller AI companies, added on 9 October 2026. xAI and Perplexity publish no feed or sitemap a program may
+# read (both answered 403), so their news still arrives only through the press and Hacker News.
+
+[[feed]]
+name = "DeepSeek"
+kind = "primary"
+type = "sitemap"
+url = "https://www.deepseek.com/sitemap.xml"
+path_prefix = "/news/"
+
+[[feed]]
+name = "Cursor Changelog"
+kind = "primary"
+url = "https://cursor.com/changelog/rss.xml"
+
+[[feed]]
+name = "ElevenLabs"
+kind = "primary"
+url = "https://elevenlabs.io/blog/rss.xml"
+
+[[feed]]
+name = "Ollama"
+kind = "primary"
+url = "https://ollama.com/blog/rss.xml"
+
+[[feed]]
+name = "Together AI"
+kind = "primary"
+url = "https://www.together.ai/blog/rss.xml"
+
+[[feed]]
+name = "Replicate"
+kind = "primary"
+url = "https://replicate.com/blog/rss"
+
+# Product changes that are announced in a changelog and not in a news post.
+
+[[feed]]
+name = "GitHub Changelog"
+kind = "primary"
+general = true
+url = "https://github.blog/changelog/feed/"
+
+# Regulators. They announce their own actions, so they are primary sources.
+
+[[feed]]
+name = "FTC"
+kind = "primary"
+general = true
+url = "https://www.ftc.gov/feeds/press-release.xml"
+
+[[feed]]
+name = "European Commission Digital"
+kind = "primary"
+general = true
+url = "https://digital-strategy.ec.europa.eu/en/rss.xml"
+
+# --- Press -----------------------------------------------------------------
+
+[[feed]]
+name = "TechCrunch AI"
+kind = "press"
+url = "https://techcrunch.com/category/artificial-intelligence/feed/"
+
+[[feed]]
+name = "The Verge AI"
+kind = "press"
+url = "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
+
+[[feed]]
+name = "Ars Technica AI"
+kind = "press"
+url = "https://arstechnica.com/ai/feed/"
+
+[[feed]]
+name = "MIT Technology Review AI"
+kind = "press"
+url = "https://www.technologyreview.com/topic/artificial-intelligence/feed"
+
+[[feed]]
+name = "The Decoder"
+kind = "press"
+url = "https://the-decoder.com/feed/"
+
+[[feed]]
+name = "Wired AI"
+kind = "press"
+url = "https://www.wired.com/feed/tag/ai/latest/rss"
+
+# Culture, entertainment, viral stories and policy, added on 9 October 2026 for the lighter-side pass and for
+# legal news. The general ones cover far more than AI, so only items matching the keywords are kept.
+
+[[feed]]
+name = "Futurism AI"
+kind = "press"
+url = "https://futurism.com/categories/ai-artificial-intelligence/feed"
+
+[[feed]]
+name = "Gizmodo AI"
+kind = "press"
+url = "https://gizmodo.com/tag/artificial-intelligence/rss"
+
+[[feed]]
+name = "The Guardian AI"
+kind = "press"
+url = "https://www.theguardian.com/technology/artificialintelligenceai/rss"
+
+[[feed]]
+name = "404 Media"
+kind = "press"
+general = true
+url = "https://www.404media.co/rss/"
+
+[[feed]]
+name = "BBC Technology"
+kind = "press"
+general = true
+url = "https://feeds.bbci.co.uk/news/technology/rss.xml"
+
+[[feed]]
+name = "The Hollywood Reporter"
+kind = "press"
+general = true
+url = "https://www.hollywoodreporter.com/feed/"
+
+[[feed]]
+name = "Variety"
+kind = "press"
+general = true
+url = "https://variety.com/feed/"
+
+[[feed]]
+name = "Tech Policy Press"
+kind = "press"
+general = true
+url = "https://www.techpolicy.press/rss/feed.xml"
+
+# --- Newsletters and analysts ----------------------------------------------
+
+[[feed]]
+name = "Simon Willison"
+kind = "newsletter"
+url = "https://simonwillison.net/atom/everything/"
+
+[[feed]]
+name = "Import AI"
+kind = "newsletter"
+url = "https://importai.substack.com/feed"
+
+[[feed]]
+name = "Latent Space"
+kind = "newsletter"
+url = "https://www.latent.space/feed"
+
+[[feed]]
+name = "Ben's Bites"
+kind = "newsletter"
+url = "https://www.bensbites.com/feed"
+
+[[feed]]
+name = "One Useful Thing"
+kind = "newsletter"
+url = "https://www.oneusefulthing.org/feed"

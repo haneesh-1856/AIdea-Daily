@@ -1,0 +1,145 @@
+# Run settings. Sources and the collection filters are in sources.toml.
+
+[episode]
+length_minutes = 45       # the longest an episode may run. A ceiling, not a target: a quiet day is shorter.
+# The voice's measured pace with its pauses: 2,191 words came to 17.1 minutes on 7 October 2026.
+words_per_minute = 130    # used to turn minutes into a word cap
+headlines = 6             # how many of the top stories get a headline at the start of the episode
+
+[retention]
+article_text_days = 30
+audio_days = 14
+
+[model]
+# The language model that judges uncertain groupings (step 4) and writes (step 8).
+# Set provider and name to "" to run without one: grouping then keeps uncertain pairs apart,
+# stories are not rated for importance, and the run stops at step 8.
+# The key is never written here. Put it in a file named .env beside this one (see .env.example);
+# git ignores that file. A hosted run supplies it from its secret store instead.
+provider = "anthropic"    # "anthropic" is the only provider built so far
+name = "claude-sonnet-5-5"
+price_in = 2.0            # US dollars per million tokens read, used to record what a run cost
+price_out = 10.0          # US dollars per million tokens written, which includes the model's thinking
+# How hard the model thinks before answering: "low", "medium", "high", or "" to leave it to the model's default.
+# Thinking is billed as written tokens. Leave it "" for a model that has no such setting, such as claude-haiku-4-5.
+effort = "medium"
+
+[group]
+# How alike two items must be in meaning, from 0 to 1, as measured by the local model.
+# Set by eye from the 6 and 7 October 2026 items, not yet from a hand-marked test set.
+merge_at = 0.80           # at or above this, two items from different sources that share a distinctive name are merged
+judge_from = 0.74         # from here up to merge_at the pair is uncertain and goes to the language model
+max_judge_pairs = 60      # the most uncertain pairs sent to the model in one run
+embedding_model = "BAAI/bge-small-en-v1.5"
+
+[score]
+# Words or phrases you care about most. A story mentioning one gets the focus points.
+focus = []
+# Hacker News points and comments add to a rated story's score as they did before the editor was brought in
+# (the hn_points and hn_comments weights below: about 0.6 at 100 points, 0.9 at 1,000, plus a little for comments).
+# A story with no Hacker News thread loses nothing: it keeps the editor's score. This is the most they can add.
+traction_max = 1.5
+
+[score.rubric]
+# The eight questions the editor rates each story on, from 0 to 10, and how much each counts. A story's score
+# is their weighted average. The editor's instructions are in steps/step05_score/editor.md, and these are the
+# weights given there (section 5); if you change them, change them in both places.
+immediate_value = 25      # would people want to check, try, test, sign up for or act on this today?
+ai_impact = 20            # how much it changes the AI landscape, capabilities, products or ecosystem
+audience_relevance = 15   # how directly it matters to people who use or build with AI
+magnitude = 10            # how significant the development itself is
+practical_impact = 10     # whether it affects cost, access, availability or buying decisions
+novelty = 5               # how new it is, as opposed to a repeat or a minor continuation
+credibility = 5           # how well supported the information is
+future_significance = 10  # whether it could matter beyond today
+
+[score.weights]
+# A rated story's score is the editor's score, plus the Hacker News points above. How many outlets covered
+# it adds nothing. The evidence below otherwise only orders stories with the same score, and places a story that
+# was not rated.
+importance = 1.0          # times the editor's score, 0 to 10
+outlet = 0.5              # per independent outlet, counting at most 3 (Hacker News is not an outlet)
+primary = 0.5             # once, when the organisation itself announced it
+hn_points = 0.3           # times log10(1 + points): 1,000 points give about 0.9
+hn_comments = 0.1         # times log10(1 + comments)
+staying = 0.3             # per earlier day the story also gained coverage, up to 3
+focus = 1.0               # once, when the story matches a focus area
+
+[topics]
+# A story gets the topic whose words appear most in its titles and descriptions.
+"new models" = ["model", "models", "release", "releases", "launch", "launches", "weights", "open-weight", "benchmark", "parameters"]
+"agents and tools" = ["agent", "agents", "agentic", "mcp", "copilot", "coding", "developer", "developers", "api", "sdk", "plugin"]
+"research" = ["research", "paper", "study", "researchers", "mathematics", "math", "science", "scientists", "arxiv"]
+"policy and safety" = ["regulation", "law", "eu", "act", "safety", "policy", "court", "lawsuit", "copyright", "government", "watermark", "watermarking", "provenance", "security"]
+"business" = ["funding", "raise", "raises", "valuation", "ipo", "acquire", "acquires", "acquisition", "revenue", "partnership", "ads", "advertising", "startup"]
+"chips and compute" = ["chip", "chips", "gpu", "gpus", "nvidia", "datacenter", "data center", "compute", "accelerator", "inference"]
+
+[select]
+# The episode is the editor's final list from step 5, in the editor's order. How long each story runs is under [lengths].
+max_stories = 25          # a safety limit on a very busy day; it guards the cost of writing
+min_score = 3.0           # the floor: a story below this is left out even when the editor chose it
+# A short day: when the editor's list makes an episode shorter than this, stories the editor rated but passed over
+# are added (first those marked Know today, then those marked Watch), and every story is told one length longer.
+# A story marked Skip is never added. Set to 0 to leave a short day short.
+short_day_minutes = 15
+watch_from = 4.0          # a story marked Watch needs this score to be added on a short day
+# After the final list (phase 1) the editor makes two more passes. Phase 2 looks again at every story left out and
+# brings back the worthwhile ones (steps/step05_score/recovery.md); it has no switch. Phase 3 picks celebrity, viral
+# and curiosity stories (steps/step05_score/culture.md), at most this many; 0 turns it off.
+culture_max = 3
+max_sources = 5           # full articles read per story, primary source first
+rumour_min_points = 300   # a story with no primary source and no press needs this many Hacker News points
+
+[lengths]
+# How long a story runs follows its score: the top story gets room, and the rest move faster as they matter less.
+# Words are for the story's own text; about 130 words is a minute. A story between min_score and short_from,
+# an update, and a story with little source text are quick hits.
+# Set on 8 October 2026 for the editor's scores, which run lower than the old ones: on 7 October the final list
+# scored 9.2, 8.55, 7.85, 7.85, then 7.25 down to 5.5.
+long_from = 7.5
+long_words = 350          # about 2.7 minutes
+medium_from = 6.5
+medium_words = 250        # about 2 minutes
+short_from = 5.5
+short_words = 150         # a little over a minute
+quick_words = 70          # about half a minute
+
+[write]
+max_source_words = 1200   # each article is cut to this many words before the model reads it
+max_story_words = 600     # the most any story may ever have; lines past a story's own limit are removed in step 9
+
+[voice]
+# Step 10 speaks the final script with Chatterbox, a free model that runs on this PC's graphics card.
+# It has no voices of its own: it speaks in the voice of the reference recording, and copies its delivery too.
+enabled = true
+# The voice the owner chose by ear on 7 October 2026 is the Chatterbox demo page's sample voice. Its origin is not
+# known, so REPLACE IT BEFORE PUBLISHING with a voice you have the right to use. The owner's own voice is
+# voice/reference.wav.
+reference = "voice/reference-demo-voice.wav"
+python = ".venv-voice/Scripts/python.exe"   # the separate Python that has the voice model installed
+# "chatterbox" is the original model: measured on 7 October 2026 it matched the reference's pitch (median 160 Hz
+# against 159, and the same range). "chatterbox-turbo" sat lower and flatter (151 Hz) and has none of the dials below.
+# The settings below reproduce the sample the owner liked: Turbo, each sentence spoken whole, at the model's own pace.
+engine = "chatterbox-turbo"
+exaggeration = 0.5        # chatterbox only: 0.5 is neutral; higher is more dramatic and raises the pitch
+cfg_weight = 0.5          # chatterbox only: how closely it follows the reference's delivery
+temperature = 0.8         # how much the delivery varies from take to take
+# The model speaks more slowly than the reference: 182 words a minute against 213, measured the same day.
+# 1.17 brings it to the reference's pace without changing the pitch. 1.0 leaves the model's own pace.
+speed = 1.0
+
+[voice.pauses]
+# Seconds of silence, by what comes next. Set from the owner's own recording, where pauses take about a fifth
+# of the time, average two thirds of a second, and speech runs about two seconds between them.
+phrase = 0.22             # inside a long sentence, at a comma or colon (only when sentences are split; see longest_phrase)
+sentence = 0.55           # the next sentence of the same part
+part = 0.8                # from the narrator's line to the story, or from what happened to how sources see it
+headline = 0.7            # between headlines
+story = 1.0               # before a new story or a new section
+longest_phrase = 1000     # a sentence with more words than this is spoken phrase by phrase; 1000 means never
+
+[voice.say]
+# How to say a word the voice gets wrong: the word as written = the way to say it. Add to this as you hear mistakes.
+
+[check]
+hold_above = 0.2          # if more than this share of written lines fail the check, the episode is held

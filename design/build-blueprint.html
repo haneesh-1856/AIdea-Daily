@@ -1,0 +1,510 @@
+<title>Build Blueprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a summary band (who does the work, what it costs, where data lives), then one block per step with the same four parts in the same place every time. */
+:root {
+  --bg: #F5F6F8; --surface: #EAEDF2; --fg: #18212B; --muted: #586474; --line: #C6CCD6;
+  --accent: #2F4BD8; --free: #1C7450; --paid: #A85400; --paid-bg: #FBEAD0; --todo: #6B7686;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12161C; --surface: #1C222B; --fg: #E6EAF0; --muted: #9BA6B5; --line: #343D4A;
+  --accent: #93A5FF; --free: #5FCB9C; --paid: #F0AA52; --paid-bg: #32260F; --todo: #8A95A5; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12161C; --surface: #1C222B; --fg: #E6EAF0; --muted: #9BA6B5; --line: #343D4A;
+  --accent: #93A5FF; --free: #5FCB9C; --paid: #F0AA52; --paid-bg: #32260F; --todo: #8A95A5; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.5; padding-inline: 16px; padding-block: 40px 64px }
+.page { max-width: 1000px; margin-inline: auto; display: flex; flex-direction: column; gap: 40px }
+header { display: flex; flex-direction: column; gap: 12px }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin: 0; text-wrap: balance }
+.lede { max-width: 65ch; color: var(--muted); margin: 0; font-size: 16px }
+h2 { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.2; margin: 0 0 12px; text-wrap: balance }
+h3 { font-family: var(--display); font-weight: 700; font-size: 21px; line-height: 1.2; margin: 0 }
+h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px }
+p { margin: 0 }
+.note { color: var(--muted); font-size: 14px; max-width: 78ch; margin-top: 10px }
+code { font-family: var(--mono); font-size: .92em; background: var(--surface); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere }
+
+.scroll { overflow-x: auto }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; font-variant-numeric: tabular-nums }
+th { text-align: left; font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 6px 12px 6px 0; border-bottom: 1px solid var(--line); white-space: nowrap }
+td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top }
+td:first-child { min-width: 180px }
+tr.pick td:first-child { font-weight: 600 }
+#models, #big4 { max-height: 640px; overflow-y: auto; border-block: 1px solid var(--line) }
+#models th, #big4 th { position: sticky; top: 0; background: var(--bg); z-index: 1 }
+#top20 td:first-child { min-width: 0 }
+#top20 td:last-child, #models td:last-child, #big4 td:last-child { min-width: 260px }
+button.sort { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; white-space: nowrap }
+button.sort:hover, button.sort:focus-visible { color: var(--accent); text-decoration: underline }
+
+.tag { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; display: inline-block }
+.tag.free { color: var(--free) } .tag.paid { color: var(--paid); background: var(--paid-bg) }
+.tag.code { color: var(--accent) } .tag.alt { color: var(--todo); border-style: dashed } .tag.no { color: var(--todo); border-style: dotted }
+
+.steps { display: flex; flex-direction: column; gap: 36px }
+.step { display: flex; flex-direction: column; gap: 16px; padding-top: 20px; border-top: 2px solid var(--fg) }
+.step.is-paid { border-top-color: var(--paid) }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px }
+.num { font-family: var(--display); font-weight: 700; font-size: 21px; color: var(--accent); font-variant-numeric: tabular-nums }
+.step.is-paid .num { color: var(--paid) }
+.tags { display: flex; flex-wrap: wrap; gap: 6px }
+ol.logic { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 5px; max-width: 80ch }
+.io { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px }
+.io > div { background: var(--surface); border-radius: 8px; padding: 12px 14px; min-width: 0; font-size: 14.5px }
+.io ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px }
+footer { color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--line); padding-top: 16px; max-width: 78ch }
+@media (max-width: 760px) { .io { grid-template-columns: minmax(0, 1fr) } }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">AI news podcast · how each step is built</div>
+    <h1>Build Blueprint</h1>
+    <p class="lede">For every step of the daily run: the logic, whether code or a model does the work, the options weighed for accuracy and cost, what goes in, what comes out, and where it is stored. Every cost here is an estimate; nothing after step 3 has been run.</p>
+  </header>
+
+  <section>
+    <h2>Code does ten of the twelve steps</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Who does the work</th><th>Steps</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Plain code</td><td>1 Start, 2 Fetch, 3 Clean and store, 5 Score, 6 Select, 7 Plan, 9 Check and fit, 11 Assemble, 12 Package and log</td><td>Free</td></tr>
+        <tr><td>Free models that run locally</td><td>4 Group (meaning comparison), 10 Voice</td><td>Free</td></tr>
+        <tr><td>A language model, chosen by test</td><td>4 Group (uncertain pairs only), 8 Write</td><td>From free to about 13 cents a day, depending on the model</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>The daily workload is small: about 93,000 tokens in and 7,600 out</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Where</th><th>Requests per day</th><th>Text in per day</th><th>Text out per day</th></tr></thead>
+      <tbody>
+        <tr><td>Step 4, judging uncertain pairs</td><td>About 40</td><td>8,000 tokens</td><td>400 tokens</td></tr>
+        <tr><td>Step 8, writing</td><td>About 13</td><td>85,000 tokens</td><td>7,200 tokens</td></tr>
+        <tr class="pick"><td>Total</td><td>About 53</td><td>93,000 tokens</td><td>7,600 tokens</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Assumes 12 stories a day, five sources per story at about 1,200 tokens each, and 40 uncertain pairs. A token is roughly three quarters of a word. These are estimates; each run will record its real figures. Every monthly cost below is this workload at that model's price.</p>
+  </section>
+
+  <section>
+    <h2>Cheaper models score better than Claude Haiku on faithful summarising</h2>
+    <p style="max-width:78ch">The last column is the share of summaries containing something not supported by the source document, from Vectara's public leaderboard updated 22 September 2026. Lower is better. On that measure, two models costing under $1 a month beat the model first chosen for this plan.</p>
+    <h4 style="margin-top:18px">The top 20 of all 170 models</h4>
+    <div class="scroll" id="top20"></div>
+    <p class="note">Ranked by overall rating, then accuracy rating, then cost. The six in bold are rated 8 or higher overall. From rank 9 down, every model has the same two ratings, so their order is by price alone and the cut at 20 is arbitrary: several models just outside it are rated the same. Seven of the first eight have a measured accuracy figure; nothing from rank 9 down does.</p>
+    <h4 style="margin-top:22px">Every model rated 8 or higher, on accuracy or overall</h4>
+    <div class="scroll"><table>
+      <thead><tr><th>Model</th><th>Maker</th><th>Kind</th><th>Price in / out per million tokens</th><th>Our cost per month</th><th>Unsupported-claim rate</th><th>Accuracy rating</th><th>Overall rating</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td>GPT-5.4 nano</td><td>OpenAI</td><td>Paid</td><td>$0.20 / $1.25</td><td>$0.84</td><td>3.1%</td><td>9</td><td>9</td><td>Test first</td></tr>
+        <tr class="pick"><td>Gemini 2.5 Flash-Lite</td><td>Google</td><td>Paid, with a free tier</td><td>$0.10 / $0.40</td><td>$0.37, or free</td><td>3.3%</td><td>9</td><td>9</td><td>Test first</td></tr>
+        <tr class="pick"><td>Llama 3.3 70B</td><td>Meta</td><td>Open</td><td>Free on Groq and Cerebras</td><td>$0</td><td>4.1%</td><td>8.5</td><td>8.5</td><td>Test first: best free option</td></tr>
+        <tr class="pick"><td>GPT-5.4 mini</td><td>OpenAI</td><td>Paid</td><td>$0.75 / $4.50</td><td>$3.12</td><td>5.5%</td><td>8</td><td>8.5</td><td>Test if nano reads too plainly</td></tr>
+        <tr class="pick"><td>Gemma 4 26B</td><td>Google</td><td>Open</td><td>Free through Google AI Studio</td><td>$0</td><td>5.2%</td><td>8</td><td>8</td><td>Test as a free second checker</td></tr>
+        <tr class="pick"><td>Gemini 3.8 Flash</td><td>Google</td><td>Paid, with a free tier</td><td>$0.75 / $3.75</td><td>$2.95, or free</td><td>Not measured</td><td>7.5, judged</td><td>8</td><td>Test as the newest of its family</td></tr>
+        <tr><td>Gemma 3 12B</td><td>Google</td><td>Open</td><td>Runs on your own machine</td><td>$0</td><td>4.4%</td><td>8.5</td><td>7.5</td><td>Accurate, but slow without a graphics card</td></tr>
+        <tr><td>Qwen3 8B</td><td>Alibaba</td><td>Open</td><td>Runs on your own machine</td><td>$0</td><td>4.8%</td><td>8</td><td>7.5</td><td>Fits a 16 GB PC; slow without a graphics card</td></tr>
+        <tr><td>IBM Granite 4.0 H Small</td><td>IBM</td><td>Open</td><td>Runs on your own machine</td><td>$0</td><td>5.2%</td><td>8</td><td>7</td><td>Accurate but a plain writer</td></tr>
+        <tr><td>Amazon Nova 2 Lite</td><td>Amazon</td><td>Paid</td><td>Not found</td><td>Not found</td><td>5.1%</td><td>8</td><td>7</td><td>Needs an Amazon cloud account; price to check</td></tr>
+        <tr><td>Amazon Nova Pro</td><td>Amazon</td><td>Paid</td><td>Not found</td><td>Not found</td><td>5.1%</td><td>8</td><td>7</td><td>Needs an Amazon cloud account; price to check</td></tr>
+        <tr><td>AI21 Jamba Mini 2</td><td>AI21</td><td>Paid</td><td>Not found</td><td>Not found</td><td>5.3%</td><td>8</td><td>6.5</td><td>Price to check</td></tr>
+        <tr><td>Ant Group Finix S1 32B</td><td>Ant Group</td><td>Unknown</td><td>Not found</td><td>Not found</td><td>1.8%</td><td>9.5</td><td>6</td><td>Most accurate measured, but not found on offer anywhere</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Thirteen models reach 8 on at least one rating. The six in bold reach 8 overall and are the candidates used in the step plans below. The other seven are accurate but held back by speed, missing prices or availability. Ratings are out of 10; the accuracy rating ignores price, and the overall rating includes it.</p>
+    <h4 style="margin-top:22px">Every Claude, ChatGPT, Gemini and Grok model and version</h4>
+    <p class="note" style="margin:0 0 14px">All text models from Anthropic, OpenAI, Google and xAI on the price list, whatever their rating, ordered by maker and then by overall rating. Select a column heading to sort differently. Google's rows include its open Gemma models. Voice-only models are left out, and a few older versions have no listed price.</p>
+    <div class="scroll" id="big4"></div>
+    <h4 style="margin-top:22px">The full list, all makers</h4>
+    <p class="note" style="margin-bottom:14px">One list, not grouped. Select a column heading to sort by it. The list covers every text model and version on the price list; voice-only models are left out.</p>
+    <div class="scroll" id="models"></div>
+    <p class="note"><strong>Two ratings, both out of 10.</strong> The accuracy rating answers one question: how faithfully does this model write from the text it is given, ignoring price? The overall rating is for this job as a whole: accuracy first, then writing quality, price, and whether the model is current and easy to get.</p>
+    <p class="note"><strong>Where the accuracy rating comes from.</strong> Where the Evidence column says Measured, it is the leaderboard figure put on a scale: 3.5% or lower is 9, up to 4.5% is 8.5, up to 5.5% is 8, up to 6.5% is 7.5, up to 8% is 7, up to 9.5% is 6.5, up to 11% is 6, and so on down. Two models lose points for often declining to answer. Where it says Judged, there is no measurement, and the figure is my estimate from the model's class; treat it as a guess. I am a Claude model rating Claude models among others; they follow the same figures as the rest.</p>
+    <p class="note"><strong>A surprise worth knowing.</strong> On this measure, bigger is not more accurate. Several large, expensive models measured worse than small cheap ones, which is why the judged ratings for unmeasured large models stay at 7.5 to 8 and no higher.</p>
+    <p class="note"><strong>Read the last column with care.</strong> The leaderboard tests short summaries of one document, judged by another model. Our task is harder: several sources per story, a comparison of how they differ, and a spoken style. It also has no figures for the newest models, and where it says &ldquo;earlier version&rdquo; the number belongs to an older release of that model. It tells us which models to test, not which one will win.</p>
+    <p class="note"><strong>What free costs.</strong> Free tiers have daily and per-minute limits, no guarantee of availability, and Google's free tier uses prompts to improve its products outside Europe. Our prompts are public news articles, so that matters little here. Running a model on your own machine without a graphics card is slow: I'd expect an hour or more per day's run, which is untested.</p>
+    <p class="note"><strong>Proposed approach.</strong> Make the model a setting, so any of these can be swapped in. Run the same ten real stories through all six models rated 8 or higher, with Claude Haiku 4.5 as the comparison, and pick by how many sentences fail the check and how they read. Then use a second model from a different maker for the checking pass, since two different models rarely make the same mistake.</p>
+  </section>
+
+  <section>
+    <h2>Everything lives in three places</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Place</th><th>Holds</th><th>Kept</th></tr></thead>
+      <tbody>
+        <tr><td>One database file, <code>data/news.db</code></td><td>Items, stories, threads, scores, article text, summaries, scripts, episodes, run records, logs</td><td>Permanently, except article text (30 days)</td></tr>
+        <tr><td>A dated output folder, <code>out/2026-10-06/</code></td><td>The episode audio, the newsletter, show notes and the review package</td><td>Audio 14 days; text permanently</td></tr>
+        <tr><td>Settings files</td><td><code>sources.toml</code> for sources, <code>settings.toml</code> for weights, thresholds, length and voice</td><td>Edited by hand, versioned with the code</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">The model key is never stored in a file. It lives in the cloud service's secret store, or in an environment variable on a PC. File and table names are the working plan and may change as they are built.</p>
+  </section>
+
+  <div class="steps" id="steps"></div>
+
+  <footer>Sources: Claude prices from Anthropic's pricing table dated 25 September 2026. Gemini prices and free-tier terms from <a href="https://ai.google.dev/gemini-api/docs/pricing">Google's pricing page</a>. Other model prices from <a href="https://benchlm.ai/llm-pricing">a third-party price list dated 6 October 2026</a>, not checked against each maker's own page. Unsupported-claim rates from <a href="https://github.com/vectara/hallucination-leaderboard">Vectara's hallucination leaderboard</a>, updated 22 September 2026. Free-tier limits from <a href="https://openrouter.ai/blog/tutorials/free-llm-apis-compared/">a comparison of free model services</a>. Prices for Jev, Google Cloud speech and Cloudflare search come from articles.</footer>
+</div>
+
+<script>
+// [model, maker, price in, price out, unsupported-claim rate or null, rating, why]. Price "free" = offered free by at least one host; null = price not found.
+const MODELS = [
+  ["GPT-5.4 nano", "OpenAI", 0.20, 1.25, 3.1, 9, "Second-best measured faithfulness of any model, and under $1 a month"],
+  ["Gemini 2.5 Flash-Lite", "Google", 0.10, 0.40, 3.3, 9, "Near-best measured faithfulness, cheapest of the leaders, has a free tier; an older generation that may be retired"],
+  ["Llama 3.3 70B", "Meta", "free", 0, 4.1, 8.5, "Open model with strong measured faithfulness; free on Groq and Cerebras within daily limits"],
+  ["GPT-5.4 mini", "OpenAI", 0.75, 4.50, 5.5, 8.5, "Good measured faithfulness and a better writer than nano, at four times the cost"],
+  ["Gemma 4 26B", "Google", "free", 0, 5.2, 8, "Open model, measured, free through Google AI Studio"],
+  ["Gemini 3.8 Flash", "Google", 0.75, 3.75, null, 8, "Newest Flash with a free tier; likely a strong writer, but unmeasured"],
+  ["Mistral Small 4", "Mistral", 0.15, 0.60, null, 7.5, "Earlier version measured 5.1%; cheap and European-hosted"],
+  ["Mistral Large 3", "Mistral", 0.50, 1.50, null, 7.5, "Earlier version measured 4.5%; better writer than Small"],
+  ["Mistral Large 4", "Mistral", 0.68, 2.09, null, 7.5, "Newer Large; unmeasured"],
+  ["Qwen3 8B", "Alibaba", "free", 0, 4.8, 7.5, "Open, measured, and small enough for a 16 GB PC; slow without a graphics card"],
+  ["Gemma 3 12B", "Google", "free", 0, 4.4, 7.5, "Open and measured; runs locally but slowly"],
+  ["Claude Sonnet 5.5", "Anthropic", 2.00, 10.00, null, 7.5, "Strong writer and rule-follower; unmeasured, and about $8 a month"],
+  ["GPT-6 Luna", "OpenAI", 0.10, 0.50, null, 7.5, "Newest small OpenAI model and very cheap; unmeasured"],
+  ["GPT-5.6 Luna", "OpenAI", 0.20, 1.20, null, 7.5, "Recent small model; unmeasured"],
+  ["GPT-6 Sol", "OpenAI", 2.00, 10.00, null, 7.5, "Strong general model; unmeasured and mid-priced"],
+  ["GPT-6.1 Sol", "OpenAI", 2.00, 10.00, null, 7.5, "As GPT-6 Sol, newer"],
+  ["Gemini 4 Argon", "Google", 2.00, 10.00, null, 7.5, "Google's newest large model; unmeasured"],
+  ["Gemini 3.1 Flash-Lite", "Google", 0.25, 1.50, null, 7.5, "Cheap, free tier; unmeasured"],
+  ["Gemini 3.5 Flash-Lite", "Google", 0.30, 2.50, null, 7.5, "Cheap, free tier; unmeasured"],
+  ["Gemini 3 Flash", "Google", 0.50, 3.00, null, 7.5, "Free tier; unmeasured"],
+  ["Gemini 3.6 Flash", "Google", 0.75, 3.75, null, 7.5, "Free tier; unmeasured"],
+  ["Gemini 3.7 Flash", "Google", 0.75, 3.75, null, 7.5, "Free tier; unmeasured"],
+  ["DeepSeek V4 Flash", "DeepSeek", 0.14, 0.28, null, 7.5, "Very cheap; the older V3 measured 6.1%"],
+  ["DeepSeek V4.1 Flash", "DeepSeek", 0.30, 1.20, null, 7.5, "Newer Flash; unmeasured"],
+  ["Qwen3.8-27B", "Alibaba", "free", 0, null, 7.5, "Recent open model; unmeasured"],
+  ["Amazon Nova 2 Lite", "Amazon", null, null, 5.1, 7, "Good measured figure; price not found"],
+  ["Amazon Nova Pro", "Amazon", null, null, 5.1, 7, "Good measured figure; price not found"],
+  ["IBM Granite 4.0 H Small", "IBM", "free", 0, 5.2, 7, "Open and measured; built for business text, plain writer"],
+  ["Gemini 2.5 Flash", "Google", 0.30, 2.50, 7.8, 7, "Measured mid-table; free tier"],
+  ["DeepSeek V3", "DeepSeek", 0.27, 1.10, 6.1, 7, "Measured, cheap, older"],
+  ["DeepSeek V3.1", "DeepSeek", "free", 0, null, 7, "Open and free on some hosts; unmeasured"],
+  ["DeepSeek V3.2", "DeepSeek", 0.28, 0.42, null, 7, "Cheap; unmeasured"],
+  ["Grok 4.1 Fast", "xAI", 0.20, 0.50, null, 7, "Cheap; Grok 3 measured 5.8%"],
+  ["Grok 4.7", "xAI", 2.00, 6.00, null, 7, "Newest Grok; unmeasured"],
+  ["Claude Sonnet 5", "Anthropic", 2.00, 10.00, null, 7, "Strong writer; unmeasured; superseded by 5.5 at the same price"],
+  ["GPT-5.4", "OpenAI", 2.50, 15.00, null, 7, "Strong writer; expensive for this job"],
+  ["GPT-5.6 Terra", "OpenAI", 2.00, 12.00, null, 7, "Strong; unmeasured and mid-priced"],
+  ["GPT-4.1 mini", "OpenAI", 0.40, 1.60, null, 7, "Reliable at following formats; older"],
+  ["Gemini 3 Pro", "Google", 2.00, 12.00, null, 7, "Strong writer; pricey for this job"],
+  ["Gemini 3.1 Pro", "Google", 2.00, 12.00, null, 7, "As Gemini 3 Pro; no free tier"],
+  ["Mistral Medium 3", "Mistral", 0.40, 2.00, null, 7, "Between Small and Large; unmeasured"],
+  ["Qwen3 235B 2507", "Alibaba", "free", 0, null, 7, "Large open model; unmeasured"],
+  ["Qwen3-27B", "Alibaba", "free", 0, null, 7, "Open; unmeasured"],
+  ["Qwen3.5-27B", "Alibaba", "free", 0, null, 7, "Open; unmeasured"],
+  ["Qwen3.5-35B-A3B", "Alibaba", "free", 0, null, 7, "Open; unmeasured"],
+  ["Qwen3.5-122B-A10B", "Alibaba", "free", 0, null, 7, "Open; unmeasured"],
+  ["Qwen3.6-27B", "Alibaba", "free", 0, null, 7, "Open; unmeasured"],
+  ["Qwen3.8-Flash-Next", "Alibaba", "free", 0, null, 7, "Recent and fast; unmeasured"],
+  ["Qwen3.5 Flash", "Alibaba", 0.10, 0.40, null, 7, "Cheap; unmeasured"],
+  ["Qwen3.7 Flash", "Alibaba", 0.03, 0.13, null, 7, "Cheapest paid model that can write; unmeasured"],
+  ["Llama 4 Maverick", "Meta", "free", 0, null, 7, "Open; unmeasured"],
+  ["Claude Haiku 4.5", "Anthropic", 1.00, 5.00, 9.8, 6.5, "Good writer, but measured worse and costs more than the leaders"],
+  ["Claude Opus 5.5", "Anthropic", 4.00, 20.00, null, 6.5, "Excellent writer; about $16 a month is hard to justify here"],
+  ["DeepSeek V4 Pro", "DeepSeek", 1.32, 3.96, 8.6, 6.5, "Measured mid-table"],
+  ["GPT-5.1", "OpenAI", 1.25, 10.00, null, 6.5, "Capable; older and pricey"],
+  ["GPT-5.2", "OpenAI", 1.75, 14.00, null, 6.5, "Capable; pricey"],
+  ["GPT-4.1", "OpenAI", 2.00, 8.00, null, 6.5, "Reliable; older and mid-priced"],
+  ["Gemini 2.5 Pro", "Google", 1.25, 10.00, 7.0, 6.5, "Measured mid-table; free tier"],
+  ["Gemini 3.5 Flash", "Google", 1.50, 9.00, null, 6.5, "Costs more than the newer Flash models"],
+  ["Grok 3 Mini", "xAI", 0.30, 0.50, null, 6.5, "Cheap; unmeasured"],
+  ["Grok 4.20", "xAI", 1.25, 2.50, null, 6.5, "Unmeasured"],
+  ["Grok 4.3", "xAI", 1.25, 2.50, null, 6.5, "Unmeasured"],
+  ["Grok 4.5", "xAI", 2.00, 6.00, null, 6.5, "Unmeasured"],
+  ["Grok 4.6", "xAI", 2.00, 6.00, null, 6.5, "Unmeasured"],
+  ["Mistral Small 4 (Reasoning)", "Mistral", 0.15, 0.60, null, 6.5, "Reasoning modes tend to measure worse on faithful summarising"],
+  ["Mistral Medium 3.5 128B", "Mistral", 1.50, 7.50, null, 6.5, "Pricey for this job"],
+  ["Qwen3.5-397B", "Alibaba", 0.60, 3.60, null, 6.5, "Large; unmeasured"],
+  ["Qwen3.5 Plus", "Alibaba", 0.40, 2.40, null, 6.5, "Unmeasured"],
+  ["Llama 4 Behemoth", "Meta", "free", 0, null, 6.5, "Very large open model; unmeasured"],
+  ["Llama 4 Scout", "Meta", "free", 0, null, 6.5, "Open; unmeasured"],
+  ["MiniMax M3", "MiniMax", 0.30, 1.20, null, 6.5, "Earlier versions measured about 9%"],
+  ["GLM-5.3", "Zhipu", "free", 0, null, 6.5, "Free; unmeasured"],
+  ["GLM-5.3-Flash", "Zhipu", "free", 0, null, 6.5, "Free; unmeasured"],
+  ["Solar Pro 4", "Upstage", 0.30, 1.20, null, 6.5, "Unmeasured"],
+  ["MiMo-V2.6-Pro", "Xiaomi", 0.43, 0.87, null, 6.5, "Unmeasured"],
+  ["AI21 Jamba Mini 2", "AI21", null, null, 5.3, 6.5, "Good measured figure; price not found"],
+  ["Ant Group Finix S1 32B", "Ant Group", null, null, 1.8, 6, "Best measured faithfulness of all, but I could not find where it is offered or at what price"],
+  ["Phi-4", "Microsoft", "free", 0, 3.7, 6, "Measured well, but it declined to answer one time in five"],
+  ["GPT-5 nano", "OpenAI", 0.05, 0.40, 10.5, 6, "Very cheap, but measured three times worse than GPT-5.4 nano"],
+  ["GPT-5.5", "OpenAI", 5.00, 30.00, null, 6, "Excellent, and far too expensive for this"],
+  ["GPT-4.1 nano", "OpenAI", 0.10, 0.40, null, 6, "Old and small"],
+  ["GPT-4o mini", "OpenAI", 0.15, 0.60, null, 6, "Old; the newer small models are better"],
+  ["Claude Sonnet 4.6", "Anthropic", 3.00, 15.00, null, 6, "Superseded and pricier than Sonnet 5.5"],
+  ["Claude Opus 4.8", "Anthropic", 5.00, 25.00, null, 6, "Superseded and expensive"],
+  ["Claude Opus 5", "Anthropic", 5.00, 25.00, null, 6, "Superseded and expensive"],
+  ["DeepSeek V3.1 (Reasoning)", "DeepSeek", "free", 0, null, 6, "Reasoning mode; unmeasured"],
+  ["DeepSeek V3.2 (Thinking)", "DeepSeek", 0.55, 2.19, null, 6, "Reasoning mode; unmeasured"],
+  ["Qwen2.5-72B", "Alibaba", "free", 0, null, 6, "Older open model"],
+  ["Qwen3 235B 2507 (Reasoning)", "Alibaba", "free", 0, null, 6, "Reasoning mode; unmeasured"],
+  ["Llama 3.1 405B", "Meta", "free", 0, null, 6, "Older open model"],
+  ["Muse Glimmer 30B", "Meta", "free", 0, null, 6, "Unmeasured"],
+  ["Muse Spark 1.2", "Meta", 1.25, 4.25, null, 6, "Unmeasured"],
+  ["Muse Spark 1.3", "Meta", 1.25, 4.25, null, 6, "Unmeasured"],
+  ["MiniMax M2.5", "MiniMax", 0.30, 1.20, 9.1, 6, "Measured mid-table"],
+  ["MiniMax M2.7", "MiniMax", 0.30, 1.20, 9.1, 6, "Measured about the same as M2.5"],
+  ["GLM-4.5-Air", "Zhipu", 0.20, 1.10, 9.3, 6, "Measured mid-table"],
+  ["GLM-4.7", "Zhipu", "free", 0, null, 6, "Free; unmeasured"],
+  ["GLM-4.7-Flash", "Zhipu", "free", 0, null, 6, "Free; unmeasured"],
+  ["GLM-5", "Zhipu", 1.00, 3.20, null, 6, "Unmeasured"],
+  ["GLM-5.1", "Zhipu", 1.40, 4.40, null, 6, "Unmeasured"],
+  ["GLM-5.2", "Zhipu", 1.40, 4.40, null, 6, "Unmeasured"],
+  ["Command A+", "Cohere", 2.50, 10.00, null, 6, "Built for answering from documents; pricey and unmeasured"],
+  ["Solar Pro 3", "Upstage", 0.15, 0.60, null, 6, "Unmeasured"],
+  ["MiMo-V2.6-Flash", "Xiaomi", 0.14, 0.28, null, 6, "Unmeasured"],
+  ["GPT-5 mini", "OpenAI", 0.25, 2.00, 12.9, 5.5, "Measured poorly for a model of its price"],
+  ["GPT-4o", "OpenAI", 2.50, 10.00, 9.6, 5.5, "Old, pricey, and measured mid-table"],
+  ["Claude Sonnet 4", "Anthropic", 3.00, 15.00, 10.3, 5.5, "Old, pricey, and measured mid-table"],
+  ["Claude Sonnet 4.5", "Anthropic", 3.00, 15.00, 12.0, 5.5, "Old, pricey, and measured mid-table"],
+  ["Claude Opus 4.6", "Anthropic", 5.00, 25.00, null, 5.5, "Superseded and expensive"],
+  ["Claude Opus 4.7", "Anthropic", 5.00, 25.00, null, 5.5, "Superseded and expensive"],
+  ["Llama 3 70B", "Meta", "free", 0, null, 5.5, "Old open model"],
+  ["Kimi K2", "Moonshot", 0.60, 2.50, null, 5.5, "Unmeasured"],
+  ["Kimi K2.5", "Moonshot", 0.60, 3.00, null, 5.5, "Unmeasured"],
+  ["Kimi K2.5 (Reasoning)", "Moonshot", 0.60, 3.00, null, 5, "Reasoning mode; unmeasured"],
+  ["GLM-4.5", "Zhipu", 0.60, 2.20, null, 5.5, "Unmeasured"],
+  ["GLM-5-Turbo", "Zhipu", 1.20, 4.00, null, 5.5, "Unmeasured"],
+  ["GLM-5 (Reasoning)", "Zhipu", 1.00, 3.20, null, 5.5, "Reasoning mode; unmeasured"],
+  ["Step 3.7 Flash", "StepFun", 0.20, 1.15, null, 5.5, "Unmeasured"],
+  ["MiMo-V2-Flash", "Xiaomi", 0.14, 0.28, null, 5.5, "Unmeasured"],
+  ["Claude 3 Haiku", "Anthropic", 0.25, 1.25, null, 5, "Cheap but two generations old"],
+  ["Claude 3.5 Sonnet", "Anthropic", 3.00, 15.00, null, 5, "Old and pricey"],
+  ["Claude Opus 4.5", "Anthropic", 5.00, 25.00, 10.9, 5, "Expensive and measured mid-table"],
+  ["DeepSeek R1", "DeepSeek", 0.55, 2.19, 11.3, 5, "Reasoning model; measured poorly"],
+  ["DeepSeek R1 Distill Qwen 32B", "DeepSeek", "free", 0, null, 5, "Reasoning model; unmeasured"],
+  ["o3", "OpenAI", 2.00, 8.00, null, 5, "Reasoning model: slow, and this class measures worse on faithful summarising"],
+  ["o3-mini", "OpenAI", 1.10, 4.40, null, 5, "Reasoning model; same concern"],
+  ["Kimi 2.6", "Moonshot", 0.95, 4.00, 10.8, 5, "Measured mid-table"],
+  ["Kimi K3", "Moonshot", 3.00, 15.00, null, 5, "Pricey; unmeasured"],
+  ["Ministral 3 14B", "Mistral", 0.20, 0.20, null, 5, "Small; the 3B version measured very poorly"],
+  ["Ministral 3 14B (Reasoning)", "Mistral", 0.20, 0.20, null, 4.5, "Small, in reasoning mode"],
+  ["Step 3.5 Flash", "StepFun", 0.10, 0.30, null, 5, "Unmeasured"],
+  ["Step 5 Preview", "StepFun", 1.00, 2.70, null, 5, "Preview; unmeasured"],
+  ["gpt-oss-120b", "OpenAI", "free", 0, 14.2, 4.5, "Open and free on Groq, but measured poorly"],
+  ["Mistral Nemo", "Mistral", 0.019, 0.03, null, 4.5, "Almost free, but small and old"],
+  ["Claude Fable 5.1", "Anthropic", 10.00, 50.00, null, 4, "Most capable Claude model; about $39 a month for a rewriting job"],
+  ["Claude Fable 5", "Anthropic", 10.00, 50.00, null, 4, "As Fable 5.1"],
+  ["GPT-6 Astra", "OpenAI", 10.00, 50.00, null, 4, "Top-tier and far too expensive for this"],
+  ["Gemini 1.5 Pro", "Google", 1.25, 5.00, null, 4, "Three generations old"],
+  ["Ministral 3 8B", "Mistral", 0.15, 0.15, null, 4, "Small; the 3B version measured very poorly"],
+  ["Ministral 3 8B (Reasoning)", "Mistral", 0.15, 0.15, null, 3.5, "Small, in reasoning mode"],
+  ["Claude Opus 4.1", "Anthropic", 15.00, 75.00, 11.8, 3, "Very expensive and measured mid-table"],
+  ["Claude Mythos 5", "Anthropic", 10.00, 50.00, null, 3, "Restricted access and expensive"],
+  ["GPT-4 Turbo", "OpenAI", 10.00, 30.00, null, 3, "Old and expensive"],
+  ["GPT-5.1-Codex", "OpenAI", 1.25, 10.00, null, 3, "Built for writing code, not prose"],
+  ["GPT-5.2-Codex", "OpenAI", 1.75, 14.00, null, 3, "Built for writing code"],
+  ["GPT-5.3 Codex", "OpenAI", 1.75, 14.00, null, 3, "Built for writing code"],
+  ["Grok Build 0.1", "xAI", 1.00, 2.00, null, 3, "Built for writing code"],
+  ["Kimi K2.7 Code", "Moonshot", 0.95, 4.00, null, 3, "Built for writing code"],
+  ["Snowflake Arctic Instruct", "Snowflake", null, null, 4.3, 3, "Declined to answer more than a third of the time"],
+  ["Ministral 3 3B", "Mistral", 0.10, 0.10, 24.2, 2, "Worst measured faithfulness on the leaderboard"],
+  ["Ministral 3 3B (Reasoning)", "Mistral", 0.10, 0.10, null, 2, "As above, in reasoning mode"],
+  ["Phi-4-mini", "Microsoft", "free", 0, 23.5, 2, "Among the worst measured"],
+  ["Perplexity Decider v1 27B", "Perplexity", 0.04, 0, null, 2, "A decision model: it picks answers and does not write"],
+  ["Claude Mythos Preview", "Anthropic", 25.00, 125.00, null, 2, "Restricted and very expensive"],
+  ["GPT-5.4 Pro", "OpenAI", 30.00, 180.00, null, 2, "About $125 a month"],
+  ["GPT-5.5 Pro", "OpenAI", 30.00, 180.00, null, 2, "About $125 a month"],
+  ["o1", "OpenAI", 15.00, 60.00, null, 2, "Old reasoning model; very expensive"],
+  ["o1-preview", "OpenAI", 15.00, 60.00, null, 2, "Old reasoning model; very expensive"],
+  ["o3-pro", "OpenAI", 20.00, 80.00, 23.3, 1.5, "Among the worst measured, and very expensive"],
+  ["o1-pro", "OpenAI", 150.00, 600.00, null, 1, "About $555 a month"],
+  ["Grok 3", "xAI", null, null, 5.8, 6.5, "Measured well, but declined to answer 7% of the time; price not listed"],
+  ["Grok 4.1", "xAI", null, null, null, 6.5, "Price not listed"],
+  ["Grok 4", "xAI", null, null, null, 6, "Price not listed"],
+  ["Claude Opus 4.7 (Adaptive)", "Anthropic", 5.00, 25.00, null, 5.5, "Superseded and expensive"],
+  ["Gemini 3 Pro Deep Think", "Google", null, null, null, 5, "Slow reasoning mode; price not listed"],
+  ["Gemini 1.5 Flash", "Google", null, null, null, 4, "Three generations old; price not listed"],
+  ["Claude Opus 4", "Anthropic", null, null, 12.0, 3.5, "Old and measured mid-table; price not listed"],
+  ["Claude Mythos 5.1", "Anthropic", 10.00, 50.00, null, 3, "Restricted access and expensive"],
+  ["Claude Opus 4.1 (Thinking)", "Anthropic", null, null, null, 3, "Very expensive; price not listed"],
+  ["Gemini 1.0 Pro", "Google", null, null, null, 3, "Very old; price not listed"],
+];
+
+  const J8 = ["Claude Fable 5.1", "Claude Fable 5", "GPT-5.5", "GPT-5.5 Pro", "GPT-5.4 Pro", "GPT-6 Astra", "Claude Mythos 5", "Claude Mythos 5.1", "Claude Mythos Preview"];
+  const J75 = ["Claude Opus 5.5", "Claude Sonnet 5.5", "Claude Sonnet 5", "Claude Opus 5", "Claude Opus 4.8", "GPT-6 Sol", "GPT-6.1 Sol", "GPT-5.4", "GPT-5.6 Terra", "Gemini 4 Argon", "Gemini 3 Pro", "Gemini 3.1 Pro", "Gemini 3.8 Flash", "Gemini 3.7 Flash", "Gemini 3.6 Flash", "Gemini 3 Flash", "Gemini 3.1 Flash-Lite", "Gemini 3.5 Flash-Lite", "GPT-6 Luna", "GPT-5.6 Luna", "Mistral Large 3", "Mistral Large 4", "Mistral Small 4"];
+  const J7 = ["DeepSeek V4 Flash", "DeepSeek V4.1 Flash", "DeepSeek V3.1", "DeepSeek V3.2", "Grok 4.1 Fast", "Grok 4.7", "Grok 4.6", "Grok 4.5", "Grok 4.3", "Grok 4.20", "GPT-4.1", "GPT-4.1 mini", "GPT-5.1", "GPT-5.2", "Qwen3.8-27B", "Qwen3 235B 2507", "Qwen3-27B", "Qwen3.5-27B", "Qwen3.5-35B-A3B", "Qwen3.5-122B-A10B", "Qwen3.6-27B", "Qwen3.5-397B", "Qwen3.5 Plus", "Mistral Medium 3", "Mistral Medium 3.5 128B", "Llama 4 Maverick", "Llama 4 Behemoth", "Claude Sonnet 4.6", "Claude Opus 4.7", "Claude Opus 4.6", "Gemini 3.5 Flash", "Command A+"];
+  const J5 = ["Ministral 3 8B", "Ministral 3 14B", "Mistral Nemo", "GPT-4.1 nano", "GPT-5.1-Codex", "GPT-5.2-Codex", "GPT-5.3 Codex", "Grok Build 0.1", "Kimi K2.7 Code", "o3", "o3-mini", "o1", "o1-preview", "o1-pro"];
+  // Accuracy out of 10. Measured rows follow the leaderboard rate; the rest are judged by model class.
+  const acc = m => {
+    const r = m[4], n = m[0];
+    if (n === "Phi-4") return 6.5;
+    if (n === "Snowflake Arctic Instruct") return 4;
+    if (n === "Perplexity Decider v1 27B") return 1;
+    if (r != null) return r <= 2 ? 9.5 : r <= 3.5 ? 9 : r <= 4.5 ? 8.5 : r <= 5.5 ? 8 : r <= 6.5 ? 7.5 : r <= 8 ? 7 : r <= 9.5 ? 6.5 : r <= 11 ? 6 : r <= 13 ? 5.5 : r <= 15 ? 5 : 2;
+    if (J8.includes(n)) return 8;
+    if (J75.includes(n)) return 7.5;
+    if (J7.includes(n)) return 7;
+    if (J5.includes(n) || /Reasoning|Thinking/.test(n)) return 5.5;
+    return 6.5;
+  };
+const costOf = m => m[2] === "free" ? 0 : m[2] == null ? null : 2.79 * m[2] + 0.228 * m[3];
+
+(function top20() {
+  const host = document.getElementById("top20");
+  const big = v => v == null ? 1e9 : v;
+  const rows = MODELS.slice().sort((x, y) => (y[5] - x[5]) || (acc(y) - acc(x)) || (big(costOf(x)) - big(costOf(y)))).slice(0, 20);
+  const table = document.createElement("table");
+  const thead = document.createElement("thead"), trh = document.createElement("tr");
+  ["Rank", "Model", "Maker", "Price in / out", "Our cost per month", "Unsupported-claim rate", "Accuracy rating", "Overall rating", "Why"].forEach(h => { const th = document.createElement("th"); th.textContent = h; trh.append(th); });
+  thead.append(trh); table.append(thead);
+  const tb = document.createElement("tbody");
+  rows.forEach((m, i) => {
+    const c = costOf(m);
+    const cells = [String(i + 1), m[0], m[1],
+      m[2] === "free" ? "Free on some hosts" : m[2] == null ? "Not found" : "$" + m[2] + " / $" + m[3],
+      c == null ? "Not found" : c === 0 ? "$0" : "$" + c.toFixed(2),
+      m[4] == null ? "Not measured" : m[4] + "%",
+      acc(m) + " / 10" + (m[4] == null ? ", judged" : ""), m[5] + " / 10", m[6]];
+    const tr = document.createElement("tr"); if (m[5] >= 8) tr.className = "pick";
+    cells.forEach(t => { const td = document.createElement("td"); td.textContent = t; tr.append(td); });
+    tb.append(tr);
+  });
+  table.append(tb); host.replaceChildren(table);
+})();
+
+function modelTable(hostId, pool, startSort) {
+  const host = document.getElementById(hostId);
+  const cost = m => m[2] === "free" ? 0 : m[2] == null ? null : 2.79 * m[2] + 0.228 * m[3];
+  const money = v => v == null ? "Not found" : v === 0 ? "$0" : "$" + v.toFixed(2);
+  const cols = [
+    ["Model", m => m[0], m => m[0]],
+    ["Maker", m => m[1], m => m[1]],
+    ["Price in / out", m => m[2] === "free" ? -1 : m[2] == null ? 1e9 : m[2], m => m[2] === "free" ? "Free on some hosts" : m[2] == null ? "Not found" : "$" + m[2] + " / $" + m[3]],
+    ["Our cost per month", m => cost(m) == null ? 1e9 : cost(m), m => money(cost(m))],
+    ["Unsupported-claim rate", m => m[4] == null ? 1e9 : m[4], m => m[4] == null ? "Not measured" : m[4] + "%"],
+    ["Evidence", m => m[4] == null ? 1 : 0, m => m[4] == null ? "Judged" : "Measured"],
+    ["Accuracy rating", m => -acc(m), m => acc(m) + " / 10"],
+    ["Overall rating", m => -m[5], m => m[5] + " / 10"],
+    ["Why", null, m => m[6]],
+  ];
+  let sortBy = startSort, dir = 1;
+  const draw = () => {
+    const rows = pool.slice().sort((a, b) => { const k = cols[sortBy][1], x = k(a), y = k(b); return (x < y ? -1 : x > y ? 1 : 0) * dir; });
+    const table = document.createElement("table");
+    const thead = document.createElement("thead"), trh = document.createElement("tr");
+    cols.forEach((c, i) => {
+      const th = document.createElement("th");
+      if (c[1]) { const b = document.createElement("button"); b.type = "button"; b.className = "sort"; b.textContent = c[0] + (i === sortBy ? (dir === 1 ? " ↑" : " ↓") : ""); b.onclick = () => { dir = i === sortBy ? -dir : 1; sortBy = i; draw(); }; th.append(b); }
+      else th.textContent = c[0];
+      trh.append(th);
+    });
+    thead.append(trh); table.append(thead);
+    const tb = document.createElement("tbody");
+    rows.forEach(m => { const tr = document.createElement("tr"); if (m[5] >= 8) tr.className = "pick"; cols.forEach(c => { const td = document.createElement("td"); td.textContent = c[2](m); tr.append(td); }); tb.append(tr); });
+    table.append(tb); host.replaceChildren(table);
+  };
+  draw();
+}
+modelTable("models", MODELS, 7);
+const BIG4 = ["Anthropic", "OpenAI", "Google", "xAI"];
+modelTable("big4", MODELS.filter(m => BIG4.includes(m[1])), 1);
+
+const STEPS = [
+  { n: 1, name: "Start", who: "Code", cost: "Free",
+    logic: ["The scheduler starts one program, which runs the steps in order.", "It loads the settings and the saved database, and checks the model key and voice model are reachable.", "It writes a run record, and each step marks itself done when it finishes. A rerun skips every step already marked done."],
+    options: [["Save the database file to a private GitHub repository", "Same", "Free", "pick"], ["Save it as a build artefact", "Same", "Free, but expires after about 90 days", "alt"], ["Hosted database service", "Same, more robust", "Free tier, one more account", "alt"]],
+    optNote: "The options here are about where the history lives between cloud runs.",
+    ins: ["The schedule trigger", "Settings files", "Yesterday's database"], outs: ["A run record", "Frozen settings for this run"],
+    stored: ["Table <code>runs</code>: date, settings used, status, total cost", "Table <code>run_steps</code>: one row per step with its status and timing"] },
+  { n: 2, name: "Fetch", who: "Code", cost: "Free",
+    logic: ["Requests all 25 sources at once, each with a 20-second limit.", "A feed library reads RSS; a small reader handles Anthropic's sitemap; the Hacker News search API returns recent stories with points.", "Each source's result (worked or failed, how many entries) is recorded."],
+    options: [["Feeds, sitemaps and the Hacker News API", "Good on announcements and press", "Free", "pick"], ["Add Reddit through its API", "Adds a second traction signal", "Free, needs a key you register", "alt"], ["Add a search API to find more coverage per story", "Better confirmation of stories", "About $0.25 a month on the cheapest provider", "alt"]],
+    ins: ["<code>sources.toml</code>"], outs: ["Raw entries, held in memory only"],
+    stored: ["Raw entries are not stored", "Table <code>source_health</code>: per source and run, whether it worked, so a feed that has been dead for days gets noticed"] },
+  { n: 3, name: "Clean and store", who: "Code", cost: "Free",
+    logic: ["Cleans each link so the same article always compares equal, and strips HTML from text.", "Drops entries older than three days.", "Keeps Hacker News stories and general-feed entries only if they match the AI keyword list.", "Inserts new items; for items already stored, refreshes points and comments."],
+    options: [["Keyword list", "Crude: can miss or wrongly keep items", "Free", "pick"], ["Jev decision model answers “is this about AI?”", "Likely better; untested for us", "Well under a cent a day", "alt"], ["A model rated 8 or higher answers the same question", "Likely best", "Under 1 cent a day on GPT-5.4 nano or Gemini 2.5 Flash-Lite; free on the open models", "alt"]],
+    optNote: "The options are for the AI filter. The grouping test set will show whether the keyword list is good enough.",
+    ins: ["Raw entries"], outs: ["New items"],
+    stored: ["Table <code>items</code>: source, kind, title, link, cleaned link, description, date, points, comments"] },
+  { n: 4, name: "Group", who: "Code + models", cost: "Free to 1 cent a day", paid: true,
+    logic: ["Compares each new item with items and stories from the last three days.", "Layer 1, code: same link, or one article links to the other, means same story.", "Layer 2, free local model: a small model turns each title and description into a list of numbers that captures its meaning, and close lists mean similar meaning. Above a high threshold and sharing a distinctive name, they merge. Below a low threshold, they stay apart.", "Layer 3, language model: pairs in between go to the chosen model with one question, same event or not. It must answer yes or no in a fixed format.", "Stories on the same subject are linked into a thread."],
+    options: [["Code only", "Misses paraphrases, risks wrong merges", "Free", "no"], ["Code plus the free local model", "Better, but the middle band is guesswork", "Free", "alt"], ["Code, local model, and a language model for uncertain pairs", "Best balance", "Free to 1 cent a day, depending on the model", "pick"], ["A language model judges every candidate pair", "Possibly a little better", "Up to 10 cents a day", "alt"]],
+    optNote: "The judge is one of the six models rated 8 or higher: GPT-5.4 nano or Gemini 2.5 Flash-Lite cost well under a cent a day for this, and Llama 3.3 70B or Gemma 4 26B are free. The grouping test set decides which. The thresholds are also set by measuring against that test set, not by guessing.",
+    ins: ["New items", "Stories from the last three days"], outs: ["Stories", "Threads"],
+    stored: ["Table <code>stories</code>: title, first seen, thread, topic, label", "Table <code>story_items</code>: which item is in which story, and how it was matched (link, similarity or judge)", "Table <code>threads</code>", "Every judge question and answer is logged"] },
+  { n: 5, name: "Score", who: "Code", cost: "Free",
+    logic: ["Each signal becomes points: number of outlets, a primary source, Hacker News points and comments (scaled so one huge thread does not dominate), staying power from earlier days, and your focus areas.", "Points are multiplied by weights from settings and added up.", "A keyword list assigns each story a topic."],
+    options: [["A formula with weights you can change", "Explainable and repeatable", "Free", "pick"], ["A model rates each story's importance", "Unstable, and you cannot see why", "A few cents a day", "no"], ["Weights learned from your feedback", "Could fit your taste better", "Free", "alt"]],
+    ins: ["Stories with their items", "Earlier days' scores", "Weights from settings"], outs: ["Today's ranked list"],
+    stored: ["Table <code>scores</code>: story, date, total, and the points from each signal", "One row per story per day, never overwritten"] },
+  { n: 6, name: "Select", who: "Code", cost: "Free",
+    logic: ["Takes every story above the minimum score.", "Uses history to decide: new story, update, correction, or repeat to skip.", "Fetches the article page for up to five sources per story and extracts the article text, leaving out menus and adverts. It honours each site's robots.txt.", "Sets the label from the kinds of source present: confirmed, reported or rumour."],
+    options: [["Feed description only", "Too thin to write accurately", "Free", "no"], ["Fetch each article page and extract its text", "Good; some press sites will refuse", "Free", "pick"], ["A paid search or extraction service", "Fills some gaps", "Cents a month", "alt"]],
+    optNote: "The options are for getting full article text.",
+    ins: ["Today's ranked list", "Coverage history"], outs: ["A shortlist with source text and labels"],
+    stored: ["Table <code>articles</code>: the extracted text per item, kept 30 days", "Table <code>selections</code>: per run, each chosen story and its kind (new, update, correction)"] },
+  { n: 7, name: "Plan", who: "Code", cost: "Free",
+    logic: ["Orders the shortlist by score and assigns each story to a segment.", "Puts corrections directly after the headlines.", "Records the word cap for the chosen length. No story gets a length here."],
+    options: [["Order by score, by code", "Predictable", "Free", "pick"], ["A model arranges the running order for flow", "Nicer flow, but ranking stops being transparent", "Under a cent a day", "no"]],
+    ins: ["The shortlist", "Chosen length"], outs: ["An episode outline"],
+    stored: ["Table <code>episodes</code>: run, chosen length, word cap", "Table <code>episode_stories</code>: position and segment of each story"] },
+  { n: 8, name: "Write", who: "Language model", cost: "Free to 12 cents a day", paid: true,
+    logic: ["One request per story. The model receives the writing rules, the source articles, the label and, for an update, what was already reported.", "It returns a fixed structure: what happened, how sources see it, a brief version, and a flag if the sources describe different events.", "One final request writes the linking parts: headlines, hand-overs, watch list.", "Each request's size and cost is recorded."],
+    options: [["GPT-5.4 nano, rated 9", "3.1% unsupported-claim rate on the public leaderboard", "About $0.77 a month", "pick"], ["Gemini 2.5 Flash-Lite, rated 9", "3.3%", "About $0.34 a month, or free", "pick"], ["Llama 3.3 70B, rated 8.5, open model on a free tier", "4.1%", "Free, within daily limits", "pick"], ["GPT-5.4 mini, rated 8.5", "5.5%; a stronger writer than nano", "About $2.85 a month", "pick"], ["Gemma 4 26B, rated 8, open model", "5.2%", "Free through Google AI Studio", "pick"], ["Gemini 3.8 Flash, rated 8", "Not measured; newest of its family", "About $2.70 a month, or free", "pick"], ["Claude Haiku 4.5, rated 6.5", "9.8%", "About $3.60 a month", "alt"], ["Claude Sonnet 5.5, rated 7.5", "Not measured; strong writer", "About $7.20 a month", "alt"], ["Batch pricing, where offered", "Same quality; results arrive later", "Half price", "alt"]],
+    optNote: "The six marked Chosen are every model rated 8 or higher. They go into a side-by-side test on our own stories, with Claude Haiku as the comparison. Costs here are for the writing step alone. The full list is in the table near the top. The model is a setting, so changing it later needs no rebuilding.",
+    ins: ["The outline", "Source text and labels", "Earlier summaries for updates"], outs: ["A full and a brief version of each story", "The linking parts"],
+    stored: ["Table <code>summaries</code>: story, run, full text, brief text, differences, model used, tokens in and out, cost", "Table <code>script_lines</code>: the script one sentence per row, in order"] },
+  { n: 9, name: "Check and fit", who: "Code", cost: "Free",
+    logic: ["Pulls every number, date and name out of each sentence.", "Converts spoken and written forms to one shape, so “nine hundred million” and “$900M” compare equal.", "Looks each one up in that story's source text. A sentence with anything missing is removed.", "Adds up the words. Over the cap, the lowest-ranked stories switch to their brief version, then drop."],
+    options: [["Code check of numbers, dates and names", "Catches wrong facts, not wrong meaning", "Free", "pick"], ["Add a second model pass asking whether each sentence is supported, by a model rated 8 or higher from a different maker than the writer", "Also catches wrong meaning", "About 1 to 3 cents a day on the paid ones; free on the open ones", "alt"], ["Require a quoted source passage for every sentence (with Citations in step 8)", "Strongest", "Free here", "alt"]],
+    optNote: "The second model pass is the most valuable accuracy upgrade on this page. It is worth adding once the basic run works.",
+    ins: ["The draft script", "Source text", "The word cap"], outs: ["A verified script, fitted to length"],
+    stored: ["Table <code>check_log</code>: each removed or shortened sentence, the reason and the action", "<code>script_lines</code> marked as kept or removed", "<code>episode_stories</code> marked full, brief or dropped"] },
+  { n: 10, name: "Voice", who: "Free local model", cost: "Free",
+    logic: ["Rewrites figures, symbols and abbreviations into how they are said, and applies the pronunciation list.", "Kokoro speaks one sentence at a time, producing one audio clip each.", "Records each clip's length."],
+    options: [["Kokoro, run locally", "Clear; expressiveness untested", "Free", "pick"], ["Google Cloud Text-to-Speech", "Probably more natural", "Free at this volume; needs a billing account", "alt"], ["A premium paid voice service", "Most natural", "Not priced; likely dollars per month", "alt"]],
+    ins: ["The verified script", "The pronunciation list"], outs: ["Audio clips with timings"],
+    stored: ["Clips in <code>out/&lt;date&gt;/clips/</code>, deleted after assembly", "Table <code>clips</code>: sentence, file, length in seconds"] },
+  { n: 11, name: "Assemble", who: "Code", cost: "Free",
+    logic: ["A free audio tool joins the clips in order with short pauses and writes one MP3.", "The newsletter and show notes are filled in from templates using the same summaries."],
+    options: [["Templates filled in by code", "Exactly matches the checked content", "Free", "pick"], ["A model rewrites the newsletter for reading", "Nicer prose, but new text would need checking again", "A few cents a day", "no"]],
+    ins: ["Audio clips", "Checked summaries"], outs: ["The podcast episode", "The newsletter", "Show notes"],
+    stored: ["<code>out/&lt;date&gt;/episode.mp3</code>", "<code>out/&lt;date&gt;/newsletter.md</code>", "<code>out/&lt;date&gt;/show-notes.md</code>"] },
+  { n: 12, name: "Package and log", who: "Code", cost: "Free",
+    logic: ["Writes a review sheet: suggested title and description, the source list, and everything the check removed.", "Tells you the package is ready.", "Records the run's stories, cost and failures, and saves the database."],
+    options: [["A dated folder plus a message to you", "Simple, and you stay in control", "Free", "pick"], ["Automatic upload to platforms", "No review before publishing", "Free", "no"]],
+    ins: ["The three outputs", "The check log", "The run record"], outs: ["A package ready for your review"],
+    stored: ["<code>out/&lt;date&gt;/review.md</code>", "<code>runs</code> updated with the final status and cost", "The database file saved to the private repository"] },
+];
+
+const TAGS = { pick: ["Chosen", "code"], alt: ["Alternative", "alt"], no: ["Not chosen", "no"] };
+const el = (tag, cls, html) => { const n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; };
+const box = (title, items) => { const d = el("div"); d.append(el("h4", null, title)); const ul = el("ul"); items.forEach(t => ul.append(el("li", null, t))); d.append(ul); return d; };
+
+const root = document.getElementById("steps");
+STEPS.forEach(s => {
+  const sec = el("section", "step" + (s.paid ? " is-paid" : ""));
+  const head = el("div", "head");
+  head.append(el("span", "num", String(s.n)), el("h3", null, s.name));
+  const tags = el("div", "tags");
+  tags.append(el("span", "tag " + (s.paid ? "paid" : "code"), s.who), el("span", "tag " + (s.paid ? "paid" : "free"), s.cost));
+  head.append(tags);
+
+  const how = el("div"); how.append(el("h4", null, "How it works"));
+  const ol = el("ol", "logic"); s.logic.forEach(t => ol.append(el("li", null, t))); how.append(ol);
+
+  const opt = el("div"); opt.append(el("h4", null, "Options weighed"));
+  const wrap = el("div", "scroll"); const table = el("table");
+  table.append(el("thead", null, "<tr><th>Option</th><th>Accuracy</th><th>Cost</th><th>Status</th></tr>"));
+  const tb = el("tbody");
+  s.options.forEach(([name, acc, cost, st]) => {
+    const tr = el("tr", st === "pick" ? "pick" : null);
+    tr.append(el("td", null, name), el("td", null, acc), el("td", null, cost));
+    const td = el("td"); td.append(el("span", "tag " + TAGS[st][1], TAGS[st][0])); tr.append(td); tb.append(tr);
+  });
+  table.append(tb); wrap.append(table); opt.append(wrap);
+  if (s.optNote) opt.append(el("p", "note", s.optNote));
+
+  const io = el("div", "io");
+  io.append(box("Takes in", s.ins), box("Produces", s.outs), box("Stored", s.stored));
+  sec.append(head, how, opt, io); root.append(sec);
+});
+</script>

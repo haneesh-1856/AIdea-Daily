@@ -1,0 +1,17 @@
+.venv/
+data/
+runs/
+__pycache__/
+.pytest_cache/
+.env
+out/
+.venv-voice/
+
+# Keys
+API key.txt
+
+# Voice recordings and test audio: private, never uploaded
+audioilike/
+voice/*.wav
+*.mp3
+*.wav

@@ -1,0 +1,224 @@
+<title>Daily Run Flow</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one vertical signal path down the left edge; each step hangs off it, and the label on the path between two steps is what gets handed over. */
+:root {
+  --bg: #F5F6F8; --surface: #EAEDF2; --fg: #18212B; --muted: #586474; --line: #C6CCD6;
+  --accent: #2F4BD8; --free: #1C7450; --paid: #A85400; --paid-bg: #FBEAD0; --todo: #6B7686;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12161C; --surface: #1C222B; --fg: #E6EAF0; --muted: #9BA6B5; --line: #343D4A;
+  --accent: #93A5FF; --free: #5FCB9C; --paid: #F0AA52; --paid-bg: #32260F; --todo: #8A95A5; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12161C; --surface: #1C222B; --fg: #E6EAF0; --muted: #9BA6B5; --line: #343D4A;
+  --accent: #93A5FF; --free: #5FCB9C; --paid: #F0AA52; --paid-bg: #32260F; --todo: #8A95A5; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.5; padding-inline: 16px; padding-block: 40px 64px }
+.page { max-width: 1000px; margin-inline: auto; display: flex; flex-direction: column; gap: 32px }
+
+header { display: flex; flex-direction: column; gap: 12px }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin: 0; text-wrap: balance }
+.lede { max-width: 65ch; color: var(--muted); margin: 0; font-size: 16px }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 4px 0 0; padding: 14px 0; border-block: 1px solid var(--line); font-variant-numeric: tabular-nums }
+.facts div { display: flex; align-items: baseline; gap: 8px }
+.facts dt { font-family: var(--display); font-weight: 700; font-size: 22px }
+.facts dd { margin: 0; color: var(--muted); font-size: 14px }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--muted) }
+
+.tag { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap }
+.tag.free { color: var(--free) } .tag.paid { color: var(--paid); background: var(--paid-bg) }
+.tag.built { color: var(--accent) } .tag.todo { color: var(--todo); border-style: dashed }
+
+.flow { list-style: none; margin: 0; padding: 0 }
+.phase { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding: 0 0 10px 60px }
+.step { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px }
+.rail { display: flex; flex-direction: column; align-items: center }
+.num { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent); background: var(--bg); display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; flex: none }
+.step.is-paid .num { border-color: var(--paid); color: var(--paid); background: var(--paid-bg) }
+.wire { flex: 1; width: 2px; background: var(--line); min-height: 16px }
+.body { min-width: 0; padding-bottom: 8px; display: flex; flex-direction: column; gap: 14px }
+.step.is-paid .body { background: var(--paid-bg); border: 1px solid var(--paid); border-radius: 10px; padding: 16px }
+.head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; min-height: 44px }
+h2 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.2; margin: 0 }
+.tags { display: flex; flex-wrap: wrap; gap: 6px }
+.purpose { margin: -6px 0 0; max-width: 65ch; font-size: 16px }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px }
+.cols section { min-width: 0 }
+h3 { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; padding-bottom: 6px; border-bottom: 1px solid var(--line) }
+.step.is-paid h3 { border-color: var(--paid) }
+ul.pts { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; font-size: 14.5px }
+.know { background: var(--surface); border-radius: 8px; padding: 12px 14px; font-size: 14.5px; max-width: 78ch }
+.step.is-paid .know { background: var(--bg) }
+.know b { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px }
+
+.hand { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; align-items: center }
+.hand .rail { align-self: stretch }
+.hand .wire { min-height: 44px }
+.hand p { margin: 0; padding-block: 12px; font-family: var(--mono); font-size: 13px; color: var(--muted) }
+.hand p span { color: var(--fg) }
+.hand .tip { width: 0; height: 0; border-inline: 6px solid transparent; border-top: 8px solid var(--line); flex: none }
+.end { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; align-items: center }
+.end .dot { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); margin-inline: auto }
+.end p { margin: 0; font-family: var(--display); font-weight: 700; font-size: 18px }
+
+footer { color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--line); padding-top: 16px; max-width: 78ch }
+@media (max-width: 760px) { .cols { grid-template-columns: minmax(0, 1fr) } .phase { padding-left: 0 } }
+@media (max-width: 460px) { .step, .hand, .end { grid-template-columns: 32px minmax(0, 1fr); column-gap: 12px } .num { width: 32px; height: 32px; font-size: 14px } .head { min-height: 32px } h2 { font-size: 19px } }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">AI news podcast · system design</div>
+    <h1>From 25 sources to a newsletter and a podcast</h1>
+    <p class="lede">The daily run is fourteen steps in a fixed order. Steps 1 to 12 produce a newsletter and a podcast episode for you to review and publish; steps 13 and 14 add videos and are planned for later. Step 8 uses a paid model to write; step 4 uses it only to settle uncertain groupings.</p>
+    <dl class="facts">
+      <div><dt>14</dt><dd>steps, 2 of them for later</dd></div>
+      <div><dt>2</dt><dd>steps that use the paid model today</dd></div>
+      <div><dt>2</dt><dd>steps built so far</dd></div>
+      <div><dt>0</dt><dd>logins or scraped feeds</dd></div>
+    </dl>
+    <div class="legend">
+      <span class="tag free">Free</span> no model, no charge
+      <span class="tag paid">Paid</span> uses the model
+      <span class="tag built">Built</span> working today
+      <span class="tag todo">Designed</span> not built yet
+    </div>
+  </header>
+
+  <ol class="flow" id="flow"></ol>
+
+  <footer>Figures marked as estimates have not been measured. Steps 2 and 3 were tested on 5 October 2026: 25 of 25 sources answered and 94 items were stored. Nothing after step 3 has been run.</footer>
+</div>
+
+<script>
+const STEPS = [
+  { phase: "Gather", name: "Start", built: false, paid: false,
+    purpose: "Decides whether a run should happen and gets everything ready for it.",
+    does: ["Starts once a day on the cloud scheduler", "Loads the saved database and the settings", "Checks the model key, the voice model and the connection", "Opens a run record that every later step attaches to", "Deletes article text older than 30 days and audio older than 14 days"],
+    rules: ["One run per day; a second trigger does nothing unless forced", "An unfinished run resumes from its first incomplete step", "Settings are frozen for the whole run", "A broken setting stops the run here, before any work or spending", "A skipped day is covered by the next run in one episode"],
+    never: ["Contacts a news source", "Calls a model", "Edits the source list"],
+    know: "A cloud machine starts empty every time, so the database is loaded from a private GitHub repository. The daily run time and the two retention periods are still yours to confirm.",
+    out: "settings and a run record" },
+  { name: "Fetch", built: true, paid: false,
+    purpose: "Reads every source once and brings back whatever is new.",
+    does: ["Reads all 25 sources at the same time", "Uses RSS feeds, Anthropic's sitemap and the Hacker News API", "Identifies itself honestly as a personal feed reader"],
+    rules: ["Only feeds, sitemaps and official APIs", "One request per source per run", "A source that takes over 20 seconds is abandoned", "A failed source is logged and skipped; the run continues"],
+    never: ["Logs in anywhere", "Reads X, LinkedIn or Instagram", "Retries hard or works around a block"],
+    know: "Anthropic and Meta publish no AI news feed. Anthropic is read through its sitemap, which its robots.txt allows, and Meta through its general newsroom feed.",
+    out: "raw posts and articles" },
+  { name: "Clean and store", built: true, paid: false,
+    purpose: "Turns raw posts into tidy records and saves only what is new and relevant.",
+    does: ["Removes tracking codes from links and HTML from text", "Keeps the title, link, date, source and short description", "Drops anything older than 3 days", "Keeps Hacker News stories only above 50 points and about AI", "Refreshes points and comments on stories already stored"],
+    rules: ["An item is stored once per source", "The same article from two sources is kept twice on purpose: that is evidence for scoring", "Dates come from the source and are never guessed"],
+    never: ["Rewrites or summarises anything", "Judges importance", "Deletes history"],
+    know: "The AI filter is a plain keyword list. It can miss a story worded unusually, and it can let through an unrelated story that happens to contain a word like “model”.",
+    out: "new items in the database" },
+  { phase: "Judge", name: "Group", built: false, paid: true,
+    purpose: "Merges posts about the same event into one story, in three layers from certain to uncertain.",
+    does: ["Certain: groups items that share a link, or where one article links to another", "Likely: a free local model compares the meaning of titles and descriptions, so paraphrases match", "Uncertain: pairs in the middle band go to Claude Haiku with one yes-or-no question: is this the same event?", "Attaches new items to a story from earlier days when they match", "Links stories about the same subject into a thread, without merging them", "Records why each merge happened"],
+    rules: ["A story is one event: who did what, and when. The same product or company is not enough", "A different version number blocks an automatic merge", "A likely match must also share a distinctive name and fall within 3 days", "When still unsure, keep them apart: a missed merge lowers a score, a wrong merge corrupts a story", "The paid model sees only the uncertain pairs, never the whole list", "A story keeps every item and source it was built from", "Thresholds are tuned on a hand-marked test set before this step is trusted"],
+    never: ["Drops an item", "Merges two stories only because they share a company or a day", "Lets the model rewrite or summarise anything"],
+    know: "This is still the least certain step, and nothing here is measured. The paid part is a few dozen short questions a day, estimated at under one cent. Step 8 is a second check: it flags any story whose sources turn out to describe different events. Jev, a decision model, is a candidate for the AI filter in step 3 and the topic tags in step 5; the same test set will decide.",
+    out: "stories" },
+  { name: "Score", built: false, paid: false,
+    purpose: "Ranks each story by evidence that is hard to fake.",
+    does: ["Counts independent sources covering the story", "Checks whether a primary source exists", "Adds Hacker News points and comments", "Adds credit when the story is still discussed from earlier days", "Adds weight for the focus areas you chose", "Tags each story with a topic, such as open-weight models or agents","Saves today's score with the evidence behind it"],
+    rules: ["Scores are saved per day and never overwritten", "Outlets are counted, not posts: three articles from one outlet count once", "A trending story is one with many outlets today; a trending topic is a tag that keeps appearing across the past week", "The weights and topic list live in settings, not in code", "Done by code, with no model"],
+    never: ["Uses a model's opinion of importance", "Rewards words such as “breakthrough”"],
+    know: "Outlet count is the main signal but a coarse one: with 25 sources most stories have one to three, so Hacker News points and staying power separate them. Hacker News leans towards developer and open-source news. Topic tags come from a keyword list, which is crude. Trending topics feed the weekly roll-up. The weights are untested and need a few days of real data.",
+    out: "today's ranked list" },
+  { name: "Select", built: false, paid: false,
+    purpose: "Chooses what makes today's episode and gathers the text to write it from.",
+    does: ["Picks every story above a minimum score","Skips a covered story when the new articles only repeat it", "Brings a covered story back as a short update when there are new facts", "Treats a new event in the same thread as a new story: a new version, a price change, the next stage of a law", "Always selects a correction or retraction of something already reported", "Sends later opinion pieces to “how sources see it”; they are not a new story", "Fetches the full article from every source covering a chosen story", "Labels each story confirmed, reported or rumour from the sources it has"],
+    rules: ["No story count is fixed in advance: the score decides who qualifies", "A high safety ceiling in settings guards cost on an unusually busy day", "At most about five sources per story, primary source first", "A quiet day means fewer stories", "Confirmed needs a primary source; reported means press only", "A rumour is included only when it has high traction, and is labelled aloud as unconfirmed","A site that refuses automated reading is not forced"],
+    never: ["Pads the list to reach a number", "Reads paywalled or blocked pages"],
+    know: "Fetch only brings back titles and short descriptions, which is too thin to write from. Full articles are read here, and from several sources per story, so step 8 can compare how they differ. For press sites that block it, the story relies on the feed description and the primary source.",
+    out: "a shortlist with source text" },
+  { phase: "Produce", name: "Plan", built: false, paid: false,
+    purpose: "Sets the order of the episode. It does not fix how many stories there are or how long each one is.",
+    does: ["Lays out the segments: headlines, corrections, main stories, what people think, quick hits, watch list", "Orders the stories by score", "Marks updates and corrections, which are written short", "Works out the word cap from the chosen length, at about 150 spoken words a minute"],
+    rules: ["No story count and no per-story length is set in advance", "Each story gets the time its content needs, not a share of a budget", "The chosen length is a cap, not a target", "Corrections come right after the headlines", "Done by code, with no model"],
+    never: ["Adds stories or words to fill time", "Changes the ranking", "Writes any of the script"],
+    know: "The caps are 750 words for up to 5 minutes, 2,250 for 15 and 4,500 for 30. Fitting to the cap happens in step 9, after the stories are written at their natural length. A busy day gives many stories told tightly; a quiet day gives a few told fully and an episode that ends early. The default length is not chosen yet; 15 is proposed.",
+    out: "an episode outline" },
+  { name: "Write", built: false, paid: true,
+    purpose: "The model writes the summaries and the spoken script, from the supplied text only.",
+    does: ["Writes each story at the length its content needs, and also a one-or-two-sentence brief version", "Writes each story in two parts: what happened, then how sources see it","What happened: the facts the sources agree on, anchored on the primary source", "How sources see it: differences in angle, emphasis, criticism or prediction, each attributed by name", "For a story or thread covered before, compares today's sources with what was already reported and writes only what is new", "Writes the script segment by segment, in the outline's order", "Names each source aloud and says the confidence label", "Records what the run cost"],
+    rules: ["Only the supplied source text; nothing from the model's memory", "A correction to an earlier episode is always stated, never skipped", "A rumour that is now confirmed is reported as an update with its new label", "Numbers are copied exactly", "Differences are reported only when they exist; otherwise it says the coverage broadly agrees", "Opinion is attributed by name and kept apart from fact", "One narrator", "Stops and flags a story if its sources describe different events; that story is split or dropped", "Depth means more real content, never the same content stretched", "A story with little to say is short, however high it ranks", "No single story runs past about four minutes (proposed)"],
+    never: ["Adds facts, background or predictions of its own", "Invents a disagreement, a quote or banter", "Runs twice for the same day: its result is saved"],
+    know: "This is the main paid step. It uses Claude Haiku 4.5. Reading several full articles per story puts the estimate at roughly two to three times the earlier few cents a day; neither figure has been measured. Many press articles are rewrites of one announcement, so on some stories there will be no real difference to report.",
+    out: "summaries and a draft script" },
+  { name: "Check and fit", built: false, paid: false,
+    purpose: "Removes anything that does not match the sources, then fits the episode to the chosen length.",
+    does: ["Compares every number, date and name in the script with the source text", "Removes lines that do not match", "Checks the brief versions the same way", "Fits to the cap: full versions down the ranking until the cap is reached, then brief versions, then nothing", "Logs what was removed or shortened, and why"],
+    rules: ["Remove, never rewrite", "A main story that loses its key facts is dropped from the episode", "When the cap is tight, the lowest-ranked stories shrink to their brief version first", "Under the cap, the episode simply ends early", "Corrections are never shortened or dropped to fit", "Stories dropped for length still appear in the show notes", "If more than about a fifth of the lines fail, the episode is held and you are alerted", "Done by code, with no model"],
+    never: ["Repairs a line by guessing", "Lets an unmatched figure through", "Stretches or pads a story to reach the cap"],
+    know: "This catches wrong numbers and names. It cannot catch a wrong meaning built from the right words, such as “beat” where the source says “matched”. The source-only rule in step 8 is the main defence against that. Spoken numbers need care: “nine hundred million” must match “$900M” in the source, and that matching is untested. A removed line can leave a rough join with the next one.",
+    out: "a verified script" },
+  { name: "Voice", built: false, paid: false,
+    purpose: "Turns the verified script into speech.",
+    does: ["Prepares the text for speaking: figures, symbols and abbreviations are written the way they are said", "Speaks the script one sentence at a time with Kokoro, a free voice model", "Saves each clip with its length, so caption timings are known later"],
+    rules: ["One consistent voice", "Nothing is sent to a paid voice service", "Preparation changes how text is spoken, never what it says", "Names the voice gets wrong are pronounced from a list you can add to", "A failed clip is retried; if it fails again the run stops, so a broken episode is never produced"],
+    never: ["Changes the words of the script", "Skips a segment silently", "Adds music, effects or a second voice"],
+    know: "Voice quality is untested, and so is running the voice model on a free cloud machine with no graphics card. One sample episode early will settle both. AI names and version numbers are the likely weak spot. The fallback is Google Cloud Text-to-Speech, which is free at this volume but needs an account with billing set up.",
+    out: "audio clips with timings" },
+  { name: "Assemble", built: false, paid: false,
+    purpose: "Builds the newsletter and the podcast episode from one set of verified content.",
+    does: ["Joins the clips in order, with short pauses, into one audio file", "Builds the written newsletter from the same summaries", "Builds show notes with each story's links and confidence label"],
+    rules: ["All outputs carry the same stories", "Every story in the notes has at least one link", "Stories dropped for length appear in the notes and the newsletter"],
+    never: ["Adds content that is not in the verified script", "Reorders the stories"],
+    know: "The newsletter costs nothing extra, because it is the same content the script was written from. This is the end of the first build target: a newsletter and a podcast episode.",
+    out: "the podcast episode, the newsletter and show notes" },
+  { phase: "Hand over", name: "Package and log", built: false, paid: false,
+    purpose: "Hands the day's outputs to you for review, and records what happened. You edit, re-verify and publish.",
+    does: ["Puts the audio, newsletter and show notes in a dated folder", "Adds a suggested title and description, the source list and the check log", "Tells you the package is ready", "Saves the database back to the private repository", "Records the stories covered, the cost and any failures"],
+    rules: ["Nothing is published automatically: publishing is yours", "The check log shows every line that was removed or shortened, so you know where to look", "Every run is logged, including failed ones"],
+    never: ["Uploads to Spotify, YouTube, Instagram or anywhere else", "Shares your data with anyone"],
+    know: "How you are told the package is ready is not decided; a Telegram message carrying the audio is proposed. Spotify and Amazon Music both take a podcast feed, so one upload of the audio reaches both.",
+    out: "a package ready for your review" },
+  { phase: "Later", name: "Short video", built: false, paid: true, later: true,
+    purpose: "A 30 to 60 second vertical video on the top story, for Instagram and YouTube Shorts. Planned, not part of the first build.",
+    does: ["Uses a short script written for the top story, with its own opening and pacing", "Voices it and renders captions, the headline, the source name and the confidence label", "Adds the file to the day's package"],
+    rules: ["The short script passes the same check as the episode", "On-screen text comes only from the checked script", "Rendered by code, at no cost"],
+    never: ["Uses generated images of real people or events", "Uses images taken from articles", "Uploads anything"],
+    know: "The paid part is only the extra short script, a tiny addition to step 8. Nothing has been rendered yet, so the look and the rendering time are unknown. How many shorts per day is not decided; one is proposed.",
+    out: "a short video" },
+  { name: "Long video", built: false, paid: false, later: true,
+    purpose: "The full episode with visuals, in widescreen, for YouTube. Planned, and built last.",
+    does: ["Uses the podcast audio as the soundtrack", "Renders a title card per story, key facts on screen, source names, confidence labels and captions", "Produces chapter timings from the story timings", "Adds the file to the day's package"],
+    rules: ["On-screen text comes only from the checked script", "Rendered by code, at no cost"],
+    never: ["Uses generated images of real people or events", "Uses images taken from articles", "Uploads anything"],
+    know: "The visuals will be clean but plain: text and simple graphics. Rendering a 15-minute video on a free cloud machine is untested. The show needs a name and a colour scheme before this is built.",
+    out: null },
+];
+
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+const list = (title, items) => { const s = el("section"); s.append(el("h3", null, title)); const ul = el("ul", "pts"); items.forEach(t => ul.append(el("li", null, t))); s.append(ul); return s; };
+
+const flow = document.getElementById("flow");
+STEPS.forEach((s, i) => {
+  if (s.phase) flow.append(el("li", "phase", s.phase));
+  const li = el("li", "step" + (s.paid ? " is-paid" : ""));
+  const rail = el("div", "rail"); rail.append(el("div", "num", String(i + 1)), el("div", "wire"));
+  const body = el("div", "body");
+  const head = el("div", "head"); head.append(el("h2", null, s.name));
+  const tags = el("div", "tags");
+  tags.append(el("span", "tag " + (s.paid ? "paid" : "free"), s.paid ? "Paid" : "Free"), el("span", "tag " + (s.built ? "built" : "todo"), s.built ? "Built" : s.later ? "Later" : "Designed"));
+  head.append(tags);
+  const cols = el("div", "cols"); cols.append(list("What it does", s.does), list("Rules", s.rules), list("Never does", s.never));
+  const know = el("div", "know"); know.append(el("b", null, "Good to know"), document.createTextNode(s.know));
+  body.append(head, el("p", "purpose", s.purpose), cols, know);
+  li.append(rail, body); flow.append(li);
+  if (s.out) {
+    const hand = el("li", "hand"); const r = el("div", "rail"); r.append(el("div", "wire"), el("div", "tip"));
+    const p = el("p", null, "hands on → "); p.append(el("span", null, s.out)); hand.append(r, p); flow.append(hand);
+  } else {
+    const end = el("li", "end"); end.append(el("div", "dot"), el("p", null, "Ready for you to review and publish")); flow.append(end);
+  }
+});
+</script>
