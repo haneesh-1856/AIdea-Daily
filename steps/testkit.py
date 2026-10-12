@@ -40,6 +40,10 @@ def make_root(tmp_path, monkeypatch):
         assert found == 1, key
     # The voice step is switched off too; a test that wants it switches it on and brings a stand-in voice.
     text = text.replace("enabled = true", "enabled = false", 1)
+    # So are the longer episodes; a test of them switches them on.
+    for key in ("podcast", "duo"):
+        text, found = re.subn(rf"^{key} = true", f"{key} = false", text, flags=re.MULTILINE)
+        assert found == 1, key
     path.write_text(text, encoding="utf-8")
     return tmp_path
 

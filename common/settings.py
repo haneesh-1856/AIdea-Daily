@@ -160,6 +160,22 @@ def load(root: Path = ROOT) -> dict:
     if not all(isinstance(said, str) and said.strip() for said in voice.get("say", {}).values()):
         problems.append("settings.toml: [voice.say] every entry must be a word and the way to say it")
 
+    longer = run.get("formats", {})
+    for key in ("podcast", "duo"):
+        if not isinstance(longer.get(key), bool):
+            problems.append(f"settings.toml: [formats] {key} must be true or false")
+    if not longer.get("show_name"):
+        problems.append("settings.toml: [formats] show_name is empty")
+    for key in ("min_minutes", "speaking_pace"):
+        if not _positive_int(longer.get(key)):
+            problems.append(f"settings.toml: [formats] {key} must be a whole number above zero")
+    for key in ("presenter", "host", "guest"):
+        if not longer.get("voices", {}).get(key):
+            problems.append(f"settings.toml: [formats.voices] {key} is empty")
+    for key in ("sentence", "paragraph", "turn", "reaction", "segment"):
+        if not _number(longer.get("pauses", {}).get(key), minimum=0):
+            problems.append(f"settings.toml: [formats.pauses] {key} must be a number, zero or above")
+
     if problems:
         raise SettingsError("\n".join(problems))
     return {
@@ -176,6 +192,7 @@ def load(root: Path = ROOT) -> dict:
         "write": run["write"],
         "check": run["check"],
         "voice": voice,
+        "formats": longer,
     }
 
 

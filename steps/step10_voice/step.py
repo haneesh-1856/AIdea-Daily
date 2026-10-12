@@ -12,7 +12,7 @@ from typing import Callable
 
 from sqlalchemy.exc import SQLAlchemyError
 
-from common import clips, db, episodes, runlog, script
+from common import clips, db, episodes, formats, runlog, script
 from common.report import step_folder, write_report
 from common.settings import ROOT, database_url, load
 from common.text import word_count
@@ -172,6 +172,24 @@ def problem_with(clip: dict | None, text: str) -> str | None:
     return None
 
 
+def _formats_lines(conn, run) -> list[str]:
+    """What became of each longer episode in this step, for the report."""
+    lines = []
+    for name, row in formats.scripts_of(conn, run.id).items():
+        if name not in formats.wanted(run.settings):
+            continue
+        about, voices = formats.FORMATS[name], run.settings["formats"]["voices"]
+        lines += ["", f"## The {about['name']} ({about['label']})", ""]
+        if row.note:
+            lines.append(row.note[0].upper() + row.note[1:] + ".")
+        elif row.clips:
+            lines.append(f"{len(row.clips)} pieces spoken in {(row.voice_seconds or 0) / 60:.1f} minutes. Step 11 joins them.")
+            lines += ["", *(f"- {speaker}: `{voices[formats.VOICES[speaker]]}`" for speaker in about["speakers"])]
+        else:
+            lines.append("Nothing to speak.")
+    return lines
+
+
 def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> VoiceResult:
     url = database_url(root)
     report = step_folder(root, run_date, STEP) / "report.md"
@@ -239,11 +257,17 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
         if failed:
             raise VoiceError(detail)
 
+        # The longer episodes are spoken after the regular one. Imported here because that module uses this one's helpers.
+        from steps.formats.voice import voice_formats
+        longer = voice_formats(engine, root, run, settings, speak, folder.parent)
+
         with engine.begin() as conn:
             found = clips.of_run(conn, run.id)
             speech = sum(clip.seconds for clip in found)
             total = speech + sum(clip.pause_after for clip in found)
             summary = f"{len(found)} sentences spoken, {total / 60:.1f} minutes with pauses, made in {took / 60:.1f} minutes"
+            summary += "".join(f"; {one}" for one in longer)
+            longer_report = _formats_lines(conn, run)
             runlog.finish_step(conn, run.id, STEP, detail=summary)
     except SQLAlchemyError as exc:
         raise VoiceError(f"Could not use the database ({db.describe(url)}): {exc}") from exc
@@ -270,5 +294,6 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
         "| As written | As spoken |",
         "| --- | --- |",
         *(f"| {written.replace('|', '/')} | {said.replace('|', '/')} |" for written, said in changed),
+        *longer_report,
     ])
     return VoiceResult(run.id, run_date, "voiced", len(found), total, report)

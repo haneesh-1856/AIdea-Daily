@@ -6,7 +6,7 @@ from pathlib import Path
 
 from sqlalchemy.exc import SQLAlchemyError
 
-from common import db, episodes, health, model, runlog, script
+from common import db, episodes, formats, health, model, runlog, script
 from common.report import step_folder, write_report
 from common.settings import ROOT, database_url
 from steps.step11_assemble.step import KINDS, NOTHING_TODAY, gather, long_date, out_folder
@@ -49,6 +49,8 @@ def package(run_date: date, *, root: Path = ROOT) -> PackageResult:
             told, _ = gather(conn, run.id)
             spent = model.spent(conn, run.id)
             lines = _review_lines(run, episode, told, script.log_of(conn, run.id), health.failed_sources(conn, run.id), spent)
+            longer = _formats_lines(conn, run)
+            lines += longer
             runlog.finish_step(conn, run.id, STEP, detail=f"review sheet written, run {episode.status}")
             lines += _steps_table(runlog.steps_of(conn, run.id))
             (folder / "review.md").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
@@ -67,7 +69,8 @@ def package(run_date: date, *, root: Path = ROOT) -> PackageResult:
         f"The package is {'HELD: read the review sheet first' if episode.status == 'held' else 'ready for your review'}.",
         "",
         f"- Folder: `{folder}`",
-        "- Files: " + ("`episode.mp3`, " if episode.audio_seconds else "") + "`script.md`, `newsletter.md`, `show-notes.md`, `review.md`, `scoring.md`",
+        "- Files: " + ("`episode.mp3`, " if episode.audio_seconds else "") + "`script.md`, `newsletter.md`, `show-notes.md`, `review.md`, `scoring.md`"
+        + "".join(f", `{about[kind]}`" for about in formats.FORMATS.values() for kind in ("script", "audio") if (folder / about[kind]).exists() and longer),
         f"- Model cost for the run: ${spent[3]:.4f}",
         "",
         "Nothing has been published or uploaded. Publishing is yours.",
@@ -137,6 +140,36 @@ def _review_lines(run, episode, told: list, log: list, failed_sources: list, spe
         "",
         f"{requests} model requests, {tokens_in} tokens read, {tokens_out} tokens written, ${cost:.4f}.",
     ]
+    return lines
+
+
+def _formats_lines(conn, run) -> list[str]:
+    """The longer episodes of the day: what was made, how long it is, and what to check before using it."""
+    wanted = formats.wanted(run.settings)
+    if not wanted:
+        return []
+    lines = ["", "## The longer episodes", "", "Written from the same stories and sources as the regular episode."]
+    for name in wanted:
+        about = formats.FORMATS[name]
+        row = formats.scripts_of(conn, run.id).get(name)
+        segments = formats.segments_of(conn, run.id, name)
+        lines += ["", f"**The {about['name']} ({about['label']})**", ""]
+        if row is None or not formats.written(segments):
+            lines.append(f"- Not made: {row.note if row and row.note else 'there were no stories to write it from'}.")
+            continue
+        words = sum(formats.spoken_words(segment.lines) for segment in segments)
+        found = row.flagged or []
+        lines.append(f"- `{about['script']}`: {words} words in {len(segments)} segments")
+        if row.audio_seconds:
+            voices = run.settings["formats"]["voices"]
+            lines.append(f"- `{about['audio']}`: {row.audio_seconds / 60:.1f} minutes, spoken in {(row.voice_seconds or 0) / 60:.1f} minutes; "
+                         + ", ".join(f"{speaker} in the voice of `{voices[formats.VOICES[speaker]]}`" for speaker in about["speakers"]))
+        else:
+            lines.append(f"- No audio: {row.note or 'step 10 did not speak this run'}.")
+        lines += [f"- Shorter than wanted: {row.shortfall}"] if row.shortfall else []
+        lines.append(f"- {len(found)} sentences have a figure or a name not found in their segment's sources. They were kept, and are "
+                     "listed at the end of the script: read them before using the episode." if found else
+                     "- Every figure and name was found in the sources.")
     return lines
 
 

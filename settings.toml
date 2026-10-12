@@ -141,5 +141,31 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 [voice.say]
 # How to say a word the voice gets wrong: the word as written = the way to say it. Add to this as you hear mistakes.
 
+[formats]
+# Besides the regular briefing, each run can make two longer episodes from the same stories and sources.
+# Step 8 writes them, step 9 checks them, step 10 speaks them and step 11 joins them. Each has its own script
+# and episode file in the day's folder. They add model cost and voice time; set one to false to leave it out.
+podcast = true            # one presenter, conversational: podcast-script.md and podcast-episode.mp3
+duo = true                # a host and a guest: duo-script.md and duo-episode.mp3
+show_name = "AIdea Daily"
+min_minutes = 35          # the length to aim for, if the day's news can carry it without padding
+# The pace of conversational speech with its pauses: 5,588 words came to 37.0 minutes on 10 October 2026.
+speaking_pace = 150      # words a minute
+
+[formats.voices]
+# The reference recording each speaker's voice is copied from. Use only voices you have the right to use:
+# your own, or someone's who has agreed to it. The demo voice's origin is not known (see [voice]).
+presenter = "voice/reference-demo-voice.wav"
+host = "voice/reference.wav"                    # the owner's own voice
+guest = "voice/reference-demo-voice.wav"        # the voice of the regular episode
+
+[formats.pauses]
+# Seconds of silence, by what comes next. A conversation moves faster than a narrator reading alone.
+sentence = 0.32           # the same speaker's next sentence
+paragraph = 0.6           # the presenter's next paragraph
+turn = 0.38               # the other speaker answers
+reaction = 0.22           # a reaction comes in quickly, and so does the answer to one
+segment = 1.1             # before a new segment
+
 [check]
 hold_above = 0.2          # if more than this share of written lines fail the check, the episode is held

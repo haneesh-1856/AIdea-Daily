@@ -290,6 +290,39 @@ check_log = Table(
     Column("action", String(30), nullable=False),  # removed, shortened to brief, dropped, held
 )
 
+# The longer episodes made beside the regular one, from the same stories: one row per format per run.
+format_scripts = Table(
+    "format_scripts",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("run_id", ForeignKey("runs.id"), nullable=False, index=True),
+    Column("format", String(20), nullable=False),  # podcast, duo
+    Column("note", Text),  # why the script or its audio could not be made, when it could not
+    Column("shortfall", Text),  # the planner's reason, when the day's news cannot carry the wanted length
+    Column("flagged", JSON),  # sentences with a number or name not in the sources, set by step 9
+    Column("clips", JSON),  # the spoken pieces, set by step 10 and emptied by step 11: {key: {"file", "seconds"}}
+    Column("voice_seconds", Float),  # how long step 10 took to speak it
+    Column("audio_seconds", Float),  # the length of the episode file, set by step 11
+    UniqueConstraint("run_id", "format"),
+)
+
+# A longer episode's segments in speaking order. The plan is stored first; each segment's lines when it is written.
+format_segments = Table(
+    "format_segments",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("run_id", ForeignKey("runs.id"), nullable=False, index=True),
+    Column("format", String(20), nullable=False),
+    Column("position", Integer, nullable=False),
+    Column("kind", String(20), nullable=False),  # cold_open, intro, stories, closing
+    Column("title", Text, nullable=False),
+    Column("angle", Text),  # what the segment is about, from the plan
+    Column("story_ids", JSON, nullable=False),  # the stories it tells, in order; empty for the linking segments
+    Column("words", Integer, nullable=False),  # how many spoken words it should aim for
+    Column("lines", JSON),  # [{"speaker", "text"}], empty until the segment is written
+    Column("illustrations", JSON),  # the examples the writer made up itself, so that they can be told from facts
+)
+
 
 def connect(url: str) -> Engine:
     """Open the database and create any tables that do not exist yet."""

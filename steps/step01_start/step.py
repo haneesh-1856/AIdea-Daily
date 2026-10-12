@@ -8,7 +8,7 @@ from typing import Callable
 import httpx
 from sqlalchemy.exc import SQLAlchemyError
 
-from common import articles, db, model, runlog
+from common import articles, db, formats, model, runlog
 from common.report import write_report
 from common.settings import ROOT, database_url, load
 
@@ -40,6 +40,9 @@ def check_internet() -> str | None:
     return None
 
 
+AUDIO_FILES = ("episode.mp3", *(about["audio"] for about in formats.FORMATS.values()))
+
+
 def delete_old_audio(root: Path, today: date, keep_days: int) -> int:
     """Delete episode audio older than the retention period. The script, newsletter and notes are kept."""
     deleted = 0
@@ -48,10 +51,11 @@ def delete_old_audio(root: Path, today: date, keep_days: int) -> int:
             made = date.fromisoformat(folder.name)
         except ValueError:
             continue
-        audio = folder / "episode.mp3"
-        if audio.exists() and (today - made).days > keep_days:
-            audio.unlink()
-            deleted += 1
+        for name in AUDIO_FILES:
+            audio = folder / name
+            if audio.exists() and (today - made).days > keep_days:
+                audio.unlink()
+                deleted += 1
     return deleted
 
 

@@ -12,7 +12,7 @@ from sqlalchemy.exc import SQLAlchemyError
 import numpy
 import soundfile
 
-from common import clips, db, episodes, runlog, script, selections
+from common import clips, db, episodes, formats, runlog, script, selections
 from common.report import step_folder, write_report
 from common.settings import ROOT, database_url
 from steps.step07_plan.step import SEGMENTS  # the script page lays out the plan's segments, in the plan's order
@@ -207,8 +207,11 @@ def assemble(run_date: date, *, root: Path = ROOT) -> AssembleResult:
                 if clip_folder.exists() and not any(clip_folder.iterdir()):
                     clip_folder.rmdir()
                 audio = f", and an episode of {seconds / 60:.1f} minutes"
+            # The longer episodes are joined the same way. Imported here because that module uses step 10's helpers.
+            from steps.formats.voice import join_formats
+            longer = join_formats(conn, root, run, folder)
             in_episode = sum(story.entry.form in ("full", "brief") for story in told)
-            summary = f"newsletter and show notes written with {in_episode} stories{audio}"
+            summary = f"newsletter and show notes written with {in_episode} stories{audio}" + "".join(f", and {one}" for one in longer)
             runlog.finish_step(conn, run.id, STEP, detail=summary)
     except SQLAlchemyError as exc:
         raise AssembleError(f"Could not use the database ({db.describe(url)}): {exc}") from exc
@@ -224,5 +227,6 @@ def assemble(run_date: date, *, root: Path = ROOT) -> AssembleResult:
         *(f"- `{folder / name}`" for name in pages),
         "",
         f"- `{folder / 'episode.mp3'}`" if audio else "No episode audio: step 10 did not speak this run.",
+        *(f"- `{folder / about['audio']}`" for about in formats.FORMATS.values() if any(about["name"] + " episode" in one for one in longer)),
     ])
     return AssembleResult(run.id, run_date, "assembled", folder, in_episode, report)

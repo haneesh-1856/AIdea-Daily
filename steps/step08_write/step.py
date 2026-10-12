@@ -6,7 +6,7 @@ from pathlib import Path
 
 from sqlalchemy.exc import SQLAlchemyError
 
-from common import db, episodes, model, runlog, script, selections, stories
+from common import db, episodes, formats, model, runlog, script, selections, stories
 from common.report import step_folder, write_report
 from common.settings import ROOT, database_url
 from common.text import sentences, word_count
@@ -177,9 +177,18 @@ def write(run_date: date, *, root: Path = ROOT, ask: model.Ask | None = None) ->
                 model.record(conn, run.id, STEP, "linking", linking_reply)
             lines = _script_lines(written, have, material, linking)
             script.replace_lines(conn, run.id, lines)
+
+        # The longer episodes are written last, from the same stories and sources. Imported here because that
+        # module uses this one's helpers.
+        from steps.formats.write import write_formats
+        longer = write_formats(engine, run, settings, written, have, material, ask)
+
+        with engine.begin() as conn:
             requests, tokens_in, tokens_out, cost = model.spent(conn, run.id, STEP)
-            summary = f"{len(written)} stories written, {len(lineup) - len(written)} set aside, {requests} requests, ${cost:.4f}"
+            summary = (f"{len(written)} stories written, {len(lineup) - len(written)} set aside, "
+                       + "".join(f"{one}, " for one in longer) + f"{requests} requests, ${cost:.4f}")
             report_lines = _report_lines(run_date, summary, lineup, have, linking_error, settings, (requests, tokens_in, tokens_out, cost))
+            report_lines += _formats_lines(conn, run.id, settings)
             runlog.finish_step(conn, run.id, STEP, detail=summary)
     except SQLAlchemyError as exc:
         raise WriteError(f"Could not use the database ({db.describe(url)}): {exc}") from exc
@@ -241,6 +250,24 @@ def _script_lines(written: list, have: dict, material: dict, linking: dict) -> l
             lines += [{"part": part, "story_id": entry.story_id, "text": sentence} for sentence in sentences(text)]
     lines += [{"part": "watch", "text": text} for text in sentences(linking["watch_list"])]
     lines += [{"part": "closing", "text": text} for text in sentences(linking["closing"])]
+    return lines
+
+
+def _formats_lines(conn, run_id: int, settings: dict) -> list[str]:
+    """The plan of each longer episode and how much of it is written."""
+    lines = []
+    for name, row in formats.scripts_of(conn, run_id).items():
+        if name not in formats.wanted(settings):
+            continue
+        lines += ["", f"## The {formats.FORMATS[name]['name']} ({formats.FORMATS[name]['label']})", ""]
+        lines += [f"Not finished: {row.note}", ""] if row.note else []
+        lines += [f"Shorter than wanted: {row.shortfall}", ""] if row.shortfall else []
+        lines += ["| # | Segment | Stories | Words planned | Words written |", "| --- | --- | --- | --- | --- |"]
+        lines += [
+            f"| {segment.position} | {segment.title.replace('|', '/')} | {len(segment.story_ids)} | {segment.words} | "
+            f"{formats.spoken_words(segment.lines) if segment.lines else 'not written'} |"
+            for segment in formats.segments_of(conn, run_id, name)
+        ]
     return lines
 
 

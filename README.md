@@ -21,6 +21,10 @@ Each step prints one line saying what it did and writes a report to `runs/<date>
 | `newsletter.md` | The same stories for reading |
 | `show-notes.md` | Every story's links and confidence label |
 | `review.md` | Start here: status, suggested title, what the check removed, failures, cost |
+| `podcast-script.md`, `podcast-episode.mp3` | A longer, conversational episode for one presenter, from the same stories |
+| `duo-script.md`, `duo-episode.mp3` | The same as a conversation between a host and a guest |
+
+The two longer episodes are switched on and off under `[formats]` in `settings.toml`. Steps 8 to 12 each do their part for them; `steps/formats/README.md` has their rules.
 
 ## Before the first full run: choose a model
 
@@ -57,6 +61,7 @@ Each step folder has its own `README.md` with its rules. `design/checklist.md` l
 - `settings.toml`: length, model, grouping thresholds, scoring weights, topics, selection limits.
 - `data/local.db`: everything stored. Set `DATABASE_URL` to use PostgreSQL instead.
 - `common/`: code shared by the steps; all database access is here.
+- `steps/formats/`: the two longer episodes, made by steps 8 to 12 beside the regular one.
 - `runs/<date>/`: each step's report. `out/<date>/`: the package.
 
 ## The daily run

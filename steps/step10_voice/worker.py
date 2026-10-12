@@ -27,21 +27,26 @@ def main(job_file: str) -> int:
     folder.mkdir(parents=True, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    # The reference voice is worked out once and used for every sentence.
-    if job["engine"] == "chatterbox-turbo":
+    turbo = job["engine"] == "chatterbox-turbo"
+    if turbo:
         from chatterbox.tts_turbo import ChatterboxTurboTTS
 
         model = ChatterboxTurboTTS.from_pretrained(device=device)
-        model.prepare_conditionals(job["reference"])
-        options = {"temperature": job["temperature"]}
     else:
         from chatterbox.tts import ChatterboxTTS
 
         model = ChatterboxTTS.from_pretrained(device=device)
-        model.prepare_conditionals(job["reference"], exaggeration=job["exaggeration"])
-        options = {key: job[key] for key in ("temperature", "exaggeration", "cfg_weight")}
+    using = None
 
-    def say(phrase: str):
+    def use(reference: str) -> None:
+        """A reference voice is worked out once and used for every sentence that follows in it."""
+        nonlocal using
+        if reference != using:
+            model.prepare_conditionals(reference, **({} if turbo else {"exaggeration": job["exaggeration"]}))
+            using = reference
+
+    def say(phrase: str, temperature: float):
+        options = {"temperature": temperature} if turbo else {"temperature": temperature, "exaggeration": job["exaggeration"], "cfg_weight": job["cfg_weight"]}
         audio = model.generate(phrase, **options).squeeze().cpu().numpy()
         if job["speed"] != 1.0:
             # Faster or slower without changing the pitch. This method keeps speech clean for changes of this size.
@@ -50,10 +55,13 @@ def main(job_file: str) -> int:
 
     results = {}
     result_file = Path(job_file).with_name("result.json")
-    for item in job["sentences"]:
+    # A sentence may name its own voice and delivery: an episode with two speakers does. All of one voice's
+    # sentences are spoken before the next voice's, so that each voice is worked out once.
+    for item in sorted(job["sentences"], key=lambda item: item.get("reference") or job["reference"]):
         try:
+            use(item.get("reference") or job["reference"])
             # A long sentence arrives as phrases: each is spoken on its own and a short silence is left between them.
-            spoken = [say(phrase) for phrase in item["phrases"]]
+            spoken = [say(phrase, item.get("temperature", job["temperature"])) for phrase in item["phrases"]]
             gap = numpy.zeros(int(model.sr * job["phrase_pause"]), dtype="float32")
             audio = numpy.concatenate([piece for phrase in spoken for piece in (phrase, gap)][:-1])
             file = folder / f"{item['position']:04d}.wav"

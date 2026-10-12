@@ -12,6 +12,7 @@ from common.facts import Pool, unsupported
 from common.report import step_folder, write_report
 from common.settings import ROOT, database_url
 from common.text import word_count
+from steps.formats.check import check_formats
 from steps.step11_assemble.step import gather, out_folder, script_page
 
 STEP = 9
@@ -267,7 +268,11 @@ def check_fit(run_date: date, *, root: Path = ROOT) -> CheckResult:
                 f"{sum(value == 'full' for value in form.values())} stories in full, "
                 f"{sum(value == 'brief' for value in form.values())} brief, {sum(value == 'dropped' for value in form.values())} dropped"
             )
+            # The longer episodes are checked too, and written out.
+            longer, longer_report = check_formats(conn, out_folder(root, run_date), run, lineup, pools)
+            summary += "".join(f"; {one}" for one in longer)
             report_lines = _report_lines(run_date, summary, lineup, form, reason, script.log_of(conn, run.id), (failed, checked, share), run.settings)
+            report_lines += longer_report
             # The script is final from here: nothing after this step changes a word of it. It is written out now,
             # so that it can be read before any audio is made from it.
             told, linking = gather(conn, run.id)
