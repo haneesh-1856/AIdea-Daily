@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 
 import feedparser
 import httpx
@@ -130,6 +130,43 @@ def read_sitemap(feed: dict, cutoff: datetime) -> list[dict]:
     return entries
 
 
+def _plain(value):
+    """A value as the page's framework wrote it, [kind, value] at every level, turned back into the plain value."""
+    if isinstance(value, dict):
+        return {key: _plain(inner) for key, inner in value.items()}
+    if isinstance(value, list) and len(value) == 2 and isinstance(value[0], int):
+        kind, inner = value
+        return [_plain(one) for one in inner] if kind == 1 else _plain(inner)
+    return value
+
+
+def read_listing(feed: dict) -> list[dict]:
+    """For a page with no feed that carries its own list of entries, as the Vals AI news pages do.
+
+    Each listed entry has a title, a link, a date, a type and the outlet it is from. Only entries of the feed's
+    `only` type are kept, and each is credited to the outlet the page names, which is not always the site itself.
+    """
+    page = get(feed["url"]).text
+    match = re.search(r'props="([^"]*&quot;articles&quot;[^"]*)"', page)
+    if not match:
+        raise ValueError("the page carries no list of articles")
+    entries = []
+    for item in _plain(json.loads(html.unescape(match.group(1))))["articles"]:
+        if not isinstance(item, dict) or item.get("type") != feed["only"]:
+            continue
+        title, link = item.get("title"), item.get("link")
+        if not title or not link:
+            continue
+        try:
+            published = datetime.strptime(item.get("date") or "", "%m/%d/%Y").replace(tzinfo=timezone.utc)
+        except ValueError:
+            published = None
+        entries.append(
+            _entry(item.get("source") or feed["name"], feed["kind"], bool(feed.get("general")), title, urljoin(feed["url"], link), published)
+        )
+    return entries
+
+
 def read_hacker_news(min_points: int, cutoff: datetime) -> list[dict]:
     params = {
         "tags": "story",
@@ -165,6 +202,8 @@ def read_all(settings: dict, now: datetime) -> list[SourceResult]:
     for feed in settings["feeds"]:
         if feed.get("type") == "sitemap":
             jobs.append((feed["name"], feed["kind"], lambda feed=feed: read_sitemap(feed, cutoff)))
+        elif feed.get("type") == "listing":
+            jobs.append((feed["name"], feed["kind"], lambda feed=feed: read_listing(feed)))
         else:
             jobs.append((feed["name"], feed["kind"], lambda feed=feed: read_feed(feed)))
     jobs.append(("Hacker News", "traction", lambda: read_hacker_news(collect["hn_min_points"], cutoff)))

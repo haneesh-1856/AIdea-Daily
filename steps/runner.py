@@ -1,7 +1,9 @@
 """The daily run: one program that runs the steps in order. A step already done is skipped, so a rerun resumes."""
 
 import argparse
+import os
 import sys
+from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
 from typing import Callable
@@ -34,7 +36,44 @@ STOPS = (
 )
 
 
-def run_day(
+class Busy(Exception):
+    """Another run is at work in this project."""
+
+
+@contextmanager
+def alone(root: Path):
+    """Hold the project's lock for as long as a run lasts, so that two runs never work at once.
+
+    Two runs of the same day would both speak into the same clip files, and the episode would be joined from a
+    mixture of the two. The lock is on an open file, so it is let go when the run ends, however it ends.
+    """
+    path = root / "data" / "run.lock"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "a+") as handle:
+        handle.seek(0)
+        try:
+            if os.name == "nt":
+                import msvcrt
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError as exc:
+            raise Busy from exc
+        yield
+
+
+def run_day(run_date: date, *, root: Path = ROOT, out=print, **options) -> bool:
+    """Run the day, unless another run is already at work here. Returns False if it did not finish."""
+    try:
+        with alone(root):
+            return _run_day(run_date, root=root, out=out, **options)
+    except Busy:
+        out("Another run is already working in this project, so this one did not start. Start it again when that one has finished.")
+        return False
+
+
+def _run_day(
     run_date: date, *, until: int = 12, force: bool = False, root: Path = ROOT, out=print, checks=None, ask=None, embed=None,
     speak=None, again: int | None = None,
 ) -> bool:

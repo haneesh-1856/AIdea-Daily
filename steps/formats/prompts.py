@@ -106,7 +106,8 @@ KIND_RULES = {
              "leading into the first segment of stories.",
     "stories": "This segment tells the stories listed in the message, in the order given, each once.",
     "closing": "This segment is the closing. Draw the one thing to remember from today's stories, without retelling "
-               "them, then say goodbye in one or two sentences. Do not credit sources or promise a next episode's content.",
+               "them. Do not say goodbye, thank the listener, credit sources or promise a next episode's content: the "
+               "credits and the goodbye are spoken straight after your last line.",
 }
 
 PODCAST_RULES = """\

@@ -15,6 +15,7 @@ from steps.step05_score.step import score
 from steps.step06_select.step import select
 from steps.step07_plan.step import plan
 from steps.step08_write.step import write
+from steps import runner
 from steps.step09_check_fit.step import check_fit
 from steps.step10_voice.step import voice
 from steps.step11_assemble.step import assemble
@@ -152,7 +153,26 @@ def test_each_speaker_is_given_their_own_reference_voice_and_a_reaction_more_fre
     assert by_text["[surprised] So what happened?!"]["temperature"] == 1.0
     assert by_text["Lab shipped a thing."]["temperature"] == 0.8
     # The same words in the same voice are spoken once, however often the script says them.
-    assert sorted(by_text) == ["It is available now.", "Lab shipped a thing.", "[surprised] So what happened?!"] and len(duo) == 3
+    talk = sorted(text for text in by_text if "show notes" not in text and "Today's stories" not in text and "all for today" not in text)
+    assert talk == ["It is available now.", "Lab shipped a thing.", "[surprised] So what happened?!"]
+    # The host says the credits and the goodbye.
+    credits = next(one for text, one in by_text.items() if text.startswith("Today's stories came from Lab and Press A."))
+    assert credits["reference"].endswith("reference.wav")
+
+
+def test_each_longer_script_ends_by_crediting_its_sources_once_however_often_it_is_checked(root):
+    written(root, Talker())
+    check_fit(DAY, root=root)
+    assert runner.run_day(DAY, root=root, again=9, until=9, out=lambda _: None, checks=[])
+
+    ending = "Today's stories came from Lab and Press A. Links to every source are in the show notes. That is all for today on AIdea Daily. Thanks for listening."
+    for name, speaker in (("podcast", "PRESENTER"), ("duo", "HOST")):
+        last = [row for row in rows(root, db.format_segments) if row.format == name][-1]
+        assert [line["text"] for line in last.lines].count(ending) == 1
+        assert last.lines[-1] == {"speaker": speaker, "text": ending, "credits": True}
+    page = (root / "out" / DAY.isoformat() / "duo-script.md").read_text(encoding="utf-8")
+    assert f"**HOST:** {ending}" in page.split("## Runtime")[0]
+    assert all(row.flagged == [] for row in rows(root, db.format_scripts))
 
 
 def test_a_figure_or_name_not_in_the_sources_is_kept_and_listed(root):

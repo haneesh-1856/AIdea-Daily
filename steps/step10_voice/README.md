@@ -1,6 +1,6 @@
 # Step 10, Voice
 
-Turns the final script into speech, one clip per sentence. It runs on this PC and costs nothing.
+Turns the final script into speech, one clip per sentence. It runs on the PC and costs nothing.
 
 ## What it does
 
@@ -17,7 +17,7 @@ Step 11 then joins the clips into `out/<date>/episode.mp3`.
 
 - **One consistent voice:** the recording named under `[voice]` in `settings.toml`, by default `voice/reference.wav`.
 - **Use only a voice you have the right to use.** The model copies whatever recording it is given.
-- **Nothing is sent to a paid voice service.** The model runs on this PC's graphics card.
+- **Nothing is sent to a paid voice service.** The model runs on the PC's graphics card.
 - **Preparation changes how text is spoken, never what it says.** The script is not altered.
 - **Names the voice gets wrong are said from a list you add to:** `[voice.say]` in `settings.toml`.
 - **A failed clip is tried once more.** If it fails again the run stops, so a broken episode is never produced. The good clips are kept, and a rerun speaks only what is missing.

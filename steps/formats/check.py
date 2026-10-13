@@ -12,6 +12,7 @@ from common.facts import Pool, numbers_in, unsupported
 from common.text import sentences
 
 COUNTED_TO = 12  # a whole number up to this is everyday speech ("two things"), not a figure taken from a source
+GOODBYE = "That is all for today on {show}. Thanks for listening."  # the last words, after the credits
 
 
 def unverified(sentence: str, pool: Pool) -> list[str]:
@@ -41,6 +42,8 @@ def flagged(segments: list, pools: dict, always: Pool) -> list[dict]:
             for story_id in segment.story_ids:
                 pool |= pools[story_id]
         for line in segment.lines:
+            if line.get("credits"):
+                continue  # made by code from the sources' own names
             for sentence in sentences(formats.plain(line["text"])):
                 problems = unverified(sentence, pool)
                 if problems:
@@ -100,6 +103,22 @@ def page(name: str, show: str, day: date, segments: list, row, sources: dict, pa
     return lines
 
 
+def with_credits(conn, segments: list, speaker: str, names: list[str], show: str) -> None:
+    """End the script as the regular episode ends: the outlets its stories came from, then the goodbye.
+
+    They are the last line of the last segment, made by code so that no outlet is ever left out or misnamed. A
+    repeat of the step replaces the line it made before.
+    """
+    # Imported here because that module uses this one.
+    from steps.step09_check_fit.step import credits_for
+
+    last = segments[-1]
+    credit = credits_for(names)[:-1]  # without the regular episode's thanks: this script has its own goodbye
+    lines = [line for line in last.lines if not line.get("credits")]
+    lines.append({"speaker": speaker, "text": " ".join([*credit, GOODBYE.format(show=show)]), "credits": True})
+    formats.save_lines(conn, last.id, lines, last.illustrations or [])
+
+
 def check_formats(conn, folder: Path, run, lineup: list, pools: dict) -> tuple[list[str], list[str]]:
     """Check every finished longer script and write its page. Returns what to add to the step's summary, and to
     its report."""
@@ -118,14 +137,18 @@ def check_formats(conn, folder: Path, run, lineup: list, pools: dict) -> tuple[l
             report += [f"Not written: {row.note if row and row.note else 'step 8 made no script for it'}."]
             continue
         chosen = settings["formats"]
+        by_story = {entry.story_id: entry for entry in lineup}
+        sources = {story_id: (by_story[story_id].title, selections.sources(conn, by_story[story_id].item_ids))
+                   for segment in segments for story_id in segment.story_ids}
+        # The credits name every outlet a story was written from, in the order the stories are told.
+        outlets = [one.source for segment in segments for story_id in segment.story_ids for one in sources[story_id][1]]
+        with_credits(conn, segments, about["speakers"][0], outlets, chosen["show_name"])
+        segments = formats.segments_of(conn, run.id, name)
         # The show's name, the date and the count of stories may be said anywhere.
         always = Pool.of([chosen["show_name"], f"{day:%A %B %Y} {day.day} {len(lineup)}"])
         found = flagged(segments, pools, always)
         formats.update(conn, run.id, name, flagged=found)
         row = formats.scripts_of(conn, run.id)[name]
-        by_story = {entry.story_id: entry for entry in lineup}
-        sources = {story_id: (by_story[story_id].title, selections.sources(conn, by_story[story_id].item_ids))
-                   for segment in segments for story_id in segment.story_ids}
         lines = page(name, chosen["show_name"], day, segments, row, sources, chosen["speaking_pace"])
         file.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
         words = sum(formats.spoken_words(segment.lines) for segment in segments)

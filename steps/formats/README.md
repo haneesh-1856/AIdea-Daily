@@ -21,6 +21,7 @@ They are not steps of their own. Each of steps 8 to 12 does its part for them af
 
 - **Same stories, same order.** One plan serves both formats. Every story the regular script wrote is told exactly once; a story the plan forgets is added to a catch-up segment by code.
 - **Facts only from the sources.** The writer gets each story's stored articles, as in step 8. It may add interpretation and everyday examples, and must list each example it made up; the script page prints that list.
+- **The sources are credited aloud.** Each script ends with a line made by code: the outlets its stories came from, in the order told, then the goodbye. The first speaker says it. The writer is told not to say goodbye itself.
 - **The check flags, it does not remove.** A conversation cannot lose a sentence without breaking. A sentence with a figure or a name not found in its segment's sources is kept and listed at the end of the script and on the review sheet. The first word of a sentence and whole numbers up to 12 are not checked, because talk is full of both.
 - **A failure never stops the regular episode.** A format the model or the voice fails on is left out for the day, and the review sheet says why.
 - **Nothing is paid for twice.** Each segment is saved when written and each clip when spoken, so a run that stops resumes with only what is missing. `--again 10` speaks only the pieces that have no clip.

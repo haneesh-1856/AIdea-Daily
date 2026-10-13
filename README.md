@@ -49,7 +49,7 @@ Without a model the run stops at step 8 and says so. Grouping (step 4) uses the 
 | 7 Plan | `steps/step07_plan` | Sets the running order and the word cap | Code |
 | 8 Write | `steps/step08_write` | Writes each story from its sources only | The language model |
 | 9 Check and fit | `steps/step09_check_fit` | Removes sentences whose numbers or names are not in the sources; fits to the cap; writes the final script | Code |
-| 10 Voice | `steps/step10_voice` | Speaks the final script, one clip per sentence | A free voice model on this PC |
+| 10 Voice | `steps/step10_voice` | Speaks the final script, one clip per sentence | A free voice model on the PC |
 | 11 Assemble | `steps/step11_assemble` | Joins the clips into the episode; builds the newsletter and show notes | Code |
 | 12 Package and log | `steps/step12_package` | Writes the review sheet and closes the run | Code |
 
@@ -70,6 +70,7 @@ A Windows scheduled task, "AI news podcast daily run", starts `run_daily.ps1` at
 
 - **The PC must be on or asleep, and plugged in.** The task wakes it from sleep; wake timers are allowed on mains power only. It cannot start a PC that is shut down.
 - **A missed run starts as soon as the PC is next available,** and covers everything since the last run, up to the three-day look-back.
+- **Only one run works at a time.** A run started while another is at work, by hand or by the task, says so and does not start. Two at once would speak into the same clip files.
 - **What the run printed** is kept in `runs\scheduled\<date>.log`.
 - **Nothing is published.** The package waits in `out\<date>` for your review.
 - **To change the time or switch it off,** open Task Scheduler and find the task by name.

@@ -80,6 +80,8 @@ def load(root: Path = ROOT) -> dict:
             problems.append(f"sources.toml: {label} has kind '{feed['kind']}'; use one of {sorted(FEED_KINDS)}")
         if feed.get("type") == "sitemap" and not feed.get("path_prefix"):
             problems.append(f"sources.toml: {label} is a sitemap and needs a path_prefix")
+        if feed.get("type") == "listing" and not feed.get("only"):
+            problems.append(f"sources.toml: {label} is a listing and needs `only`, the type of entry to keep")
 
     collect = sources.get("settings", {})
     for key in ("max_age_days", "hn_min_points"):

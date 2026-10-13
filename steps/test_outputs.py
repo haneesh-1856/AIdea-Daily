@@ -196,6 +196,8 @@ def world(root, monkeypatch):
         if url == fetch_step.HN_SEARCH:
             return httpx.Response(200, json={"hits": []}, request=httpx.Request("GET", url))
         text = "<urlset></urlset>" if "sitemap" in url else feed("Lab ships Orion 4", "Lab opens an office in Paris")
+        if url.endswith(("/updates", "/news")):  # a listing page, with nothing listed
+            text = '<astro-island props="{&quot;articles&quot;:[1,[]]}"></astro-island>'
         return httpx.Response(200, text=text, request=httpx.Request("GET", url))
 
     monkeypatch.setattr(fetch_step, "get", get)
@@ -244,7 +246,7 @@ def test_a_run_without_a_model_stops_at_step_eight_and_resumes_when_one_is_given
     said.clear()
     assert runner.run_day(NOW.date(), root=world, out=said.append, checks=[], ask=writer(), embed=embed) is True
     assert said[0] == "Step 1, start: resumed (run 1, attempt 1)"
-    assert said[1].startswith("Step 2, fetch: 41 of 41 sources worked")  # shown again, not fetched again
+    assert said[1].startswith("Step 2, fetch: 44 of 44 sources worked")  # shown again, not fetched again
     assert (world / "out" / "2026-10-06" / "script.md").exists()
 
 
@@ -276,8 +278,8 @@ def test_a_forced_second_attempt_redoes_the_day_with_the_items_already_stored(wo
     assert runner.run_day(NOW.date(), force=True, root=world, out=said.append, checks=[], ask=writer(), embed=embed) is True
 
     assert said[0] == "Step 1, start: new (run 2, attempt 2)"
-    # 38 feeds with 2 articles each; the two sitemap sources and Hacker News carry none here.
-    assert said[2].startswith("Step 3, clean_store: 76 raw entries, 76 kept, 0 new")
+    # 39 feeds with 2 articles each; the sitemap and listing sources and Hacker News carry none here.
+    assert said[2].startswith("Step 3, clean_store: 78 raw entries, 78 kept, 0 new")
     assert said[4].startswith("Step 5, score: 2 stories scored")
     first, second = rows(world, db.runs)
     assert (first.status, second.status) == ("done", "done")
@@ -314,3 +316,15 @@ def test_the_script_page_lays_out_every_segment_of_the_plan():
     # On 8 October 2026 the page had its own list, so the stories that were only worth watching were spoken
     # but missing from script.md.
     assert shown is planned and list(shown)[-1] == "watching"
+
+
+def test_a_second_run_does_not_start_while_one_is_at_work(root):
+    said = []
+    with runner.alone(root):
+        assert runner.run_day(DAY, root=root, out=said.append) is False
+    assert "Another run is already working" in said[0]
+    with db.connect(database_url(root)).connect() as conn:
+        assert runlog.latest_run(conn, DAY) is None
+    # The lock is let go when the run ends, so the next one starts.
+    with runner.alone(root):
+        pass

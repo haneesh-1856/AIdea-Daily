@@ -9,6 +9,8 @@
 #                        ai_keywords are kept
 # type = "sitemap"    -> for sites with no RSS feed: new pages are found through
 #                        the site's sitemap, limited to path_prefix
+# type = "listing"    -> for a page with no feed that carries its own list of
+#                        entries: only entries of the type named in `only` are kept
 
 [settings]
 max_age_days = 3        # ignore anything older than this
@@ -134,6 +136,33 @@ url = "https://www.together.ai/blog/rss.xml"
 name = "Replicate"
 kind = "primary"
 url = "https://replicate.com/blog/rss"
+
+# Independent evaluators. They publish their own benchmark results, so they are primary sources.
+# Added on 12 October 2026: Vals AI's agent-teams study was posted on 9 October and reached us two days later
+# through the press.
+
+[[feed]]
+name = "Vals AI"
+kind = "primary"
+url = "https://www.vals.ai/blogs/rss.xml"
+
+# Models and benchmarks Vals AI has newly evaluated. The page has no feed: it carries its own list.
+[[feed]]
+name = "Vals AI Updates"
+kind = "primary"
+type = "listing"
+only = "update"
+url = "https://www.vals.ai/updates"
+
+# Press articles Vals AI lists about its work. Each is credited to the outlet that wrote it. Some only mention
+# Vals AI in passing, so an article is kept only if its title matches the AI keywords.
+[[feed]]
+name = "Vals AI News"
+kind = "press"
+general = true
+type = "listing"
+only = "news"
+url = "https://www.vals.ai/news"
 
 # Product changes that are announced in a changelog and not in a news post.
 

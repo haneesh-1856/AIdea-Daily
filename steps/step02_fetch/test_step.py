@@ -42,7 +42,21 @@ kind = "primary"
 type = "sitemap"
 url = "https://quiet.example/sitemap.xml"
 path_prefix = "/news/"
+
+[[feed]]
+name = "Bench Updates"
+kind = "primary"
+type = "listing"
+only = "update"
+url = "https://bench.example/updates"
 """
+LISTING = (
+    '<astro-island props="{&quot;articles&quot;:[1,[[0,{&quot;title&quot;:[0,&quot;Lab&#39;s Orion 4 evaluated&quot;],'
+    '&quot;source&quot;:[0,&quot;Bench&quot;],&quot;link&quot;:[0,&quot;/models/orion-4&quot;],&quot;type&quot;:[0,&quot;update&quot;],'
+    '&quot;date&quot;:[0,&quot;10/05/2026&quot;],&quot;heroImage&quot;:[0]}],[0,{&quot;title&quot;:[0,&quot;A paper wrote about us&quot;],'
+    '&quot;source&quot;:[0,&quot;Daily Press&quot;],&quot;link&quot;:[0,&quot;https://press.example/about-bench&quot;],'
+    '&quot;type&quot;:[0,&quot;news&quot;],&quot;date&quot;:[0,&quot;10/04/2026&quot;]}]]]}"></astro-island>'
+)
 
 
 def rss(*titles):
@@ -94,6 +108,7 @@ def web(monkeypatch):
             '<meta property="og:description" content="What launched">'
             '<meta property="article:published_time" content="2026-10-05T09:00:00Z">'
         ),
+        "https://bench.example/updates": Reply(LISTING),
         step.HN_SEARCH: Reply(
             data={"hits": [
                 {"objectID": "1", "title": "Show HN: an AI thing", "url": "https://hn.example/a", "created_at_i": 1791201600, "points": 120, "num_comments": 40},
@@ -133,7 +148,7 @@ def test_fetch_reads_every_source_and_marks_step_two_done(root, web):
     for entry in result.entries:
         by_source.setdefault(entry["source"], []).append(entry)
     assert {name: len(found) for name, found in by_source.items()} == {
-        "Lab Blog": 2, "Daily Press": 1, "Quiet Lab": 1, "Hacker News": 2,
+        "Lab Blog": 2, "Daily Press": 1, "Quiet Lab": 1, "Bench": 1, "Hacker News": 2,
     }
     assert by_source["Daily Press"][0]["general"] is True
     assert by_source["Lab Blog"][0]["general"] is False
@@ -158,6 +173,17 @@ def test_sitemap_reads_only_recent_pages_under_its_prefix(root, web):
     ]
 
 
+def test_a_listing_page_gives_its_entries_of_one_type_credited_to_the_outlet_it_names(root, web):
+    start(DAY, root=root, checks=[])
+    result = run(root)
+    entry = next(e for e in result.entries if e["source"] == "Bench")
+
+    assert (entry["title"], entry["url"]) == ("Lab's Orion 4 evaluated", "https://bench.example/models/orion-4")
+    assert entry["published_at"] == "2026-10-05T00:00:00+00:00" and entry["kind"] == "primary"
+    assert not any(e["title"] == "A paper wrote about us" for e in result.entries)  # another type of entry
+    assert health_rows(root)["Bench Updates"].entries == 1  # the source is recorded under its own name
+
+
 def test_hacker_news_keeps_points_and_falls_back_to_the_discussion_link(root, web):
     start(DAY, root=root, checks=[])
     linked, unlinked = [e for e in run(root).entries if e["source"] == "Hacker News"]
@@ -172,7 +198,7 @@ def test_a_failed_source_is_recorded_and_the_run_continues(root, web):
     start(DAY, root=root, checks=[])
     result = run(root)
 
-    assert {e["source"] for e in result.entries} == {"Quiet Lab", "Hacker News"}
+    assert {e["source"] for e in result.entries} == {"Quiet Lab", "Bench", "Hacker News"}
     rows = health_rows(root)
     assert (rows["Daily Press"].ok, rows["Daily Press"].error) == (False, "ConnectError: no route")
     assert rows["Lab Blog"].ok is False
