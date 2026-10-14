@@ -3,6 +3,18 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-14 · `2c6c9a7` · branch `voice-podcast-only-short-notes`
+
+**Add the plan to merge into main after two good runs to TODO.md**
+
+- The branch merges into `main` once the 2026-10-15 and 2026-10-16 runs work.
+
+## 2026-10-14 · `51bf653` · branch `voice-podcast-only-short-notes`
+
+**Add a changelog of every commit**
+
+- This file.
+
 ## 2026-10-14 · `e41304d` · branch `voice-podcast-only-short-notes`
 
 **Voice only the podcast, add short show notes, add a TODO list**
