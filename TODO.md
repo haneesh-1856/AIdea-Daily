@@ -2,6 +2,12 @@
 
 Things to fix later. Tick them off as they are done.
 
+## Merge the branch `voice-podcast-only-short-notes` into `main`
+
+- [ ] Run on 2026-10-15 works: `episode.mp3`, `podcast-episode.mp3`, `duo-script.md`, but no `duo-episode.mp3`, plus `show-notes-short.md` under 4,000 characters as the host counts it.
+- [ ] Run on 2026-10-16 works the same way.
+- [ ] Then merge: `git checkout main` and `git merge voice-podcast-only-short-notes`, and add the merge to `CHANGELOG.md`.
+
 ## Voice: words read wrongly (found 2026-10-14 by checking the episodes against their scripts)
 
 - [ ] **"3M" read as "3 million".** "The jury ordered 3M to pay $61.5m" was said as "3 million to pay...".
