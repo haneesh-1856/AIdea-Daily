@@ -34,6 +34,12 @@ def wanted(settings: dict) -> list[str]:
     return [name for name in FORMATS if chosen.get(name)]
 
 
+def voiced(settings: dict) -> list[str]:
+    """The formats switched on that step 10 also speaks. A run started before `speak` existed speaks them all."""
+    speak = (settings.get("formats") or {}).get("speak")
+    return [name for name in wanted(settings) if speak is None or name in speak]
+
+
 def begin(conn: Connection, run_id: int, name: str) -> None:
     if name not in scripts_of(conn, run_id):
         conn.execute(format_scripts.insert().values(run_id=run_id, format=name))

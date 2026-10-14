@@ -3,6 +3,7 @@
 The script itself is written by step 9, the moment it is final. The functions that lay it out are here because
 all three pages are built from the same gathered content."""
 
+import re
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -21,6 +22,9 @@ STEP = 11
 VOICE_STEP = 10
 KINDS = {"new": "new story", "update": "update", "correction": "correction"}
 NOTHING_TODAY = "No story met the bar today."
+# The short show notes fit the podcast host's 4,000-character limit, counted the host's way, with some to spare.
+SHORT_LIMIT = 3800
+TOP_LINKED = 5  # stories that get a link in the short show notes, if they fit
 
 
 class AssembleError(Exception):
@@ -156,6 +160,51 @@ def notes_page(day: date, told: list[Told]) -> list[str]:
     return lines
 
 
+def host_length(text: str) -> int:
+    """The length as the podcast host counts it: it stores the notes as HTML, so a line break costs 7 characters
+    and a link about twice its address plus 70. Measured on 14 October 2026: 3,559 characters counted as 7,700."""
+    links = re.findall(r"https?://\S+", text)
+    return len(text) + 6 * text.count("\n") + sum(len(link) + 70 for link in links)
+
+
+def short_notes_page(day: date, episode, told: list[Told], linking: dict, show: str) -> str:
+    """Plain text for the podcast host, under SHORT_LIMIT: the top stories with a headline and one link each, the
+    rest by title, and the credits. Plain text, because the host shows Markdown as it is typed."""
+    shown = [story for story in told if story.entry.form in ("full", "brief")]
+
+    def titled(story) -> str:
+        return story.entry.title + (" (unconfirmed)" if story.entry.label == "rumour" else "")
+
+    def page(linked: int, listed: int) -> str:
+        lines = [f"{show}, {day:%A} {long_date(day)}."]
+        if episode.status == "held":
+            lines += ["", "HELD: too many sentences failed the check against the sources. Read review.md before using this."]
+        if not shown:
+            return "\n".join(lines + ["", NOTHING_TODAY]) + "\n"
+        top, rest = shown[:linked], shown[linked:]
+        if top:
+            lines += ["", "TOP STORIES"]
+            lines += [f"{story.text['headline'] or titled(story)} {story.sources[0].url}" if story.sources else titled(story) for story in top]
+        if rest:
+            more = len(rest) - listed
+            lines += ["", "ALSO IN THIS EPISODE" if top else "IN THIS EPISODE",
+                      " · ".join(titled(story) for story in rest[:listed]) + (f" · and {more} more" if more > 0 else "")]
+        if linking.get("credits"):
+            # Only the outlets: the spoken credits go on to point at the show notes and say thanks.
+            lines += ["", linking["credits"].split(". ")[0].rstrip(".") + "."]
+        return "\n".join(lines) + "\n"
+
+    linked, listed = min(TOP_LINKED, len(shown)), len(shown)
+    text = page(linked, listed)
+    while host_length(text) > SHORT_LIMIT and linked > 0:  # links cost the most, so they go first
+        linked -= 1
+        text = page(linked, listed)
+    while host_length(text) > SHORT_LIMIT and listed > 0:
+        listed -= 1
+        text = page(linked, listed)
+    return text
+
+
 def join_clips(found: list, target: Path) -> float:
     """Join the spoken clips in order, with the pause each one asks for, into one MP3. Returns its length in seconds."""
     pieces, rate = [], None
@@ -187,14 +236,15 @@ def assemble(run_date: date, *, root: Path = ROOT) -> AssembleResult:
             runlog.begin_step(conn, run.id, STEP)
 
             episode = episodes.get(conn, run.id)
-            told, _ = gather(conn, run.id)
+            told, linking = gather(conn, run.id)
             pages = {
                 "newsletter.md": newsletter_page(run.run_date, episode, told),
                 "show-notes.md": notes_page(run.run_date, told),
             }
             for name, lines in pages.items():
                 (folder / name).write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
-
+            show = (run.settings.get("formats") or {}).get("show_name") or "AI news"
+            (folder / "show-notes-short.md").write_text(short_notes_page(run.run_date, episode, told, linking, show), encoding="utf-8")
             # The audio: the clips from step 10, joined. The clips are deleted once the episode file exists.
             spoken_clips = [clip for clip in clips.of_run(conn, run.id) if Path(clip.file).exists()]
             audio = ""
@@ -224,7 +274,7 @@ def assemble(run_date: date, *, root: Path = ROOT) -> AssembleResult:
         "Both are built by template from the sentences that passed step 9, the same ones the script holds. Nothing is added and nothing is reordered.",
         "",
         f"- `{folder / 'script.md'}` (written by step 9)",
-        *(f"- `{folder / name}`" for name in pages),
+        *(f"- `{folder / name}`" for name in (*pages, "show-notes-short.md")),
         "",
         f"- `{folder / 'episode.mp3'}`" if audio else "No episode audio: step 10 did not speak this run.",
         *(f"- `{folder / about['audio']}`" for about in formats.FORMATS.values() if any(about["name"] + " episode" in one for one in longer)),

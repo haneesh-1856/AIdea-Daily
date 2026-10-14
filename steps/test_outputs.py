@@ -2,6 +2,7 @@
 
 from datetime import datetime, timedelta, timezone
 from email.utils import format_datetime
+from types import SimpleNamespace
 
 import httpx
 import pytest
@@ -15,7 +16,7 @@ from steps.step06_select.step import select
 from steps.step07_plan.step import plan
 from steps.step08_write.step import write
 from steps.step09_check_fit.step import check_fit
-from steps.step11_assemble.step import AssembleError, assemble
+from steps.step11_assemble.step import SHORT_LIMIT, AssembleError, Told, assemble, host_length, short_notes_page
 from steps.step12_package.step import PackageError, package
 from steps.testkit import DAY, NOW, STORY, edit_settings, fake_web, grouped, item, link_of, make_root, rater, rows, writer
 
@@ -106,6 +107,37 @@ def test_a_story_left_out_for_length_still_appears_in_the_newsletter_and_notes_b
     review = page(package(DAY, root=root), "review.md")
     assert "- **Lost story**: its sources describe different events" in review
     assert f"- **Squeezed story**: {episodes.NO_ROOM}" in review
+
+
+def told(number, label="reported", url_length=60):
+    entry = SimpleNamespace(form="full", title=f"Story {number} has a fairly long title, as many do", label=label, kind="new")
+    source = SimpleNamespace(source="Press A", title="A thing", url="https://press.example/" + "a" * url_length + str(number))
+    return Told(entry, [source], {"headline": f"Headline of story {number}."})
+
+
+CREDITS = {"credits": "Today's stories came from Lab and Press A. Links to every source are in the show notes. Thanks for listening today."}
+
+
+def test_the_short_show_notes_link_the_top_stories_and_list_the_rest():
+    stories = [told(number, label="rumour" if number == 7 else "reported") for number in range(1, 9)]
+    text = short_notes_page(DAY, SimpleNamespace(status="ready"), stories, CREDITS, "AIdea Daily")
+
+    assert text.startswith("AIdea Daily, Tuesday 6 October 2026.\n\nTOP STORIES\nHeadline of story 1. https://press.example/")
+    assert text.count("https://") == 5 and "Headline of story 5." in text and "Headline of story 6." not in text
+    assert "ALSO IN THIS EPISODE\nStory 6 has a fairly long title, as many do · Story 7 has a fairly long title, as many do (unconfirmed) · " in text
+    assert text.rstrip().endswith("Today's stories came from Lab and Press A.")
+    assert "#" not in text and "](" not in text  # plain text, not Markdown
+
+
+def test_the_short_show_notes_stay_under_the_hosts_limit_on_a_long_day():
+    stories = [told(number, url_length=150) for number in range(1, 121)]
+    text = short_notes_page(DAY, SimpleNamespace(status="ready"), stories, CREDITS, "AIdea Daily")
+
+    assert host_length(text) <= SHORT_LIMIT
+    # Links went first, then titles from the end.
+    assert "https://" not in text and "IN THIS EPISODE\nStory 1 has" in text and "Story 120 has" not in text and " more\n" in text
+    # The host's counting, measured on 14 October 2026: a line break is 7 characters and a link far more than its address.
+    assert host_length("a\nb") == 9 and host_length("https://x.example") > 2 * len("https://x.example")
 
 
 def test_the_review_sheet_records_the_run_and_gives_it_its_final_status(root):
@@ -218,7 +250,7 @@ def test_the_whole_day_runs_from_sources_to_package_and_a_second_run_does_nothin
     assert runner.run_day(NOW.date(), root=world, out=said.append, checks=[], ask=fake, embed=embed) is True
 
     folder = world / "out" / "2026-10-06"
-    assert sorted(path.name for path in folder.iterdir()) == ["newsletter.md", "review.md", "scoring.md", "script.md", "show-notes.md"]
+    assert sorted(path.name for path in folder.iterdir()) == ["newsletter.md", "review.md", "scoring.md", "script.md", "show-notes-short.md", "show-notes.md"]
     script = (folder / "script.md").read_text(encoding="utf-8")
     assert "Lab shipped Orion 4. It has 12 billion parameters." in script and "Lab opened an office in Paris." in script
     assert [line.split(":")[0] for line in said[:12]] == [
