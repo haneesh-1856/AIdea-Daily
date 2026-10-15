@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-15 · `220a54f` · `main`, and `fe6a4e0` · branch `voice-podcast-only-short-notes`
+
+**Say the show's name as "Aidea", not "AI-dea"**
+
+- A `[voice.say]` entry in `settings.toml`. The voice had split AIdea at the capital, as it does OpenAI.
+- Committed to `main` and brought onto the branch, so the 2026-10-15 test run already uses it.
+
 ## 2026-10-14 · `2c6c9a7` · branch `voice-podcast-only-short-notes`
 
 **Add the plan to merge into main after two good runs to TODO.md**
