@@ -3,6 +3,14 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-16 · `2369c18` · `main`
+
+**Merge `voice-podcast-only-short-notes` into `main`**
+
+- Brings the `speak` setting, `show-notes-short.md`, `TODO.md` and this changelog to `main`.
+- Both test runs passed: 2026-10-15 and 2026-10-16 each made `episode.mp3`, `podcast-episode.mp3` and `duo-script.md`, no `duo-episode.mp3`, and short show notes of 2,830 and 2,580 characters.
+- `TODO.md`: the merge items are ticked off.
+
 ## 2026-10-15 · `220a54f` · `main`, and `fe6a4e0` · branch `voice-podcast-only-short-notes`
 
 **Say the show's name as "Aidea", not "AI-dea"**

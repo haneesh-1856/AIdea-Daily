@@ -4,9 +4,10 @@ Things to fix later. Tick them off as they are done.
 
 ## Merge the branch `voice-podcast-only-short-notes` into `main`
 
-- [ ] Run on 2026-10-15 works: `episode.mp3`, `podcast-episode.mp3`, `duo-script.md`, but no `duo-episode.mp3`, plus `show-notes-short.md` under 4,000 characters as the host counts it.
-- [ ] Run on 2026-10-16 works the same way.
-- [ ] Then merge: `git checkout main` and `git merge voice-podcast-only-short-notes`, and add the merge to `CHANGELOG.md`.
+- [x] Run on 2026-10-15 works: `episode.mp3`, `podcast-episode.mp3`, `duo-script.md`, but no `duo-episode.mp3`, plus `show-notes-short.md` under 4,000 characters as the host counts it.
+- [x] Run on 2026-10-16 works the same way.
+- [x] Then merge: `git checkout main` and `git merge voice-podcast-only-short-notes`, and add the merge to `CHANGELOG.md`.
+- Merged on 2026-10-16 as `2369c18`. Both runs passed; their show notes were 2,830 and 2,580 characters.
 
 ## Voice: words read wrongly (found 2026-10-14 by checking the episodes against their scripts)
 
