@@ -41,6 +41,9 @@ def root(tmp_path, monkeypatch):
     for key in ("podcast", "duo"):
         edit_settings(made, f"{key} = false", f"{key} = true")
     edit_settings(made, "enabled = false", "enabled = true")
+    # Both are spoken, whichever the real settings speak.
+    speak = re.search(r"^speak = .*$", (made / "settings.toml").read_text(encoding="utf-8"), flags=re.MULTILINE).group()
+    edit_settings(made, speak, 'speak = ["podcast", "duo"]')
     (made / "voice").mkdir()
     for name in ("reference.wav", "reference-demo-voice.wav"):
         soundfile.write(made / "voice" / name, numpy.zeros(RATE, dtype="float32"), RATE)
@@ -253,6 +256,17 @@ def test_a_missing_reference_recording_leaves_that_episode_unspoken_and_says_so(
     names = {file.name for file in result.folder.iterdir()}
     assert {"episode.mp3", "podcast-episode.mp3", "duo-script.md"} <= names and "duo-episode.mp3" not in names
     assert "No audio: not spoken: the reference recording is missing" in (result.folder / "review.md").read_text(encoding="utf-8")
+
+
+def test_a_format_left_out_of_speak_gets_its_script_but_no_audio(root):
+    edit_settings(root, 'speak = ["podcast", "duo"]', 'speak = ["podcast"]')
+    speak = Voice()
+    result = whole_day(root, Talker(), speak)
+
+    names = {file.name for file in result.folder.iterdir()}
+    assert {"episode.mp3", "podcast-script.md", "podcast-episode.mp3", "duo-script.md"} <= names and "duo-episode.mp3" not in names
+    assert not any(one["text"].startswith("[surprised]") for call in speak.calls for one in call)  # no host line was spoken
+    assert "No audio: not spoken: left out of `speak`" in (result.folder / "review.md").read_text(encoding="utf-8")
 
 
 def test_repeating_the_voice_step_speaks_nothing_twice(root):

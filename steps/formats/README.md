@@ -29,6 +29,6 @@ They are not steps of their own. Each of steps 8 to 12 does its part for them af
 
 ## Settings
 
-Under `[formats]` in `settings.toml`: switch each format on or off, the show's name, the length to aim for, the reference voice of each speaker, and the pauses. A run started before a format was switched on does not make it.
+Under `[formats]` in `settings.toml`: switch each format on or off, which of them step 10 speaks (`speak`; one left out gets its script but no audio), the show's name, the length to aim for, the reference voice of each speaker, and the pauses. A run started before a format was switched on does not make it.
 
 Use only voices you have the right to use. `voice/two_voice_test.py` is the earlier hand-run test and is not part of the run.

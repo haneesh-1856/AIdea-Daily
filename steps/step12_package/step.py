@@ -69,7 +69,7 @@ def package(run_date: date, *, root: Path = ROOT) -> PackageResult:
         f"The package is {'HELD: read the review sheet first' if episode.status == 'held' else 'ready for your review'}.",
         "",
         f"- Folder: `{folder}`",
-        "- Files: " + ("`episode.mp3`, " if episode.audio_seconds else "") + "`script.md`, `newsletter.md`, `show-notes.md`, `review.md`, `scoring.md`"
+        "- Files: " + ("`episode.mp3`, " if episode.audio_seconds else "") + "`script.md`, `newsletter.md`, `show-notes.md`, `show-notes-short.md`, `review.md`, `scoring.md`"
         + "".join(f", `{about[kind]}`" for about in formats.FORMATS.values() for kind in ("script", "audio") if (folder / about[kind]).exists() and longer),
         f"- Model cost for the run: ${spent[3]:.4f}",
         "",
@@ -107,6 +107,7 @@ def _review_lines(run, episode, told: list, log: list, failed_sources: list, spe
         "- `script.md`: the podcast script, checked and fitted to length",
         "- `newsletter.md`: the same stories for reading",
         "- `show-notes.md`: every story's links and confidence label",
+        "- `show-notes-short.md`: plain text under the podcast host's 4,000-character limit, to paste in as it is",
         "",
         f"## Stories ({len(shown)} in the episode, {episode.words} words of a cap of {episode.word_cap})",
         "",

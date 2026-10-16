@@ -49,6 +49,11 @@ def voice_formats(engine, root: Path, run, voice: dict, speak, folder: Path) -> 
             segments = formats.segments_of(conn, run.id, name)
         if row is None or not formats.written(segments):
             continue
+        if name not in formats.voiced(run.settings):
+            with engine.begin() as conn:
+                formats.update(conn, run.id, name, note="not spoken: left out of `speak` under [formats] in the settings")
+            said.append(f"{about['name']} script only")
+            continue
         chosen = run.settings["formats"]
         pieces = prepared(root, name, segments, chosen, voice.get("say"))
         missing = sorted({piece["reference"] for piece in pieces if not Path(piece["reference"]).exists()})

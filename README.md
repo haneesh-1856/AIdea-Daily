@@ -20,6 +20,7 @@ Each step prints one line saying what it did and writes a report to `runs/<date>
 | `script.md` | The podcast script, checked and fitted to the length cap |
 | `newsletter.md` | The same stories for reading |
 | `show-notes.md` | Every story's links and confidence label |
+| `show-notes-short.md` | Plain-text show notes under the podcast host's 4,000-character limit: top stories with a link, the rest by title |
 | `review.md` | Start here: status, suggested title, what the check removed, failures, cost |
 | `podcast-script.md`, `podcast-episode.mp3` | A longer, conversational episode for one presenter, from the same stories |
 | `duo-script.md`, `duo-episode.mp3` | The same as a conversation between a host and a guest |

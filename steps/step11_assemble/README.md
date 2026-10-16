@@ -5,7 +5,7 @@ Builds the newsletter and the show notes from the same checked content as the sc
 ## What it does
 
 1. Takes the sentences that passed step 9, in the outline's order.
-2. Fills two templates and writes them to `out/<date>/`: `newsletter.md` and `show-notes.md`. The script, `script.md`, is already there: step 9 writes it the moment it is final.
+2. Fills two templates and writes them to `out/<date>/`: `newsletter.md` and `show-notes.md`. It also writes `show-notes-short.md`: plain text that stays under the podcast host's 4,000-character limit as the host counts it (each line break costs 7, each link about twice its address plus 70). The top five stories get their headline and one link; the rest are listed by title; the spoken credits close it. If it is too long, links go first, then titles from the end. The script, `script.md`, is already there: step 9 writes it the moment it is final.
 3. Records step 10, voice, as passed over.
 
 ## Rules
