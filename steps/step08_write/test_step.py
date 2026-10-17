@@ -48,13 +48,22 @@ def test_a_story_is_written_stored_and_laid_out_one_sentence_per_line(root, monk
         ("title", "launch", "launch."),
         ("what", "launch", "Lab shipped a thing."),
         ("what", "launch", "It is available now."),
-        ("how", "launch", "Coverage broadly agrees."),
+        ("how", "launch", "Press B disagrees."),
         ("brief", "launch", "Lab shipped a thing."),
         ("closing", None, "That is all for today."),
     ]
     summary, = rows(root, db.summaries, run_id=result.run_id)
     assert (summary.flag, summary.what_happened) == (None, "Lab shipped a thing. It is available now.")
     assert [(call.purpose, call.step, call.cost) for call in rows(root, db.model_calls, step=8)] == [("story", 8, 0.002), ("linking", 8, 0.002)]
+
+
+def test_coverage_broadly_agrees_is_not_put_in_the_script(root, monkeypatch):
+    fake_web(monkeypatch, {link_of("Lab", "launch"): article("Lab released Orion 4 with 12 billion parameters.", FILLER, MORE)})
+    grouped(root, {"launch": STRONG})
+    planned(root)
+    result = write(DAY, root=root, ask=writer({"launch": {**STORY, "how_sources_see_it": "Coverage broadly agrees."}}))
+
+    assert [part for part, _, _ in script_of(root, result.run_id)] == ["opening", "opening", "headline", "title", "what", "what", "brief", "closing"]
 
 
 def test_the_model_is_given_the_rules_the_label_and_each_sources_text(root, monkeypatch):

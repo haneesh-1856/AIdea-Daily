@@ -14,12 +14,23 @@ Things to fix later. Tick them off as they are done.
 - [ ] **"3M" read as "3 million".** "The jury ordered 3M to pay $61.5m" was said as "3 million to pay...".
   The `\d+[KMBT]` rule in `spoken()` (`steps/step10_voice/step.py`) turns the company name into a number.
   Simplest fix: add `"3M" = "three M"` under `[voice.say]` in `settings.toml`.
-- [ ] **Comma swallowed after a dollar amount.** "Premium at $30, Super at $100" was said as
+  The `$` rule no longer turns "$3M" into "$three M" when that entry is added, but "3M tokens" would then be
+  said "three M tokens", so it is still open.
+- [x] **Comma swallowed after a dollar amount.** "Premium at $30, Super at $100" was said as
   "30, dollars Super". The `$` rule in `spoken()` matches `[\d,]*`, so it takes the comma with the number.
-- [ ] **Dollar ranges.** "$8-9 million" is said as "8 dollars-9 million". It should be "8 to 9 million dollars".
-- [ ] **Sentence split after month abbreviations.** "Friday, Oct. 16" is split at "Oct.", so "16." is
+- [x] **Dollar ranges.** "$8-9 million" is said as "8 dollars-9 million". It should be "8 to 9 million dollars".
+- [x] **Sentence split after month abbreviations.** "Friday, Oct. 16" is split at "Oct.", so "16." is
   spoken as its own sentence after a pause. The splitter should not end a sentence after Jan., Feb., ... Dec.
-- [ ] Add tests for all four in `steps/step10_voice/test_step.py`.
+- [x] Add tests for the three fixed ones in `steps/step10_voice/test_step.py` and `common/test_facts.py`.
+
+## Voice: words read wrongly (found 2026-10-17, fixed the same day)
+
+- [x] "Claude" said as "Clod" or "Clog": `"Claude" = "Clawd"` under `[voice.say]`.
+- [x] Prices with cents garbled ("$2,599.99" came out as "2,599 tense palettes"): now "2,599 dollars and 99 cents"; "$504.00 USD" is "504 dollars".
+- [x] Model and port numbers garbled ("Flash 1017" said three different ways): a four-figure number that is not a year is said in pairs, "10 17".
+- [x] "Coverage broadly agrees." was said after 15 to 18 stories a day, also after single-source and unconfirmed ones. It is no longer put in the script.
+- [x] The same release picked twice (Beam on Hugging Face and Beam on Ollama): the final-list request now says to select only one.
+- [ ] Listen to the next episode for "Clawd", the cents and the paired numbers, since the voice model can still surprise.
 
 ## Voice: automatic check after each run (idea)
 

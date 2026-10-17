@@ -69,7 +69,7 @@ def test_a_script_built_from_its_sources_passes_whole(root):
         ("title", "launch", "launch.", "kept"),
         ("what", "launch", "Lab shipped Orion 4.", "kept"),
         ("what", "launch", "It has 12 billion parameters and costs $20 a month.", "kept"),
-        ("how", "launch", "Coverage broadly agrees.", "kept"),
+        ("how", "launch", "Press B disagrees.", "kept"),
         ("brief", "launch", "Lab shipped a thing.", "unused"),  # the full version is spoken, so the brief one is not
         ("closing", None, "That is all for today.", "kept"),
         # The episode ends with its sources and the thanks, made by code once it is known which stories are in it.

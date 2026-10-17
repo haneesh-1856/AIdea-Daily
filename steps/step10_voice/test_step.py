@@ -79,7 +79,7 @@ def test_every_spoken_line_becomes_a_clip_in_order_with_its_pause(root):
         "Lab ships Orion 4.",
         "Our top story today.", "launch.",
         "Lab shipped Orion 4.", "It costs 20 dollars a month, up 40 percent.",
-        "Coverage broadly agrees.",
+        "Press B disagrees.",
         "That is all for today.",
         "Today's stories came from Lab, Press A and Press B.", "Links to every source are in the show notes.", "Thanks for listening today.",
     ]]
@@ -109,9 +109,22 @@ def test_every_spoken_line_becomes_a_clip_in_order_with_its_pause(root):
     ("Reflection Beam - 501B-A23B American Open Model", "Reflection Beam - 501 billion A23B American Open Model"),
     ("[AINews] Research & policy, ~5 minutes.", "AINews Research and policy, about 5 minutes."),
     ("GPT-5.5 and Mistral Large 4 on 6 October 2026.", "GPT-5.5 and Mistral Large 4 on 6 October 2026."),
+    # The comma after an amount stays a comma, ranges are "to", and cents are said as cents.
+    ("Premium at $30, Super at $100.", "Premium at 30 dollars, Super at 100 dollars."),
+    ("It raised $8-9 million, or $1.5–2B.", "It raised 8 to 9 million dollars, or 1.5 to 2 billion dollars."),
+    ("From $3,199.99 to $6,999.99, and $2,599.99.", "From 3,199 dollars and 99 cents to 6,999 dollars and 99 cents, and 2,599 dollars and 99 cents."),
+    ("He was charged $504.00 USD for $5.04 and $1.5 billion.", "He was charged 504 dollars for 5 dollars and 4 cents and 1.5 billion dollars."),
+    # A four-figure code is said in pairs; years, round hundreds, amounts and decimals are not.
+    ("Flash 1017 on port 8081 with an RTX 4060 and model 1005.", "Flash 10 17 on port 80 81 with an RTX 40 60 and model 10 oh 5."),
+    ("In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and 1,600 logs.", "In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and 1,600 logs."),
 ])
 def test_figures_and_symbols_are_written_the_way_they_are_said(written, said):
     assert spoken(written) == said
+
+
+def test_a_word_to_say_differently_is_not_changed_inside_an_amount():
+    say = {"Claude": "Clawd", "3M": "three M"}
+    assert spoken("Claude's maker and 3M paid $3M.", say) == "Clawd's maker and three M paid 3 million dollars."
 
 
 @pytest.mark.parametrize("sentence, pieces", [

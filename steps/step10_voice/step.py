@@ -27,6 +27,9 @@ Speak = Callable[[list[dict], dict, Path], dict]
 
 SCALES = {"k": "thousand", "m": "million", "b": "billion", "t": "trillion"}
 SIZES = {"K": "kilobytes", "M": "megabytes", "G": "gigabytes", "T": "terabytes"}
+# A whole number as written: 1,600 or 1600, but not the comma after "$30," that only ends a phrase.
+WHOLE = r"\d{1,3}(?:,\d{3})+|\d+"
+AMOUNT = rf"(?:{WHOLE})(?:\.\d+)?"
 
 
 class VoiceError(Exception):
@@ -46,13 +49,29 @@ class VoiceResult:
 def spoken(text: str, say: dict[str, str] | None = None) -> str:
     """The sentence as it should be said aloud. This changes how the text is spoken, never what it says."""
     for written, said in (say or {}).items():
-        text = re.sub(rf"(?<![\w-]){re.escape(written)}(?![\w-])", said, text)
+        text = re.sub(rf"(?<![\w$-]){re.escape(written)}(?![\w-])", said, text)
+    # $8-9 million -> 8 to 9 million dollars, not "8 dollars-9 million"
+    text = re.sub(
+        rf"\$({AMOUNT})\s*[-–]\s*\$?({AMOUNT})(?:\s*(thousand|million|billion|trillion)\b|([KkMmBbTt])\b)?",
+        lambda m: f"{m.group(1)} to {m.group(2)} {m.group(3) or SCALES.get((m.group(4) or '').lower(), '')} dollars".replace("  ", " "),
+        text,
+    )
     # $300 million, $4B, $20 -> 300 million dollars, 4 billion dollars, 20 dollars
     # Before a noun it is "dollar": "a 1.8 billion dollar push". That is the case after a, the, its or a possessive.
+    # A price in cents is said with them: $2,599.99 -> 2,599 dollars and 99 cents; $504.00 -> 504 dollars.
+    def dollars(m: re.Match) -> str:
+        whole, cents, scale = m.group(2), m.group(3), m.group(4) or SCALES.get((m.group(5) or "").lower(), "")
+        unit = "dollar" if m.group(1) else "dollars"
+        if scale:
+            return (m.group(1) or "") + f"{whole}{'.' + cents if cents else ''} {scale} {unit}"
+        if cents and len(cents) == 2:
+            return (m.group(1) or "") + f"{whole} {unit}" + (f" and {int(cents)} cents" if int(cents) else "")
+        return (m.group(1) or "") + f"{whole}{'.' + cents if cents else ''} {unit}"
+
     text = re.sub(
-        r"(\b(?i:an?|the|its|his|her|their|our)\s+|['’]s\s+)?\$(\d[\d,]*(?:\.\d+)?)(?:\s*(thousand|million|billion|trillion)\b|([KkMmBbTt])\b)?",
-        lambda m: (m.group(1) or "")
-        + f"{m.group(2)} {m.group(3) or SCALES.get((m.group(4) or '').lower(), '')} {'dollar' if m.group(1) else 'dollars'}".replace("  ", " "),
+        rf"(\b(?i:an?|the|its|his|her|their|our)\s+|['’]s\s+)?\$({WHOLE})(?:\.(\d+))?"
+        r"(?:\s*(thousand|million|billion|trillion)\b|([KkMmBbTt])\b)?(?:\s+USD\b)?",
+        dollars,
         text,
     )
     # 501B, 270M, 1T, 8K -> 501 billion, 270 million, 1 trillion, 8 thousand
@@ -67,6 +86,14 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     # V4.1, v1.1, DSv4 -> version 4.1, version 1.1, DS version 4
     text = re.sub(r"(?<![A-Za-z])[vV](\d+(?:\.\d+)*)\b", r"version \1", text)
     text = re.sub(r"(?<=[A-Z])v(\d+(?:\.\d+)*)\b", r" version \1", text)
+    # A four-figure number without a comma that is not a year is a code: model 1017, port 8081, RTX 4060. The voice
+    # garbled "Flash 1017" three different ways; in pairs it is said the way people say it, "ten seventeen".
+    text = re.sub(
+        r"(?<![\d.,/:$])\b([1-9]\d)(\d\d)\b(?![.,]\d)(?!\s+(?:dollars?|percent|times)\b)",
+        lambda m: m.group() if m.group(1) in ("19", "20") or m.group(2) == "00"
+        else f"{m.group(1)} {'oh ' + m.group(2)[1] if m.group(2)[0] == '0' else m.group(2)}",
+        text,
+    )
     text = text.replace(" & ", " and ").replace("~", "about ")
     text = re.sub(r"[\[\]]", "", text)
     text = re.sub(r"[A-Za-z]+", lambda m: spaced(m.group()), text)

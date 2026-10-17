@@ -246,7 +246,11 @@ def _script_lines(written: list, have: dict, material: dict, linking: dict) -> l
         summary = have[entry.story_id]
         lines.append({"part": "title", "story_id": entry.story_id, "text": spoken_title(entry.title)})
         lines += [{"part": "intro", "story_id": entry.story_id, "text": text} for text in sentences(intro(entry.kind, entry.label, entry.first_seen))]
-        for part, text in (("what", summary.what_happened), ("how", summary.differences), ("brief", summary.brief)):
+        # "Coverage broadly agrees." is what the writer says when there is nothing to compare, also for a story with
+        # one source. Said after nearly every story it was the episode's most repeated line, and wrong for a single
+        # source, so it is left out of the script; the story's what happened stands on its own.
+        how = "" if summary.differences == "Coverage broadly agrees." else summary.differences
+        for part, text in (("what", summary.what_happened), ("how", how), ("brief", summary.brief)):
             lines += [{"part": part, "story_id": entry.story_id, "text": sentence} for sentence in sentences(text)]
     lines += [{"part": "watch", "text": text} for text in sentences(linking["watch_list"])]
     lines += [{"part": "closing", "text": text} for text in sentences(linking["closing"])]
