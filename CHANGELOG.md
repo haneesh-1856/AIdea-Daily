@@ -3,6 +3,17 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-17 · `39784cf` · `main`, from `b9d0622` · branch `video-prototype`
+
+**Fix voice misreadings and drop the repeated "Coverage broadly agrees."**
+
+- Found by checking the 2026-10-17 episode against its script with Whisper.
+- "Claude" is said "Clawd" (`[voice.say]`). Prices with cents are said with cents, and ".00" and a trailing "USD" are dropped. Four-figure codes are said in pairs ("10 17").
+- From `TODO.md`: the comma after a dollar amount stays a comma, ranges are "8 to 9 million dollars", and "Oct." no longer ends a sentence.
+- "Coverage broadly agrees." is left out of the script. It had followed 15 to 18 stories a day, including single-source ones.
+- The final-list request tells the editor to select only one post per release: Beam was picked twice on 2026-10-17.
+- Brought onto `main` on its own; the video prototype stays on its branch. 269 tests pass on `main`.
+
 ## 2026-10-16 · `2369c18` · `main`
 
 **Merge `voice-podcast-only-short-notes` into `main`**
