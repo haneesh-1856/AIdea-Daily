@@ -1,0 +1,8 @@
+node_modules/
+__pycache__/
+# Made from the day's run by align.py, fetch_images.py, image_prompts.py, make_images.py and build_timeline.py
+cache/
+public/
+src/timeline.json
+# The newer diffusers make_images.py loads (see its docstring)
+.image-deps/
