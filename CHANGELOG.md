@@ -3,6 +3,28 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-17 · `1028cd7` · branch `video-prototype`
+
+**Add the video prototype: an edited 1080p video from each day's episode**
+
+- A Remotion project in `video/`; `video/README.md` gives the commands in order.
+- Every shot starts where Whisper hears its first word, so the picture cannot fall behind the voice. Timing from the stored clip lengths had drifted almost 3 seconds by the end of 2026-10-16.
+- A music bed synthesised in code, about 20 dB under the voice.
+- Each story's lead image, skipping text cards and logos, plus two SDXL-Turbo illustrations per story, all with slow pan and zoom.
+- Number callouts leave out model names, versions and codes ("Flash 1017", "firmware 13.60", "port 8081").
+- Made for 2026-10-16 and 2026-10-17: `out/<day>/episode-video*.mp4`, not in git.
+
+## 2026-10-17 · `b9d0622` · branch `video-prototype`
+
+**Fix voice misreadings and drop the repeated "Coverage broadly agrees."**
+
+- Found by checking the 2026-10-17 episode against its script with Whisper.
+- "Claude" is said "Clawd" (`[voice.say]`). Prices with cents are said with cents, and ".00" and a trailing "USD" are dropped. Four-figure codes are said in pairs ("10 17").
+- From `TODO.md`: the comma after a dollar amount stays a comma, ranges are "8 to 9 million dollars", and "Oct." no longer ends a sentence.
+- "Coverage broadly agrees." is left out of the script. It had followed 15 to 18 stories a day, including single-source ones.
+- The final-list request tells the editor to select only one post per release: Beam was picked twice on 2026-10-17.
+- 269 tests pass.
+
 ## 2026-10-16 · `2369c18` · `main`
 
 **Merge `voice-podcast-only-short-notes` into `main`**
