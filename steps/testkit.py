@@ -149,7 +149,7 @@ STORY = {
     "different_events": False, "nothing_new": False, "note": "",
     "headline": "Lab ships a thing.",
     "what_happened": "Lab shipped a thing. It is available now.",
-    "how_sources_see_it": "Coverage broadly agrees.",
+    "how_sources_see_it": "Press B disagrees.",
     "brief": "Lab shipped a thing.",
 }
 LINKING = {"opening": "Good morning. Here is the AI news.", "watch_list": "", "closing": "That is all for today."}

@@ -17,8 +17,12 @@ def sentences(text: str | None) -> list[str]:
     parts = re.split(r"(?:(?<=[.!?])|(?<=[.!?][\"'”’)]))\s+(?=[\"'“‘(]?[A-Z0-9])", text.strip())
     merged: list[str] = []
     for part in parts:
-        # "the U.S. Senate" and "Dr. Lee" were split above; an ending like that is glued back to what follows.
-        if merged and re.search(r"(?:\b[A-Z]\.|\b(?:Mr|Mrs|Ms|Dr|St|vs|Inc|Ltd|Co|Corp|No)\.)$", merged[-1]):
+        # "the U.S. Senate", "Dr. Lee" and "Friday, Oct. 16" were split above; an ending like that is glued back to
+        # what follows.
+        if merged and re.search(
+            r"(?:\b[A-Z]\.|\b(?:Mr|Mrs|Ms|Dr|St|vs|Inc|Ltd|Co|Corp|No|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.)$",
+            merged[-1],
+        ):
             merged[-1] += " " + part
         else:
             merged.append(part)

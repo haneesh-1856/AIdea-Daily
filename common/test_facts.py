@@ -74,4 +74,5 @@ def test_text_is_split_into_sentences_without_breaking_numbers_or_initials():
     assert sentences('It said the model "resolved 100 problems." Then it stopped. He called it "huge" (twice.) Yes.') == [
         'It said the model "resolved 100 problems."', "Then it stopped.", 'He called it "huge" (twice.)', "Yes.",
     ]
+    assert sentences("It ships on Friday, Oct. 16. Sept. 3 was the beta.") == ["It ships on Friday, Oct. 16.", "Sept. 3 was the beta."]
     assert sentences("") == [] and sentences(None) == []

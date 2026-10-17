@@ -72,7 +72,9 @@ Scored candidates. Date: {day}
 Every candidate has now been scored (sections 5 and 6). Below are the candidates that were not marked SKIP, best \
 score first, each with its weighted score and action level. Now do sections 7 to 16: deduplicate, apply the \
 Immediate Action boost, use editorial judgment, and produce the final ranked list and the 3 to 5 strongest stories \
-that were not selected. Refer to each story by its number, and give its title copied exactly as given here."""
+that were not selected. Refer to each story by its number, and give its title copied exactly as given here.
+Never select two candidates about the same release, such as a model's launch post and a partner's post that it is \
+available there: they are one event, so select only the fuller one."""
 
 RECENT_NOTE = (
     "Already told in the episodes of the last few days. Select one of these again only when today's candidate adds "
