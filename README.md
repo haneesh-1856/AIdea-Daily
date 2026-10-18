@@ -1,6 +1,33 @@
-# AI news podcast
+# AIdea Daily: an automated AI news briefing
 
-Once a day this collects AI news from 41 sources, groups it into stories, ranks them, writes the chosen ones from their source articles, checks every sentence against those articles, and hands over a podcast script, a newsletter and show notes for you to review. Nothing is published automatically.
+Every morning at 5:00 this pipeline reads 43 AI news sources, decides which stories matter, writes them up from their source articles, checks every sentence against those articles, and voices the result as a podcast on a local GPU. A person reviews the package before anything is published.
+
+| | |
+| --- | --- |
+| Input | 43 RSS feeds and listing pages (`sources.toml`) |
+| Output | a narrated episode and its script, longer one- and two-presenter scripts, a newsletter, and show notes |
+| Models | Claude in 3 of the 12 steps (grouping judge, editor, writing); embeddings and speech run locally |
+| Cost | every model call is logged with tokens and dollars: $0.18 to $1.81 a day over ten runs in October 2026 |
+| Tests | 275, with a stand-in model, so the pipeline is tested without paying for calls |
+
+## How it works
+
+1. **Start, fetch, clean and store:** read every feed, keep new items, and store the articles in SQLite.
+2. **Group:** embed the items locally (`bge-small`). Merge items from different sources at 0.80 similarity or higher when they share a distinctive name; send only the uncertain pairs (0.74 to 0.80) to an LLM judge.
+3. **Score and select:** an LLM editor rates every story on weighted questions through a JSON schema. Stored ratings can be replayed to test a change to the weights.
+4. **Plan and write:** each story is written only from its source articles.
+5. **Check and fit:** code removes any sentence whose numbers or names do not appear in the sources, then fits the script to its length cap.
+6. **Voice, assemble and package:** Chatterbox speaks each sentence on the GPU, the clips are joined with pauses chosen by what comes next, and the day's folder is handed over with a review sheet.
+
+Every step writes its results before the next one starts, so a stopped run resumes where it stopped and never pays for a model call twice.
+
+## Things worth a look
+
+- **Grounding** (`steps/step09_check_fit`): writing is constrained, and checked in code, not just by prompt.
+- **Cost control:** paid calls in 3 of 12 steps, the judge sees borderline pairs only, and stories are rated in batches.
+- **Speech normalisation** (`spoken()` in `steps/step10_voice`): episodes were checked against their scripts with Whisper, and every misreading found (prices with cents, "$2,399" said "2,039", model names like "V4.1 Flash 1017") became a rule and a test.
+
+The rest of this file is the operator's manual.
 
 ## Run it
 
