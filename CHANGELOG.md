@@ -3,6 +3,16 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-18 · `38247a6` · branch `video-prototype`
+
+**Say cents, comma numbers and long model names the way people do**
+
+- Found by checking the 2026-10-18 episodes against their scripts with Whisper.
+- "$0.20" is "20 cents"; "dollar" only before a noun ("the 36,864 dollar bounty", but "the 2,399 dollars is").
+- A number with a comma is given to the voice in words: "2,399" was said "2,039" four times out of four.
+- "Deepseek-V4.1-Flash-1017" is said in parts; "Show HN", "Ep" and "ETH" have `[voice.say]` entries; a headline's "|" is a pause.
+- 275 tests pass.
+
 ## 2026-10-17 · `1028cd7` · branch `video-prototype`
 
 **Add the video prototype: an edited 1080p video from each day's episode**
