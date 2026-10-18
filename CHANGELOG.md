@@ -3,6 +3,20 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-18 · `fd93ee9` · `main`
+
+**Open the README with what the pipeline does and what is measured**
+
+- A short overview for readers new to the project: inputs, outputs, models, cost per day, tests, the six stages, and the parts worth reading.
+- The operator's manual follows unchanged, except the source count (43, not 41).
+
+## 2026-10-18 · `6e82b41` · `main`, from `38247a6` · branch `video-prototype`
+
+**Say cents, comma numbers and long model names the way people do**
+
+- "$0.20" is "20 cents"; "dollar" only before a noun; a number with a comma is given to the voice in words ("2,399" was said "2,039").
+- Hyphen-joined model names are said in parts; `[voice.say]` entries for "Show HN", "Ep" and "ETH". 275 tests pass.
+
 ## 2026-10-17 · `39784cf` · `main`, from `b9d0622` · branch `video-prototype`
 
 **Fix voice misreadings and drop the repeated "Coverage broadly agrees."**
