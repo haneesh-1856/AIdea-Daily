@@ -142,6 +142,9 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 # How to say a word the voice gets wrong: the word as written = the way to say it. Add to this as you hear mistakes.
 "AIdea" = "Aidea"         # the show's name is one word, not "AI-dea"
 "Claude" = "Clawd"        # said "Clod" or "Clog" on 2026-10-17, five times out of five
+"Show HN" = "Show H N"    # said "Shoei Gen" on 2026-10-18
+"Ep" = "Episode"          # "Ep 6" said "Ep 6th" on 2026-10-18
+"ETH" = "ether"           # said "8H" on 2026-10-18
 
 [formats]
 # Besides the regular briefing, each run can make two longer episodes from the same stories and sources.

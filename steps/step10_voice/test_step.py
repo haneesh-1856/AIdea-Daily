@@ -112,11 +112,17 @@ def test_every_spoken_line_becomes_a_clip_in_order_with_its_pause(root):
     # The comma after an amount stays a comma, ranges are "to", and cents are said as cents.
     ("Premium at $30, Super at $100.", "Premium at 30 dollars, Super at 100 dollars."),
     ("It raised $8-9 million, or $1.5–2B.", "It raised 8 to 9 million dollars, or 1.5 to 2 billion dollars."),
-    ("From $3,199.99 to $6,999.99, and $2,599.99.", "From 3,199 dollars and 99 cents to 6,999 dollars and 99 cents, and 2,599 dollars and 99 cents."),
+    ("From $3,199.99 to $6,999.99, and $2,599.99.", "From three thousand one hundred ninety-nine dollars and 99 cents to six thousand nine hundred ninety-nine dollars and 99 cents, and two thousand five hundred ninety-nine dollars and 99 cents."),
     ("He was charged $504.00 USD for $5.04 and $1.5 billion.", "He was charged 504 dollars for 5 dollars and 4 cents and 1.5 billion dollars."),
+    ("Under $0.20 per task, $0.01 a call, a $0.50 fee.", "Under 20 cents per task, 1 cent a call, a 50 cent fee."),
+    ("The $2,399 is a start; the $36,864 bounty.", "The two thousand three hundred ninety-nine dollars is a start; the thirty-six thousand eight hundred sixty-four dollar bounty."),
+    ("The 85 to $95,000 range, or 85 to $95,000.", "The 85 to ninety-five thousand dollar range, or 85 to ninety-five thousand dollars."),
     # A four-figure code is said in pairs; years, round hundreds, amounts and decimals are not.
+    ("Deepseek-V4.1-Flash-1017 and GPT-5.6 on 18-core state-of-the-art chips.", "Deepseek version 4.1 Flash 10 17 and GPT-5.6 on 18-core state-of-the-art chips."),
+    ("147,451 rows, 1,000,000 calls and 2.5 million.", "one hundred forty-seven thousand four hundred fifty-one rows, one million calls and 2.5 million."),
+    ("Black Box: The Chatbots | Ep 6 - podcast.", "Black Box: The Chatbots, Ep 6 - podcast."),
     ("Flash 1017 on port 8081 with an RTX 4060 and model 1005.", "Flash 10 17 on port 80 81 with an RTX 40 60 and model 10 oh 5."),
-    ("In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and 1,600 logs.", "In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and 1,600 logs."),
+    ("In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and 1,600 logs.", "In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and one thousand six hundred logs."),
 ])
 def test_figures_and_symbols_are_written_the_way_they_are_said(written, said):
     assert spoken(written) == said

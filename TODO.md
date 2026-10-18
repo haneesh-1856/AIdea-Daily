@@ -31,6 +31,19 @@ Things to fix later. Tick them off as they are done.
 - [x] "Coverage broadly agrees." was said after 15 to 18 stories a day, also after single-source and unconfirmed ones. It is no longer put in the script.
 - [x] The same release picked twice (Beam on Hugging Face and Beam on Ollama): the final-list request now says to select only one.
 - [ ] Listen to the next episode for "Clawd", the cents and the paired numbers, since the voice model can still surprise.
+  Checked with Whisper on 2026-10-18: the paired numbers work ("Flash 10 17"), the cents are said, and "Coverage
+  broadly agrees." is gone. "Clawd" is mixed: Whisper heard "Claude" or "Claud" five times, "Clod" four times and
+  "Clawed" once, so it needs a listen by ear.
+
+## Voice: words read wrongly (found 2026-10-18, fixed the same day)
+
+- [x] "$0.20" said "0 dollars and 20 cents": now "20 cents".
+- [x] "The $2,399 is" said "The 2,399 dollar is", and "the 85 to $95,000 range" said "95,000 dollars range": "dollar" is used only before a noun.
+- [x] "$2,399" said "2,039" or "2,099", four times out of four: a number with a comma is now given to the voice in words.
+- [x] "Deepseek-V4.1-Flash-1017" said "version 4.1.1 10 17": a name strung together with hyphens and digits is said in parts.
+- [x] "Show HN" said "Shoei Gen", "Ep 6" said "Ep 6th", "ETH" said "8H": `[voice.say]` entries. A headline's "|" is now a pause.
+- [ ] Once each, not fixed: "First up." heard as "First step.", "Lebanon" as "Mubenon", "what's new?" as "whunge new",
+  "The Decoder" as "The Dakota", "Masad" as "Masaag". The voice model slips like this now and then; listen for them again.
 
 ## Voice: automatic check after each run (idea)
 
