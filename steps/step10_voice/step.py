@@ -30,6 +30,10 @@ SIZES = {"K": "kilobytes", "M": "megabytes", "G": "gigabytes", "T": "terabytes"}
 # A whole number as written: 1,600 or 1600, but not the comma after "$30," that only ends a phrase.
 WHOLE = r"\d{1,3}(?:,\d{3})+|\d+"
 AMOUNT = rf"(?:{WHOLE})(?:\.\d+)?"
+# Words after "the $2,399" that show the amount is not standing before a noun, so it stays "dollars".
+NOT_NOUNS = {"a", "an", "and", "apiece", "are", "as", "at", "but", "by", "can", "could", "each", "for", "from", "had",
+             "has", "in", "into", "is", "it", "of", "on", "or", "over", "per", "that", "the", "to", "was", "were",
+             "which", "will", "with", "would"}
 
 
 class VoiceError(Exception):
@@ -50,6 +54,8 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     """The sentence as it should be said aloud. This changes how the text is spoken, never what it says."""
     for written, said in (say or {}).items():
         text = re.sub(rf"(?<![\w$-]){re.escape(written)}(?![\w-])", said, text)
+    # A name strung together with hyphens is said in parts: Deepseek-V4.1-Flash-1017 came out "version 4.1.1".
+    text = re.sub(r"\b[\w.]+(?:-[\w.]+){2,}", lambda m: m.group().replace("-", " ") if re.search(r"\d", m.group()) else m.group(), text)
     # $8-9 million -> 8 to 9 million dollars, not "8 dollars-9 million"
     text = re.sub(
         rf"\$({AMOUNT})\s*[-–]\s*\$?({AMOUNT})(?:\s*(thousand|million|billion|trillion)\b|([KkMmBbTt])\b)?",
@@ -57,19 +63,24 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
         text,
     )
     # $300 million, $4B, $20 -> 300 million dollars, 4 billion dollars, 20 dollars
-    # Before a noun it is "dollar": "a 1.8 billion dollar push". That is the case after a, the, its or a possessive.
-    # A price in cents is said with them: $2,599.99 -> 2,599 dollars and 99 cents; $504.00 -> 504 dollars.
+    # Before a noun it is "dollar": "a 1.8 billion dollar push", "the 85 to 95,000 dollar range". That is the case
+    # after a, the, its, a possessive or a range's "to", when a noun follows: "The $2,399 is" stays "dollars".
+    # A price in cents is said with them: $2,599.99 -> 2,599 dollars and 99 cents; $504.00 -> 504 dollars; $0.20 -> 20 cents.
     def dollars(m: re.Match) -> str:
         whole, cents, scale = m.group(2), m.group(3), m.group(4) or SCALES.get((m.group(5) or "").lower(), "")
-        unit = "dollar" if m.group(1) else "dollars"
+        after = re.match(r"\s+([a-z][a-z-]*)\b", m.string[m.end():])
+        before_noun = m.group(1) and after and after.group(1) not in NOT_NOUNS
+        unit = "dollar" if before_noun else "dollars"
         if scale:
             return (m.group(1) or "") + f"{whole}{'.' + cents if cents else ''} {scale} {unit}"
         if cents and len(cents) == 2:
+            if whole == "0" and int(cents):
+                return (m.group(1) or "") + f"{int(cents)} {'cent' if before_noun or cents == '01' else 'cents'}"
             return (m.group(1) or "") + f"{whole} {unit}" + (f" and {int(cents)} cents" if int(cents) else "")
         return (m.group(1) or "") + f"{whole}{'.' + cents if cents else ''} {unit}"
 
     text = re.sub(
-        rf"(\b(?i:an?|the|its|his|her|their|our)\s+|['’]s\s+)?\$({WHOLE})(?:\.(\d+))?"
+        rf"(\b(?i:an?|the|its|his|her|their|our)\s+|['’]s\s+|\d\s+to\s+)?\$({WHOLE})(?:\.(\d+))?"
         r"(?:\s*(thousand|million|billion|trillion)\b|([KkMmBbTt])\b)?(?:\s+USD\b)?",
         dollars,
         text,
@@ -94,10 +105,33 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
         else f"{m.group(1)} {'oh ' + m.group(2)[1] if m.group(2)[0] == '0' else m.group(2)}",
         text,
     )
+    # A number with a comma is said in words: the voice read "2,399" as "2,039" four times out of four on 2026-10-18.
+    text = re.sub(r"(?<![\d.,])\d{1,3}(?:,\d{3})+(?![\d,]|\.\d)", lambda m: in_words(int(m.group().replace(",", ""))), text)
+    # A headline's "|" between its parts is a pause.
+    text = re.sub(r"\s+\|\s+", ", ", text)
     text = text.replace(" & ", " and ").replace("~", "about ")
     text = re.sub(r"[\[\]]", "", text)
     text = re.sub(r"[A-Za-z]+", lambda m: spaced(m.group()), text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+ONES = ("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen "
+        "seventeen eighteen nineteen").split()
+TENS = "_ _ twenty thirty forty fifty sixty seventy eighty ninety".split()
+
+
+def in_words(n: int) -> str:
+    """2399 -> two thousand three hundred ninety-nine."""
+    if n < 20:
+        return ONES[n]
+    if n < 100:
+        return TENS[n // 10] + ("-" + ONES[n % 10] if n % 10 else "")
+    if n < 1000:
+        return ONES[n // 100] + " hundred" + (" " + in_words(n % 100) if n % 100 else "")
+    for size, name in ((10**12, "trillion"), (10**9, "billion"), (10**6, "million"), (1000, "thousand")):
+        if n >= size:
+            return in_words(n // size) + " " + name + (" " + in_words(n % size) if n % size else "")
+    raise ValueError(n)
 
 
 def spaced(word: str) -> str:
