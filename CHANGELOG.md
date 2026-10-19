@@ -3,6 +3,14 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-19 · `e3eca94`, `8623661` · `main`
+
+**Add Semafor as a source, and count it in the README**
+
+- `https://www.semafor.com/rss.xml`, press, general: only items matching the AI keywords are kept (10 of 46 over the three days to 19 October). robots.txt allows the article pages.
+- The same change as `54aef45` on `video-prototype`; the two run tests that count the real sources now expect 45 of 45 and 80 entries.
+- README: 44 sources.
+
 ## 2026-10-18 · `fd93ee9` · `main`
 
 **Open the README with what the pipeline does and what is measured**
