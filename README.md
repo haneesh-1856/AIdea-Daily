@@ -1,10 +1,10 @@
 # AIdea Daily: an automated AI news briefing
 
-Every morning at 5:00 this pipeline reads 43 AI news sources, decides which stories matter, writes them up from their source articles, checks every sentence against those articles, and voices the result as a podcast on a local GPU. A person reviews the package before anything is published.
+Every morning at 5:00 this pipeline reads 44 AI news sources, decides which stories matter, writes them up from their source articles, checks every sentence against those articles, and voices the result as a podcast on a local GPU. A person reviews the package before anything is published.
 
 | | |
 | --- | --- |
-| Input | 43 RSS feeds and listing pages (`sources.toml`) |
+| Input | 44 RSS feeds and listing pages (`sources.toml`) |
 | Output | a narrated episode and its script, longer one- and two-presenter scripts, a newsletter, and show notes |
 | Models | Claude in 3 of the 12 steps (grouping judge, editor, writing); embeddings and speech run locally |
 | Cost | every model call is logged with tokens and dollars: $0.18 to $1.81 a day over ten runs in October 2026 |
