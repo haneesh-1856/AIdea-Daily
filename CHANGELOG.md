@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-19 · `be449fa` · `main`
+
+**Keep only Semafor items whose title names AI**
+
+- The same change as `1d2e464` on `video-prototype`: a feed marked `strict = true` is matched on its title alone, and the words of `[settings] not_enough_alone` (model, agent, sonnet and others with everyday meanings) do not count on their own.
+- Semafor is strict: 33 of its 191 items pass, all about AI, against 41 the ordinary way, which let in a political candidate, a stock-market wrap and a car launch.
+
 ## 2026-10-19 · `e3eca94`, `8623661` · `main`
 
 **Add Semafor as a source, and count it in the README**
