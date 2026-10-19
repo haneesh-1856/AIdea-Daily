@@ -51,14 +51,20 @@ def clean_text(raw: str | None, limit: int | None = None) -> str | None:
     return re.sub(r"\s+", " ", text).strip()[:limit] or None
 
 
-def about_ai_pattern(collect: dict) -> re.Pattern:
+def about_ai_pattern(collect: dict, *, strict: bool = False) -> re.Pattern:
     """Matches a word or phrase that marks an entry as being about AI: the AI keywords, and the words of `also_keep`.
 
     A keyword may be followed by a hyphen or a digit, which the shared whole-word pattern does not allow: "GPT-6",
     "AI-generated" and "Qwen3" are about AI. On 7 to 9 October 2026 that rule dropped "AI-assisted proof of optimal
     packing for 11 squares" and three other Hacker News stories. A run started before `also_keep` existed has none.
+
+    The strict pattern, for a feed marked strict, leaves out the words of `not_enough_alone`: "model" and "agent" have
+    everyday meanings, and on 19 October 2026 "Tesla and Porsche unveil new models" came in from Semafor's feed.
     """
     phrases = [*collect["ai_keywords"], *collect.get("also_keep", [])]
+    if strict:
+        loose = {word.lower() for word in collect.get("not_enough_alone", [])}
+        phrases = [phrase for phrase in phrases if phrase.lower() not in loose]
     words = "|".join(re.escape(phrase) for phrase in sorted(phrases, key=len, reverse=True))
     return re.compile(rf"(?<![\w-])({words})(?![^\W\d])", re.IGNORECASE)
 
@@ -72,6 +78,7 @@ def clean(
     """
     cutoff = fetched_at - timedelta(days=collect["max_age_days"])
     keywords = about_ai_pattern(collect)
+    strict_keywords = about_ai_pattern(collect, strict=True)
     # A general entry that links to an article one of the AI sources published is about AI, whatever its title says.
     about_ai = source_links | {canonical_url(entry["url"]) for entry in entries if not entry["general"]}
     kept, tally = [], {}
@@ -88,7 +95,14 @@ def clean(
             continue
         summary = clean_text(entry.get("summary"), SUMMARY_LIMIT)
         link = canonical_url(entry["url"])
-        if entry["general"] and link not in about_ai and not keywords.search(f"{title} {summary or ''}"):
+        # A strict feed covers everything (Semafor: politics, war, business), and its summaries mention AI in
+        # passing ("These days he's using AI to expand his work"), so only its title is read. An entry stored
+        # before strict existed has no such field.
+        if entry.get("strict"):
+            on_topic = strict_keywords.search(title)
+        else:
+            on_topic = keywords.search(f"{title} {summary or ''}")
+        if entry["general"] and link not in about_ai and not on_topic:
             counts["off_topic"] += 1
             continue
         counts["kept"] += 1
@@ -155,7 +169,8 @@ def _report_lines(run_date: date, collect: dict, summary: str, tally: dict, tota
         f"{summary}.",
         "",
         f"- **Too old:** published more than {collect['max_age_days']} days before the fetch.",
-        "- **Off topic:** from Hacker News or a general feed, and matching none of the AI keywords.",
+        "- **Off topic:** from Hacker News or a general feed, and matching none of the AI keywords; from a strict feed,"
+        " a title that names AI only by a word from not_enough_alone, or not at all.",
         "- **Kept:** passed both filters.",
         "- **New:** kept and not already stored. The rest of the kept items were stored on an earlier run.",
         "",

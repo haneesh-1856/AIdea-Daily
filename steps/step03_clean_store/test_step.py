@@ -208,6 +208,43 @@ def test_the_extra_words_keep_an_entry_and_are_not_added_to_the_keywords_groupin
         load(root)
 
 
+def test_a_strict_feed_is_kept_only_when_its_title_names_ai(root):
+    strict = dict(source="Semafor", kind="press", general=True, strict=True)
+    fetched(root, [
+        entry("Apple and Meta to collaborate on new AI model", "https://site.example/1", **strict),
+        entry("OpenAI employee arrested over office bugging", "https://site.example/2", **strict),
+        # AI only in the summary, in passing
+        entry("Why one spoiler candidate is now trying to replicate his work", "https://site.example/3",
+              summary="These days he's using AI to expand his work.", **strict),
+        # a word with an everyday meaning is not enough on its own
+        entry("Tesla and Porsche unveil new models", "https://site.example/4", **strict),
+        entry("Federal agents raid a port", "https://site.example/5", **strict),
+        # the same entry from an ordinary general feed is kept
+        entry("Tesla and Porsche unveil new models", "https://other.example/4", general=True),
+    ])
+    clean_store(DAY, root=root)
+
+    assert sorted(item.canonical_url for item in stored(root)) == [
+        "https://other.example/4", "https://site.example/1", "https://site.example/2",
+    ]
+
+
+def test_strict_needs_a_general_feed_and_a_list_of_words(root):
+    from common.settings import SettingsError, load
+
+    path = root / "sources.toml"
+    original = path.read_text(encoding="utf-8")
+    assert "model" in load(root)["collect"]["not_enough_alone"]
+
+    path.write_text(original.replace("not_enough_alone = [", "not_enough_alone = [7, ", 1), encoding="utf-8")
+    with pytest.raises(SettingsError, match="not_enough_alone must be a list"):
+        load(root)
+    path.write_text(original.replace('url = "https://openai.com/news/rss.xml"',
+                                     'url = "https://openai.com/news/rss.xml"\nstrict = true', 1), encoding="utf-8")
+    with pytest.raises(SettingsError, match="OpenAI is strict, which only applies to a general feed"):
+        load(root)
+
+
 def test_a_run_started_before_the_extra_words_existed_still_filters():
     from steps.step03_clean_store.step import about_ai_pattern
 

@@ -34,6 +34,13 @@ also_keep = [
     "opus", "sonnet", "codex", "sora", "veo", "midjourney", "perplexity", "cursor", "elevenlabs", "suno",
     "ollama", "cohere", "groq", "cerebras", "notebooklm",
 ]
+# Words from the two lists above that also have everyday meanings ("new models" of a car, federal "agents", a
+# poem's "sonnet"). For a feed marked strict = true they do not count: its title must name AI some other way.
+# Added on 19 October 2026 for Semafor, whose one feed covers politics, war and business as well.
+not_enough_alone = [
+    "model", "models", "agent", "agents", "transformer", "inference", "diffusion", "neural", "rag",
+    "opus", "sonnet", "codex", "cursor", "perplexity",
+]
 
 # --- Primary sources -------------------------------------------------------
 
@@ -266,13 +273,17 @@ kind = "press"
 general = true
 url = "https://www.techpolicy.press/rss/feed.xml"
 
-# Added on 19 October 2026. One feed for all of Semafor (politics, the Gulf, Africa, business), so only items matching
-# the keywords are kept: 10 of 46 in the three days to 19 October, mostly AI business, chips and policy. Its articles
-# are short briefs of about 120 words, and robots.txt lets the article pages be read.
+# Added on 19 October 2026. One feed for all of Semafor (politics, the Gulf, Africa, business), so it is strict: only
+# an item whose title names AI is kept, and "model" or "agent" alone is not enough (see not_enough_alone). Its
+# summaries mention AI in passing, which let in a political candidate, a stock-market wrap and a car launch. Of its
+# 191 items, 41 matched the ordinary way and 33 match strictly, all about AI; the one AI story lost was "OpenRouter
+# challenger closes seed round". Its articles are short briefs of about 120 words, and robots.txt lets the article
+# pages be read.
 [[feed]]
 name = "Semafor"
 kind = "press"
 general = true
+strict = true
 url = "https://www.semafor.com/rss.xml"
 
 # --- Newsletters and analysts ----------------------------------------------

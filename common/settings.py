@@ -82,6 +82,8 @@ def load(root: Path = ROOT) -> dict:
             problems.append(f"sources.toml: {label} is a sitemap and needs a path_prefix")
         if feed.get("type") == "listing" and not feed.get("only"):
             problems.append(f"sources.toml: {label} is a listing and needs `only`, the type of entry to keep")
+        if feed.get("strict") and not feed.get("general"):
+            problems.append(f"sources.toml: {label} is strict, which only applies to a general feed")
 
     collect = sources.get("settings", {})
     for key in ("max_age_days", "hn_min_points"):
@@ -91,6 +93,8 @@ def load(root: Path = ROOT) -> dict:
         problems.append("sources.toml: [settings] ai_keywords is empty")
     if not _word_list(collect.get("also_keep", [])):
         problems.append("sources.toml: [settings] also_keep must be a list of words or phrases")
+    if not _word_list(collect.get("not_enough_alone", [])):
+        problems.append("sources.toml: [settings] not_enough_alone must be a list of words or phrases")
 
     episode = run.get("episode", {})
     if not (_positive_int(episode.get("length_minutes")) and episode["length_minutes"] <= LONGEST_EPISODE):
