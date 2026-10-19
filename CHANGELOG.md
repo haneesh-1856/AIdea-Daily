@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-19 · `54aef45` · branch `video-prototype`
+
+**Add Semafor as a source**
+
+- `https://www.semafor.com/rss.xml`, press, general: one feed for all of Semafor, so only items matching the AI keywords are kept (10 of 46 over the three days to 19 October).
+- robots.txt allows the article pages; step 6 reads them in full (short briefs of about 120 words).
+- 44 feeds now. Two run tests count the real sources, so they expect 45 of 45 (with Hacker News) and 80 entries.
+- 275 tests pass.
+
 ## 2026-10-18 · `38247a6` · branch `video-prototype`
 
 **Say cents, comma numbers and long model names the way people do**
