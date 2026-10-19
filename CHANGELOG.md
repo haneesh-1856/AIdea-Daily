@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-19 · `312adfc` · `main`
+
+**Keep the laptop awake and its screen on during the daily run**
+
+- The same change as `7f00f0e` on `video-prototype`. Left idle at 5:00 the laptop is throttled, and the voice step ran at 0.5 to 0.9 times real time against about 2 by hand; raising the task's priority did not help.
+- `run_daily.ps1` now asks Windows to keep the system and the display on until the run ends.
+
 ## 2026-10-19 · `be449fa` · `main`
 
 **Keep only Semafor items whose title names AI**
