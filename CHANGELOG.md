@@ -3,6 +3,14 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-19 · `7f00f0e` · branch `video-prototype`
+
+**Keep the laptop awake and its screen on during the daily run**
+
+- The voice step ran at 0.5 to 0.9 times real time on the 5:00 runs of 13 to 19 October. Re-speaking 18 October's script by hand took 21.0 minutes against 53.4 at 5:00 (1.9 to 2.0 times real time).
+- Raising the scheduled task's priority from 7 to 4 did not help: on 19 October the episode still ran at 0.78 times real time. The laptop being left idle is the cause. Unplugged at 5:57, it also went into standby, which froze the run until 6:24.
+- `run_daily.ps1` now asks Windows to keep the system and the display on until the run ends (`SetThreadExecutionState`), then releases the request. Closing the lid still puts the laptop to sleep.
+
 ## 2026-10-19 · `1d2e464` · branch `video-prototype`
 
 **Keep only Semafor items whose title names AI**
