@@ -278,7 +278,7 @@ def test_a_run_without_a_model_stops_at_step_eight_and_resumes_when_one_is_given
     said.clear()
     assert runner.run_day(NOW.date(), root=world, out=said.append, checks=[], ask=writer(), embed=embed) is True
     assert said[0] == "Step 1, start: resumed (run 1, attempt 1)"
-    assert said[1].startswith("Step 2, fetch: 44 of 44 sources worked")  # shown again, not fetched again
+    assert said[1].startswith("Step 2, fetch: 45 of 45 sources worked")  # shown again, not fetched again
     assert (world / "out" / "2026-10-06" / "script.md").exists()
 
 
@@ -311,7 +311,7 @@ def test_a_forced_second_attempt_redoes_the_day_with_the_items_already_stored(wo
 
     assert said[0] == "Step 1, start: new (run 2, attempt 2)"
     # 39 feeds with 2 articles each; the sitemap and listing sources and Hacker News carry none here.
-    assert said[2].startswith("Step 3, clean_store: 78 raw entries, 78 kept, 0 new")
+    assert said[2].startswith("Step 3, clean_store: 80 raw entries, 80 kept, 0 new")
     assert said[4].startswith("Step 5, score: 2 stories scored")
     first, second = rows(world, db.runs)
     assert (first.status, second.status) == ("done", "done")

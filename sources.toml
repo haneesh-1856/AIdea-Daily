@@ -266,6 +266,15 @@ kind = "press"
 general = true
 url = "https://www.techpolicy.press/rss/feed.xml"
 
+# Added on 19 October 2026. One feed for all of Semafor (politics, the Gulf, Africa, business), so only items matching
+# the keywords are kept: 10 of 46 in the three days to 19 October, mostly AI business, chips and policy. Its articles
+# are short briefs of about 120 words, and robots.txt lets the article pages be read.
+[[feed]]
+name = "Semafor"
+kind = "press"
+general = true
+url = "https://www.semafor.com/rss.xml"
+
 # --- Newsletters and analysts ----------------------------------------------
 
 [[feed]]
