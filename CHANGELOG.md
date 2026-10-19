@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-19 · `1d2e464` · branch `video-prototype`
+
+**Keep only Semafor items whose title names AI**
+
+- Semafor's feed covers politics, war and business, and its summaries mention AI in passing: the ordinary filter let in a political candidate, a stock-market wrap, data-center financing and "Tesla and Porsche unveil new models".
+- New feed option `strict = true` (general feeds only): the title alone is matched, and the words of the new `[settings] not_enough_alone` list (model, agent, transformer, sonnet, cursor and others with everyday meanings) do not count on their own.
+- Semafor is strict. Of its 191 items, 41 matched the ordinary way and 33 match strictly, all about AI; the one AI story lost was "OpenRouter challenger closes seed round".
+- The step 3 report's "Off topic" line explains the strict rule. 277 tests pass (2 new).
+
 ## 2026-10-19 · `54aef45` · branch `video-prototype`
 
 **Add Semafor as a source**
