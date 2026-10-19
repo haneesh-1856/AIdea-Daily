@@ -72,6 +72,7 @@ def _entry(source: str, kind: str, general: bool, title: str, url: str, publishe
         "source": source,
         "kind": kind,
         "general": general,  # step 3 keeps a general entry only if it matches the AI keywords
+        "strict": False,  # and a strict one only if its title does, with more than a word from not_enough_alone
         "title": title,
         "url": url,
         "summary": None,
@@ -93,7 +94,8 @@ def read_feed(feed: dict) -> list[dict]:
         stamp = item.get("published_parsed") or item.get("updated_parsed")
         published = datetime.fromtimestamp(calendar.timegm(stamp), timezone.utc) if stamp else None
         entries.append(
-            _entry(feed["name"], feed["kind"], bool(feed.get("general")), title, link, published, summary=item.get("summary"))
+            _entry(feed["name"], feed["kind"], bool(feed.get("general")), title, link, published, summary=item.get("summary"),
+                   strict=bool(feed.get("strict")))
         )
     return entries
 
@@ -124,7 +126,7 @@ def read_sitemap(feed: dict, cutoff: datetime) -> list[dict]:
         entries.append(
             _entry(
                 feed["name"], feed["kind"], bool(feed.get("general")), title, loc, published,
-                summary=meta_content(page, "og:description"),
+                summary=meta_content(page, "og:description"), strict=bool(feed.get("strict")),
             )
         )
     return entries
@@ -162,7 +164,8 @@ def read_listing(feed: dict) -> list[dict]:
         except ValueError:
             published = None
         entries.append(
-            _entry(item.get("source") or feed["name"], feed["kind"], bool(feed.get("general")), title, urljoin(feed["url"], link), published)
+            _entry(item.get("source") or feed["name"], feed["kind"], bool(feed.get("general")), title, urljoin(feed["url"], link), published,
+                   strict=bool(feed.get("strict")))
         )
     return entries
 

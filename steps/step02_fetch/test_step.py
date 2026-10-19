@@ -34,6 +34,7 @@ url = "https://lab.example/rss.xml"
 name = "Daily Press"
 kind = "press"
 general = true
+strict = true
 url = "https://press.example/feed"
 
 [[feed]]
@@ -152,6 +153,8 @@ def test_fetch_reads_every_source_and_marks_step_two_done(root, web):
     }
     assert by_source["Daily Press"][0]["general"] is True
     assert by_source["Lab Blog"][0]["general"] is False
+    assert by_source["Daily Press"][0]["strict"] is True
+    assert by_source["Lab Blog"][0]["strict"] is False and by_source["Bench"][0]["strict"] is False
     # Entries are raw: HTML is left for step 3 to strip.
     assert by_source["Lab Blog"][0]["summary"] == "<p>About New model</p>"
 
