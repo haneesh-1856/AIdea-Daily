@@ -3,6 +3,16 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-20 · `420a54f` · branch `video-prototype`
+
+**Say dates, milliseconds, AWS and Ollama the way people do**
+
+- Found by checking the 2026-10-20 episodes against their scripts with Whisper. Each rule is for a mistake made more than once, that day or across days.
+- "Oct. 20, 2026" is "October 20, 2026" (said "AUC 202026"), "10 ms" is "10 milliseconds" (said "mesemes"), "4–8x" is "4 to 8 times", and a no-break hyphen is a plain one ("low-resource" was said "low-free source").
+- `[voice.say]`: "AWS" is "A-W-S", "Ollama" is "Oh llama", "Claudes" is "Clawds". The spellings were picked by speaking each candidate five times and transcribing it: "A-W-S" was right 5 times out of 5 against about half for "AWS".
+- No spelling of "Anthropic" or "Claude" did reliably better than the current one, so they are left as they are.
+- 280 tests pass (3 new).
+
 ## 2026-10-19 · `7f00f0e` · branch `video-prototype`
 
 **Keep the laptop awake and its screen on during the daily run**
