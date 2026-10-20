@@ -2,6 +2,8 @@
 
 Every morning at 5:00 this pipeline reads 44 AI news sources, decides which stories matter, writes them up from their source articles, checks every sentence against those articles, and voices the result as a podcast on a local GPU. A person reviews the package before anything is published.
 
+**Listen:** [AIdea Daily on RSS.com](https://rss.com/podcasts/aidea-daily/)
+
 | | |
 | --- | --- |
 | Input | 44 RSS feeds and listing pages (`sources.toml`) |
