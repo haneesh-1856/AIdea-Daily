@@ -3,6 +3,12 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-20 · `902b07b` · `main`
+
+**Link the podcast on RSS.com from the README**
+
+- A "Listen" line under the README's opening paragraph: https://rss.com/podcasts/aidea-daily/
+
 ## 2026-10-19 · `312adfc` · `main`
 
 **Keep the laptop awake and its screen on during the daily run**
