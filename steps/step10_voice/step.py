@@ -27,6 +27,8 @@ Speak = Callable[[list[dict], dict, Path], dict]
 
 SCALES = {"k": "thousand", "m": "million", "b": "billion", "t": "trillion"}
 SIZES = {"K": "kilobytes", "M": "megabytes", "G": "gigabytes", "T": "terabytes"}
+MONTHS = {"Jan": "January", "Feb": "February", "Mar": "March", "Apr": "April", "Jun": "June", "Jul": "July",
+          "Aug": "August", "Sept": "September", "Sep": "September", "Oct": "October", "Nov": "November", "Dec": "December"}
 # A whole number as written: 1,600 or 1600, but not the comma after "$30," that only ends a phrase.
 WHOLE = r"\d{1,3}(?:,\d{3})+|\d+"
 AMOUNT = rf"(?:{WHOLE})(?:\.\d+)?"
@@ -52,6 +54,9 @@ class VoiceResult:
 
 def spoken(text: str, say: dict[str, str] | None = None) -> str:
     """The sentence as it should be said aloud. This changes how the text is spoken, never what it says."""
+    # A hyphen of another kind is said as the plain one: "low‑resource", with a no-break hyphen, came out
+    # "low-free source" on 2026-10-20.
+    text = re.sub(r"[‐‑]", "-", text)
     for written, said in (say or {}).items():
         text = re.sub(rf"(?<![\w$-]){re.escape(written)}(?![\w-])", said, text)
     # A name strung together with hyphens is said in parts: Deepseek-V4.1-Flash-1017 came out "version 4.1.1".
@@ -93,7 +98,13 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     # "501 billion-A23B" would be read as one tangle.
     text = re.sub(r"\b(thousand|million|billion|trillion)-(?=[A-Z0-9])", r"\1 ", text)
     text = re.sub(r"(\d)\s?%", r"\1 percent", text)
+    # 4–8x -> 4 to 8 times: said "4x 8x" on 2026-10-20
+    text = re.sub(r"\b(\d+(?:\.\d+)?)\s?[–-]\s?(\d+(?:\.\d+)?)x\b", r"\1 to \2 times", text)
     text = re.sub(r"\b(\d+(?:\.\d+)?)x\b", r"\1 times", text)
+    # 10 ms -> 10 milliseconds: said "10 mesemes" twice on 2026-10-20
+    text = re.sub(r"\b(\d+(?:\.\d+)?)\s?ms\b", lambda m: f"{m.group(1)} millisecond{'' if m.group(1) == '1' else 's'}", text)
+    # Oct. 20, 2026 -> October 20, 2026: said "AUC 202026" on 2026-10-20
+    text = re.sub(rf"\b({'|'.join(MONTHS)})\.?(?=\s+\d)", lambda m: MONTHS[m.group(1)], text)
     # V4.1, v1.1, DSv4 -> version 4.1, version 1.1, DS version 4
     text = re.sub(r"(?<![A-Za-z])[vV](\d+(?:\.\d+)*)\b", r"version \1", text)
     text = re.sub(r"(?<=[A-Z])v(\d+(?:\.\d+)*)\b", r" version \1", text)

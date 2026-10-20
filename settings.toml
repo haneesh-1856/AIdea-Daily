@@ -145,6 +145,9 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 "Show HN" = "Show H N"    # said "Shoei Gen" on 2026-10-18
 "Ep" = "Episode"          # "Ep 6" said "Ep 6th" on 2026-10-18
 "ETH" = "ether"           # said "8H" on 2026-10-18
+"Claudes" = "Clawds"      # said "clods" three times on 2026-10-19
+"AWS" = "A-W-S"           # said "Ossebusian" and "Allsagas" on 2026-10-20; right 5 times out of 5 spelled this way
+"Ollama" = "Oh llama"     # said "Alama", "Olima" and "a la Moz" five times on 2026-10-20; right 4 times out of 5 this way
 
 [formats]
 # Besides the regular briefing, each run can make two longer episodes from the same stories and sources.

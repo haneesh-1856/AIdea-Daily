@@ -123,6 +123,10 @@ def test_every_spoken_line_becomes_a_clip_in_order_with_its_pause(root):
     ("Black Box: The Chatbots | Ep 6 - podcast.", "Black Box: The Chatbots, Ep 6 - podcast."),
     ("Flash 1017 on port 8081 with an RTX 4060 and model 1005.", "Flash 10 17 on port 80 81 with an RTX 40 60 and model 10 oh 5."),
     ("In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and 1,600 logs.", "In 2026 and 1999, 1500 GPUs, 1600 dollars, 13.60 and one thousand six hundred logs."),
+    # Found on 2026-10-20: a date's month, milliseconds, a range of times, and a no-break hyphen.
+    ("Beta on Oct. 20, 2026, and Sept 3; not in Dec or Mar.", "Beta on October 20, 2026, and September 3; not in Dec or Mar."),
+    ("It takes 10 ms, 1 ms or 0.5ms, and runs 4–8x faster.", "It takes 10 milliseconds, 1 millisecond or 0.5 milliseconds, and runs 4 to 8 times faster."),
+    ("Coding in low‑resource languages.", "Coding in low-resource languages."),
 ])
 def test_figures_and_symbols_are_written_the_way_they_are_said(written, said):
     assert spoken(written) == said
