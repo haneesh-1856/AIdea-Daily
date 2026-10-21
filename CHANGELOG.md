@@ -3,6 +3,17 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-21 · `023cf39` · branch `video-prototype`
+
+**Say the show's name, ElevenLabs, rates, tiny prices and code the way people do**
+
+- Found by checking the 2026-10-20 and 2026-10-21 episodes against their scripts with Whisper; each spelling was picked by speaking it five times.
+- The show's name is said "I-dea": "Aidea" was heard "Adia Daily" and "80 Daily". "I-dea" was heard "Idea Daily" 5 times out of 5.
+- `[voice.say]`: "ElevenLabs" (said "11 Ls" five times), "COBOL", lower-case "tpu", "robots.txt" and "404 Media".
+- `spoken()`: "5–6.5×" is "5 to 6.5 times", "tokens/s" is "tokens per second", "$0.0035" is "0.35 cents", "8 GiB" is "8 gigabytes", and code is read aloud ("device_map" is "device map", "pipe.to" is "pipe dot to", "Otter.ai" is "Otter dot A I").
+- `TODO.md` lists the mistakes found on 19 to 21 October and those still open ("Anthropic", "Claude" in the podcast, one-off slips).
+- 285 tests pass (5 new).
+
 ## 2026-10-20 · `420a54f` · branch `video-prototype`
 
 **Say dates, milliseconds, AWS and Ollama the way people do**
