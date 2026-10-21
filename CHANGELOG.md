@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-21 · `40d1fb1` · `main`
+
+**Say the show's name, ElevenLabs, rates, tiny prices and code the way people do**
+
+- The same change as `023cf39` on `video-prototype`, found by checking the 2026-10-20 and 2026-10-21 episodes with Whisper.
+- The show's name is said "I-dea" (it was heard "80 Daily"); `[voice.say]` has ElevenLabs, COBOL, tpu, robots.txt and 404 Media; `spoken()` reads "5–6.5×", "tokens/s", "$0.0035", "GiB" and code aloud.
+
 ## 2026-10-20 · `498a94e` · `main`
 
 **Say dates, milliseconds, AWS and Ollama the way people do**
