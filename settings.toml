@@ -140,7 +140,7 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 
 [voice.say]
 # How to say a word the voice gets wrong: the word as written = the way to say it. Add to this as you hear mistakes.
-"AIdea" = "Aidea"         # the show's name is one word, not "AI-dea"
+"AIdea" = "I-dea"         # the show's name, said like "idea": "Aidea" was heard "Adia" and "80" on 2026-10-20 and 10-21; "I-dea" 5 times out of 5
 "Claude" = "Clawd"        # said "Clod" or "Clog" on 2026-10-17, five times out of five
 "Show HN" = "Show H N"    # said "Shoei Gen" on 2026-10-18
 "Ep" = "Episode"          # "Ep 6" said "Ep 6th" on 2026-10-18
@@ -148,6 +148,11 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 "Claudes" = "Clawds"      # said "clods" three times on 2026-10-19
 "AWS" = "A-W-S"           # said "Ossebusian" and "Allsagas" on 2026-10-20; right 5 times out of 5 spelled this way
 "Ollama" = "Oh llama"     # said "Alama", "Olima" and "a la Moz" five times on 2026-10-20; right 4 times out of 5 this way
+"ElevenLabs" = "Eleven Labs"  # said "11 Ls" or "11 Mobs" five times on 2026-10-21; right 4 times out of 5 with a space
+"COBOL" = "Cobol"         # said "seal-ball" on 2026-10-21; right 5 times out of 5 this way
+"tpu" = "T-P-U"           # code's lower-case "tpu" said "tupu" three times on 2026-10-21
+"robots.txt" = "robots dot T X T"  # said "robots docs" and "robot stocks" on 2026-10-20 and 10-21
+"404 Media" = "four oh four Media"  # said "four honed Media" on 2026-10-21; it is a daily source
 
 [formats]
 # Besides the regular briefing, each run can make two longer episodes from the same stories and sources.
