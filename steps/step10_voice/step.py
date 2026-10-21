@@ -7,6 +7,7 @@ import subprocess
 import time
 from dataclasses import dataclass
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
 from typing import Callable
 
@@ -29,6 +30,8 @@ SCALES = {"k": "thousand", "m": "million", "b": "billion", "t": "trillion"}
 SIZES = {"K": "kilobytes", "M": "megabytes", "G": "gigabytes", "T": "terabytes"}
 MONTHS = {"Jan": "January", "Feb": "February", "Mar": "March", "Apr": "April", "Jun": "June", "Jul": "July",
           "Aug": "August", "Sept": "September", "Sep": "September", "Oct": "October", "Nov": "November", "Dec": "December"}
+PER = {"s": "second", "sec": "second", "min": "minute", "h": "hour", "hr": "hour", "day": "day", "wk": "week",
+       "week": "week", "mo": "month", "month": "month", "yr": "year", "year": "year"}
 # A whole number as written: 1,600 or 1600, but not the comma after "$30," that only ends a phrase.
 WHOLE = r"\d{1,3}(?:,\d{3})+|\d+"
 AMOUNT = rf"(?:{WHOLE})(?:\.\d+)?"
@@ -57,6 +60,7 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     # A hyphen of another kind is said as the plain one: "low‑resource", with a no-break hyphen, came out
     # "low-free source" on 2026-10-20.
     text = re.sub(r"[‐‑]", "-", text)
+    text = re.sub(r"(?<=\d)\s?×", "x", text)  # 21.5× is 21.5x: "5–6.5×" came out "5 6.5 times" on 2026-10-21
     for written, said in (say or {}).items():
         text = re.sub(rf"(?<![\w$-]){re.escape(written)}(?![\w-])", said, text)
     # A name strung together with hyphens is said in parts: Deepseek-V4.1-Flash-1017 came out "version 4.1.1".
@@ -78,6 +82,10 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
         unit = "dollar" if before_noun else "dollars"
         if scale:
             return (m.group(1) or "") + f"{whole}{'.' + cents if cents else ''} {scale} {unit}"
+        if whole == "0" and cents and len(cents) > 2 and int(cents):
+            # $0.0035 -> 0.35 cents: "0.0035 dollars" was heard "0.35 dollars" on 2026-10-21
+            amount = format((Decimal("0." + cents) * 100).normalize(), "f")
+            return (m.group(1) or "") + f"{amount} {'cent' if before_noun else 'cents'}"
         if cents and len(cents) == 2:
             if whole == "0" and int(cents):
                 return (m.group(1) or "") + f"{int(cents)} {'cent' if before_noun or cents == '01' else 'cents'}"
@@ -92,8 +100,8 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     )
     # 501B, 270M, 1T, 8K -> 501 billion, 270 million, 1 trillion, 8 thousand
     text = re.sub(r"(?<![\w.])(\d+(?:\.\d+)?)([KMBT])\b", lambda m: f"{m.group(1)} {SCALES[m.group(2).lower()]}", text)
-    # 191MB, 8GB -> 191 megabytes, 8 gigabytes
-    text = re.sub(r"(?<![\w.])(\d+(?:\.\d+)?)\s?([KMGT])B\b", lambda m: f"{m.group(1)} {SIZES[m.group(2)]}", text)
+    # 191MB, 8GB, 270 GiB -> 191 megabytes, 8 gigabytes, 270 gigabytes ("Gi B" on 2026-10-21)
+    text = re.sub(r"(?<![\w.])(\d+(?:\.\d+)?)\s?([KMGT])i?B\b", lambda m: f"{m.group(1)} {SIZES[m.group(2)]}", text)
     # A scale word joined to what follows by a hyphen is said as two words: "501 billion-parameter" stays, but
     # "501 billion-A23B" would be read as one tangle.
     text = re.sub(r"\b(thousand|million|billion|trillion)-(?=[A-Z0-9])", r"\1 ", text)
@@ -105,6 +113,14 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     text = re.sub(r"\b(\d+(?:\.\d+)?)\s?ms\b", lambda m: f"{m.group(1)} millisecond{'' if m.group(1) == '1' else 's'}", text)
     # Oct. 20, 2026 -> October 20, 2026: said "AUC 202026" on 2026-10-20
     text = re.sub(rf"\b({'|'.join(MONTHS)})\.?(?=\s+\d)", lambda m: MONTHS[m.group(1)], text)
+    # tokens/s, $0.0035/min -> tokens per second, per minute: said "token slash S" on 2026-10-21
+    text = re.sub(rf"(?<=\w)/({'|'.join(PER)})\b", lambda m: f" per {PER[m.group(1)]}", text)
+    # Code as it is written, said the way a programmer reads it aloud: device_map -> device map, pipe.to -> pipe dot
+    # to. On 2026-10-21 these came out "device cotton map", "pipe ducette" and "torch XLAR".
+    text = re.sub(r"\b(e\.g\.|i\.e\.)", lambda m: "for example" if m.group(1) == "e.g." else "that is", text)
+    text = re.sub(r"(?<=[A-Za-z0-9])_(?=[A-Za-z0-9])", " ", text)
+    text = re.sub(r"(?<=[A-Za-z])\.(?=[a-z])", " dot ", text)
+    text = re.sub(r"\bdot ai\b", "dot A I", text)  # Otter.ai
     # V4.1, v1.1, DSv4 -> version 4.1, version 1.1, DS version 4
     text = re.sub(r"(?<![A-Za-z])[vV](\d+(?:\.\d+)*)\b", r"version \1", text)
     text = re.sub(r"(?<=[A-Z])v(\d+(?:\.\d+)*)\b", r" version \1", text)

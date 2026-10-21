@@ -127,6 +127,12 @@ def test_every_spoken_line_becomes_a_clip_in_order_with_its_pause(root):
     ("Beta on Oct. 20, 2026, and Sept 3; not in Dec or Mar.", "Beta on October 20, 2026, and September 3; not in Dec or Mar."),
     ("It takes 10 ms, 1 ms or 0.5ms, and runs 4–8x faster.", "It takes 10 milliseconds, 1 millisecond or 0.5 milliseconds, and runs 4 to 8 times faster."),
     ("Coding in low‑resource languages.", "Coding in low-resource languages."),
+    # Found on 2026-10-21: the times sign, tiny prices, rates, GiB, and code.
+    ("It decodes 5–6.5× faster, and 21.5 × on Qwen.", "It decodes 5 to 6.5 times faster, and 21.5 times on Qwen."),
+    ("It costs $0.0035/min, a $0.005 fee, or 61.3 tokens/s.", "It costs 0.35 cents per minute, a 0.5 cent fee, or 61.3 tokens per second."),
+    ("It peaks at 8 GiB, not 270GiB.", "It peaks at 8 gigabytes, not 270 gigabytes."),
+    ("Load with device_map or pipe.to, e.g. torch_xla, at 3.8 and U.S. sites.", "Load with device map or pipe dot to, for example torch xla, at 3.8 and U.S. sites."),
+    ("Use F.scaled_mm, Otter.ai or stateglobe.com.", "Use F dot scaled mm, Otter dot A I or stateglobe dot com."),
 ])
 def test_figures_and_symbols_are_written_the_way_they_are_said(written, said):
     assert spoken(written) == said
