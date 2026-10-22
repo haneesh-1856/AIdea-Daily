@@ -15,3 +15,7 @@ audioilike/
 voice/*.wav
 *.mp3
 *.wav
+
+# Claude Code: personal settings, and copies of the session transcripts (whole conversations)
+.claude/
+claude-sessions/
