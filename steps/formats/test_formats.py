@@ -45,7 +45,7 @@ def root(tmp_path, monkeypatch):
     speak = re.search(r"^speak = .*$", (made / "settings.toml").read_text(encoding="utf-8"), flags=re.MULTILINE).group()
     edit_settings(made, speak, 'speak = ["podcast", "duo"]')
     (made / "voice").mkdir()
-    for name in ("reference.wav", "reference-demo-voice.wav"):
+    for name in ("reference.wav", "reference-voice2-clean.wav"):
         soundfile.write(made / "voice" / name, numpy.zeros(RATE, dtype="float32"), RATE)
     return made
 
@@ -152,9 +152,9 @@ def test_each_speaker_is_given_their_own_reference_voice_and_a_reaction_more_fre
     duo = next(call for call in speak.calls if any(one["text"].startswith("[surprised]") for one in call))
     by_text = {one["text"]: one for one in duo}
     assert by_text["[surprised] So what happened?!"]["reference"].endswith("reference.wav")
-    assert by_text["Lab shipped a thing."]["reference"].endswith("reference-demo-voice.wav")
+    assert by_text["Lab shipped a thing."]["reference"].endswith("reference-voice2-clean.wav")
     assert by_text["[surprised] So what happened?!"]["temperature"] == 1.0
-    assert by_text["Lab shipped a thing."]["temperature"] == 0.8
+    assert by_text["Lab shipped a thing."]["temperature"] == 0.5
     # The same words in the same voice are spoken once, however often the script says them.
     talk = sorted(text for text in by_text if "show notes" not in text and "Today's stories" not in text and "all for today" not in text)
     assert talk == ["It is available now.", "Lab shipped a thing.", "[surprised] So what happened?!"]

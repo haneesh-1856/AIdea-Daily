@@ -60,6 +60,13 @@ Things to fix later. Tick them off as they are done.
 - [x] "5–6.5×" said "5 6.5 times", "tokens/s" said "token slash S", "$0.0035/min" heard "$0.35", "8 GiB" given as "8 Gi B", and code ("device_map", "pipe.to", "torch_xla", "F.scaled_mm") garbled: rules in `spoken()`.
 - [ ] Once each, not fixed: "211" said "two eleven", "318,484" heard "3018,484", "to have itself" said "have itself", "Qwen3" heard "Qwen free". "Claude" in the podcast heard "Clod" four times in a row at 43:51 to 44:43.
 
+## Voice: the owner's own voice (from 2026-10-22)
+
+- [ ] Listen to the 2026-10-22 episodes, the first in the owner's voice: breaths, shouting after a pause, and sentences cut short.
+  Retakes catch long pauses and loud takes, but not every dropped ending; the check below would.
+- [ ] It adds about 10 to 15% to the voice step's time (about 1 sentence in 10 is spoken again).
+- [ ] Re-record the reference somewhere quiet if breaths still come through: only its first 10 seconds or so shape the voice.
+
 ## Voice: automatic check after each run (idea)
 
 - [ ] Add a step after voicing that transcribes each episode with the local Whisper model

@@ -3,6 +3,18 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-21 · `COMMIT` · `main`
+
+**Speak both episodes in the owner's own voice, without breaths, and retake shouted sentences**
+
+- The same change as `3bb3252` on `video-prototype`.
+- `[voice] reference` and the podcast's presenter and guest are now `voice/reference-voice2-clean.wav`: the owner reading an article, with its 26 breaths and its hiss made silent. The demo voice, of unknown origin, is no longer used. The file is not in git (`*.wav`).
+- `temperature` 0.8 → 0.5: sharper. The 2026-10-21 episode matched its script 0.895 against 0.868.
+- New `clean` setting: the worker silences breaths in every clip, cuts a silence inside a sentence to half a second and trims the clip's ends.
+- New `retakes` and `longest_pause` settings: this voice stopped mid-sentence and came back shouting in 24 of 232 sentences, and once left out the end. A take that pauses over 2 seconds, or is 4 dB louder than the voice's usual take, is spoken again up to twice, and the calmest is kept. On 12 of the day's worst sentences every kept take was calm and whole.
+- The owner tried a 10% slower pace and preferred the voice's own, so `speed` stays 1.0.
+- 288 tests pass (3 new, in `steps/step10_voice/test_worker.py`).
+
 ## 2026-10-21 · `40d1fb1` · `main`
 
 **Say the show's name, ElevenLabs, rates, tiny prices and code the way people do**
