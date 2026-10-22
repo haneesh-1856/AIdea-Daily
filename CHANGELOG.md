@@ -3,6 +3,19 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-22 · `d5de183` · `main`
+
+**Keep the Claude Code sessions and personal settings out of git**
+
+- The same change as `08077f3` on `video-prototype`: `.gitignore` leaves out `.claude/` and `claude-sessions/`, where a hook on this laptop copies the session transcripts.
+
+## 2026-10-22 · `7dd9d33` · `main`
+
+**Retake a sentence the voice cuts short, and retry a long one in phrases**
+
+- The same change as `a049fdd` on `video-prototype`. The 2026-10-22 run stopped at step 10 on a sentence the voice cut short twice.
+- The worker retakes a take quicker than 5 words a second, a little freer each time; step 10's second try speaks a long sentence in phrases.
+
 ## 2026-10-21 · `bd1e20e` · `main`
 
 **Speak both episodes in the owner's own voice, without breaths, and retake shouted sentences**
