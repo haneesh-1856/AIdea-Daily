@@ -18,6 +18,8 @@ from pathlib import Path
 # left out the end of the sentence.
 LOUDER_BY = 4.0       # dB above the median of the voice's earlier takes
 USUAL_AFTER = 8       # takes heard before the voice's usual loudness is trusted
+QUICKEST = 5.0        # words a second: a cleaned take quicker than this has lost words (the voice speaks about 3)
+RETAKE_FREER = 0.15   # added to the temperature on each retake
 
 
 def levels(audio, rate: int, step: float = 0.01):
@@ -150,21 +152,27 @@ def main(job_file: str) -> int:
         try:
             voice = item.get("reference") or job["reference"]
             use(voice)
+            words = len((item.get("plain") or item["text"]).split())
             takes = []
-            for _ in range(1 + retakes):
+            for attempt in range(1 + retakes):
                 # A long sentence arrives as phrases: each is spoken on its own and a short silence is left between them.
-                spoken = [say(phrase, item.get("temperature", job["temperature"])) for phrase in item["phrases"]]
+                # Each retake is a little freer: on 2026-10-22 three takes at 0.5 stopped at the same place.
+                temperature = item.get("temperature", job["temperature"]) + RETAKE_FREER * attempt
+                spoken = [say(phrase, temperature) for phrase in item["phrases"]]
                 gap = numpy.zeros(int(model.sr * job["phrase_pause"]), dtype="float32")
-                audio = numpy.concatenate([piece for phrase in spoken for piece in (phrase, gap)][:-1])
-                takes.append((trouble(audio, voice) if retakes else 0.0, len(takes), audio))
-                if takes[-1][0] == 0:
+                raw = numpy.concatenate([piece for phrase in spoken for piece in (phrase, gap)][:-1])
+                audio = clean(raw, model.sr) if job.get("clean") else raw
+                fault = 0.0
+                if retakes:
+                    # A take far quicker than speech has lost words, as when the voice stops partway.
+                    fault = trouble(raw, voice) + (1.0 if words >= 4 and words / (len(audio) / model.sr) > QUICKEST else 0.0)
+                takes.append((fault, len(takes), audio, raw))
+                if fault == 0:
                     break
             # The calmest take is kept. Only a fine one counts towards the voice's usual loudness.
-            fault, _, audio = min(takes, key=lambda take: take[:2])
+            fault, _, audio, raw = min(takes, key=lambda take: take[:2])
             if retakes and fault == 0:
-                usual[voice].append(loudness(audio, model.sr))
-            if job.get("clean"):
-                audio = clean(audio, model.sr)
+                usual[voice].append(loudness(raw, model.sr))
             file = folder / f"{item['position']:04d}.wav"
             soundfile.write(file, audio, model.sr)
             results[str(item["id"])] = {"file": str(file), "seconds": len(audio) / model.sr, "takes": len(takes)}

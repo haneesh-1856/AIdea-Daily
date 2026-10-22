@@ -23,6 +23,7 @@ WORKER = Path(__file__).with_name("worker.py")
 WORKER_LIMIT = 90 * 60  # seconds the voice model may take for one episode
 # A clip far too short or far too long for its words means the model slipped: it is spoken again.
 SLOWEST, FASTEST = 0.8, 7.0  # words a second
+RETRY_PHRASE = 12  # on the second try, a sentence longer than this many words is spoken in phrases
 # sentences to speak, the voice settings, the folder for the clips -> {sentence id: {"file", "seconds"} or {"error"}}
 Speak = Callable[[list[dict], dict, Path], dict]
 
@@ -325,6 +326,8 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
         made = speak(wanted, settings, folder) if wanted else {}
         # A failed clip is tried once more. If it fails again the run stops, so a broken episode is never produced.
         again = [item for item in wanted if problem_with(made.get(item["id"]), item["text"])]
+        # The second try speaks a long sentence phrase by phrase: on 2026-10-22 one stopped partway every time whole.
+        again = [dict(item, phrases=phrases(item["text"], RETRY_PHRASE)) for item in again]
         if again:
             made.update(speak(again, settings, folder))
         failed = [(item, problem_with(made.get(item["id"]), item["text"])) for item in again]
