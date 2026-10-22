@@ -112,10 +112,10 @@ max_story_words = 600     # the most any story may ever have; lines past a story
 # Step 10 speaks the final script with Chatterbox, a free model that runs on this PC's graphics card.
 # It has no voices of its own: it speaks in the voice of the reference recording, and copies its delivery too.
 enabled = true
-# The voice the owner chose by ear on 7 October 2026 is the Chatterbox demo page's sample voice. Its origin is not
-# known, so REPLACE IT BEFORE PUBLISHING with a voice you have the right to use. The owner's own voice is
-# voice/reference.wav.
-reference = "voice/reference-demo-voice.wav"
+# The owner's own voice, chosen on 21 October 2026: a 58-second recording of the owner reading an article
+# (audioilike/voice 2.ogg), with its 26 breaths and its hiss made silent so the model does not copy them.
+# Until then it was the Chatterbox demo page's sample voice, voice/reference-demo-voice.wav, whose origin is not known.
+reference = "voice/reference-voice2-clean.wav"
 python = ".venv-voice/Scripts/python.exe"   # the separate Python that has the voice model installed
 # "chatterbox" is the original model: measured on 7 October 2026 it matched the reference's pitch (median 160 Hz
 # against 159, and the same range). "chatterbox-turbo" sat lower and flatter (151 Hz) and has none of the dials below.
@@ -123,10 +123,20 @@ python = ".venv-voice/Scripts/python.exe"   # the separate Python that has the v
 engine = "chatterbox-turbo"
 exaggeration = 0.5        # chatterbox only: 0.5 is neutral; higher is more dramatic and raises the pitch
 cfg_weight = 0.5          # chatterbox only: how closely it follows the reference's delivery
-temperature = 0.8         # how much the delivery varies from take to take
+# How much the delivery varies from take to take. 0.5 is sharper than 0.8: ten of the owner's sentences matched
+# their script 0.873 against 0.839 on 2026-10-21, and the whole episode 0.895 against 0.868.
+temperature = 0.5
 # The model speaks more slowly than the reference: 182 words a minute against 213, measured the same day.
 # 1.17 brings it to the reference's pace without changing the pitch. 1.0 leaves the model's own pace.
 speed = 1.0
+# Breaths and hiss in each clip are made silent, a silence inside a sentence is cut to half a second, and one at the
+# start or end of a clip is trimmed (the pauses below are added after it).
+clean = true
+# The owner's voice sometimes stops mid-sentence and comes back shouting, or leaves out the end. A take that pauses
+# longer than longest_pause seconds, or is 4 dB louder than the voice's usual take, is spoken again, up to `retakes`
+# more times, and the calmest take is kept. On 12 of 2026-10-21's worst sentences this kept every take calm and whole.
+retakes = 2
+longest_pause = 2.0       # shorter pauses are only shortened by `clean`: 1.5 retook sentences that were fine
 
 [voice.pauses]
 # Seconds of silence, by what comes next. Set from the owner's own recording, where pauses take about a fifth
@@ -170,9 +180,9 @@ speaking_pace = 150      # words a minute
 [formats.voices]
 # The reference recording each speaker's voice is copied from. Use only voices you have the right to use:
 # your own, or someone's who has agreed to it. The demo voice's origin is not known (see [voice]).
-presenter = "voice/reference-demo-voice.wav"
-host = "voice/reference.wav"                    # the owner's own voice
-guest = "voice/reference-demo-voice.wav"        # the voice of the regular episode
+presenter = "voice/reference-voice2-clean.wav"  # the owner's own voice, as in the regular episode
+host = "voice/reference.wav"                    # the owner's own voice, an older recording
+guest = "voice/reference-voice2-clean.wav"      # the voice of the regular episode
 
 [formats.pauses]
 # Seconds of silence, by what comes next. A conversation moves faster than a narrator reading alone.

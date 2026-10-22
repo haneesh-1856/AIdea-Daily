@@ -224,6 +224,8 @@ def run_worker(root: Path) -> Speak:
                 "sentences": sentences, "reference": str(reference), "folder": str(folder),
                 "phrase_pause": voice["pauses"]["phrase"],
                 **{key: voice[key] for key in ("engine", "temperature", "exaggeration", "cfg_weight", "speed")},
+                # Settings added on 2026-10-21; a run started before then has none and is spoken as it was.
+                **{key: voice.get(key, default) for key, default in (("clean", False), ("retakes", 0), ("longest_pause", 2.0))},
             }),
             encoding="utf-8",
         )
