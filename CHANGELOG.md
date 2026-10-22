@@ -3,6 +3,22 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-22 · `08077f3` · branch `video-prototype`
+
+**Keep a copy of the Claude Code sessions in the project, out of git**
+
+- `.gitignore` now leaves out `.claude/` (personal Claude Code settings) and `claude-sessions/`.
+- On this laptop, a Stop and SessionEnd hook copies the session transcripts and memory into `claude-sessions/` after every reply. They hold whole conversations, so they are never pushed.
+
+## 2026-10-22 · `a049fdd` · branch `video-prototype`
+
+**Retake a sentence the voice cuts short, and retry a long one in phrases**
+
+- The 2026-10-22 run stopped at step 10: one sentence came out at 4.1 seconds for 30 words twice, as the voice stopped partway every time at temperature 0.5.
+- The worker now also retakes a cleaned take quicker than 5 words a second (the voice speaks about 3), and each retake is 0.15 freer in temperature.
+- Step 10's second try speaks a sentence of more than 12 words phrase by phrase.
+- Re-speaking the day's flagged sentences by hand, checked with Whisper one by one, fixed 23 of 26 in the episode and 19 of 27 in the podcast; the automatic check is still open in `TODO.md`.
+
 ## 2026-10-21 · `3bb3252` · branch `video-prototype`
 
 **Speak both episodes in the owner's own voice, without breaths, and retake shouted sentences**
