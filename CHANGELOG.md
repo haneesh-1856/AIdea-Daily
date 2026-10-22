@@ -3,7 +3,7 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
-## 2026-10-21 · `COMMIT` · branch `video-prototype`
+## 2026-10-21 · `3bb3252` · branch `video-prototype`
 
 **Speak both episodes in the owner's own voice, without breaths, and retake shouted sentences**
 
