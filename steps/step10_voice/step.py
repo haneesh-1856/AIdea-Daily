@@ -17,6 +17,7 @@ from common import clips, db, episodes, formats, runlog, script
 from common.report import step_folder, write_report
 from common.settings import ROOT, database_url, load
 from common.text import word_count
+from steps.step10_voice.check import Listen, recheck, run_listener
 
 STEP = 10
 WORKER = Path(__file__).with_name("worker.py")
@@ -263,6 +264,28 @@ def problem_with(clip: dict | None, text: str) -> str | None:
     return None
 
 
+def heard_summary(checks: list[dict]) -> str:
+    """Step 10's summary of the check by ear: how many clips were wrong, and how many still are."""
+    left = sum(1 for check in checks if check["left"])
+    return f"{len(checks)} found wrong by ear, {len(checks) - left} fixed" + (f", {left} to hear" if left else "")
+
+
+def heard_report(what: str, checks: list[dict], listen) -> list[str]:
+    """The report's section on the check by ear: every clip found wrong, and what became of it."""
+    if not listen:
+        return []
+    lines = ["", f"## Checked by ear: {what}", "",
+             f"Whisper wrote down every clip and compared it with its sentence: {heard_summary(checks)}."]
+    left = [check for check in checks if check["left"]]
+    if left:
+        lines += ["", "Still wrong after the retakes. Listen to these before publishing:", "",
+                  *(f"- \"{check['text']}\": {check['left']}" for check in left)]
+    fixed = [check for check in checks if not check["left"]]
+    if fixed:
+        lines += ["", "Fixed by a retake:", "", *(f"- \"{check['text']}\": {check['was']}" for check in fixed)]
+    return lines
+
+
 def _formats_lines(conn, run) -> list[str]:
     """What became of each longer episode in this step, for the report."""
     lines = []
@@ -281,7 +304,7 @@ def _formats_lines(conn, run) -> list[str]:
     return lines
 
 
-def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> VoiceResult:
+def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None, listen: Listen | None = None) -> VoiceResult:
     url = database_url(root)
     report = step_folder(root, run_date, STEP) / "report.md"
     folder = root / "out" / run_date.isoformat() / "clips"
@@ -315,6 +338,11 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
             # A clip spoken on an earlier try, whose file is still there, is not spoken again.
             have = {clip.line_id: clip for clip in clips.of_run(conn, run.id) if Path(clip.file).exists()}
 
+        # Each clip is heard back with Whisper and spoken again if it does not say its sentence. Tests that stand in
+        # for the voice pass their own `listen`, or none. Settings added on 2026-10-23; an earlier run uses the file's.
+        heard_by = {key: settings.get(key, load(root)["voice"].get(key)) for key in ("listen", "listen_model", "listen_rounds")}
+        if listen is None and speak is None and heard_by["listen"]:
+            listen = run_listener(root, {**settings, **heard_by}, folder)
         speak = speak or run_worker(root)
         texts = {line.id: spoken(line.text, settings.get("say")) for line in lines}
         longest = settings["pauses"]["longest_phrase"]
@@ -332,6 +360,11 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
             made.update(speak(again, settings, folder))
         failed = [(item, problem_with(made.get(item["id"]), item["text"])) for item in again]
         failed = [(item, problem) for item, problem in failed if problem]
+        checks = []
+        if listen and not failed:
+            plain = {line.id: line.text for line in lines}
+            checks = recheck([dict(item, plain=plain[item["id"]]) for item in wanted], made, speak, listen, settings, folder,
+                             rounds=heard_by["listen_rounds"] or 2)
         took = time.monotonic() - began
 
         unspoken = {item["id"] for item, _ in failed}
@@ -352,13 +385,15 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
 
         # The longer episodes are spoken after the regular one. Imported here because that module uses this one's helpers.
         from steps.formats.voice import voice_formats
-        longer = voice_formats(engine, root, run, settings, speak, folder.parent)
+        longer, longer_checks = voice_formats(engine, root, run, settings, speak, folder.parent, listen, heard_by["listen_rounds"] or 2)
 
         with engine.begin() as conn:
             found = clips.of_run(conn, run.id)
             speech = sum(clip.seconds for clip in found)
             total = speech + sum(clip.pause_after for clip in found)
             summary = f"{len(found)} sentences spoken, {total / 60:.1f} minutes with pauses, made in {took / 60:.1f} minutes"
+            if listen:
+                summary += f", {heard_summary(checks)}"
             summary += "".join(f"; {one}" for one in longer)
             longer_report = _formats_lines(conn, run)
             runlog.finish_step(conn, run.id, STEP, detail=summary)
@@ -387,6 +422,8 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
         "| As written | As spoken |",
         "| --- | --- |",
         *(f"| {written.replace('|', '/')} | {said.replace('|', '/')} |" for written, said in changed),
+        *heard_report("the episode", checks, listen),
         *longer_report,
+        *(line for name, found in longer_checks.items() for line in heard_report(f"the {formats.FORMATS[name]['name']}", found, listen)),
     ])
     return VoiceResult(run.id, run_date, "voiced", len(found), total, report)

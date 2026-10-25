@@ -137,6 +137,12 @@ clean = true
 # more times, and the calmest take is kept. On 12 of 2026-10-21's worst sentences this kept every take calm and whole.
 retakes = 2
 longest_pause = 2.0       # shorter pauses are only shortened by `clean`: 1.5 retook sentences that were fine
+# Each clip is then heard back with Whisper, on the graphics card once the voice model has let it go, and compared with
+# its sentence. One with words skipped, added, repeated or garbled, a lost ending or a wrong figure is spoken again, up
+# to `listen_rounds` times, and the better take is kept. What is still wrong is listed in step 10's report.
+listen = true
+listen_model = "medium.en"   # faster-whisper; small.en is quicker but writes more names wrongly
+listen_rounds = 2
 
 [voice.pauses]
 # Seconds of silence, by what comes next. Set from the owner's own recording, where pauses take about a fifth
