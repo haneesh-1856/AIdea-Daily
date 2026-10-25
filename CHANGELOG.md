@@ -3,6 +3,12 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-25 · `3c183ee` · `voice-check`
+
+**Say Cerebras's WSE-3T as letters and figures, not "3 trillion"**
+
+- `"WSE-3T" = "W S E 3 T"` under `[voice.say]`. The rule that reads 8K, 270M or 1T as numbers made it "WSE 3 trillion" in both 2026-10-25 episodes. Those two sentences were retaken and spliced in by hand that morning.
+
 ## 2026-10-24 · `4fb259a` · `voice-check`
 
 **Hear every clip back with Whisper and retake the ones that do not say their sentence**
