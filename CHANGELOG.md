@@ -3,6 +3,16 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-24 · `4fb259a` · `voice-check`
+
+**Hear every clip back with Whisper and retake the ones that do not say their sentence**
+
+- New `steps/step10_voice/check.py` and `listener.py`: once the voice model has finished, Whisper (`medium.en`, on the graphics card) writes down every clip of the episode and the podcast, and each is compared with its sentence.
+- A clip with 3 or more words skipped, added or changed, a phrase said twice, a lost ending, a figure not heard, or under 80% of its words heard is spoken again, up to `listen_rounds` (2) times. The take in hand is set aside as `-kept.wav`, and only the better of the two stays. Nothing here stops a run: what is still wrong is listed in step 10's report.
+- New settings under `[voice]`: `listen`, `listen_model`, `listen_rounds`.
+- First run, 2026-10-24: ready at 7:10. 42 clips found wrong, 28 fixed by a retake (dropped endings, garbled names and figures). Of the 14 left, 12 were Whisper writing things its own way ("£200 million" for £200m, "64 megabytes" for 64 MB) and 2 were small slips.
+- On a branch until a few runs come out clean, then to be merged into `main`. 266 tests pass (12 new, in `steps/step10_voice/test_check.py`).
+
 ## 2026-10-22 · `d5de183` · `main`
 
 **Keep the Claude Code sessions and personal settings out of git**
