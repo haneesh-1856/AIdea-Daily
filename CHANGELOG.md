@@ -3,6 +3,16 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-26 · `208bc32` · `voice-check`
+
+**Say "bn", one dollar, price lists, subreddits, Qwen versions and GR00T the way people do**
+
+- Found by checking the 2026-10-26 episodes with Whisper: 14 sentences of the episode and 7 of the podcast were still wrong after the retakes.
+- `spoken()`: "$40bn" is "40 billion dollars" (it was "40 dollarsbn"); "$1" is "1 dollar"; prices set side by side with spaced slashes, "$5 / $30 / $0.50", are said as a list with pauses (they ran together as "$5.30.50"); "r/TrueOpenSource" is "r slash True-Open-Source" (heard "Arsh, lacked true open source"); a name's version is said apart from it and from a size after it, "Qwen3.5-9B" as "Qwen 3.5, 9 billion" (heard "Qwen 3.59 billion" and "Quent 3.3.5").
+- `"GR00T" = "Groot"` under `[voice.say]`: Nvidia's robot models, written with zeros, came out "gr tpus".
+- The day's two episodes are kept as they were in `out/2026-10-26/original/`; re-voicing the 21 sentences was stopped when the laptop ran short of memory.
+- 304 tests pass (6 new cases in `steps/step10_voice/test_step.py`).
+
 ## 2026-10-25 · `3c183ee` · `voice-check`
 
 **Say Cerebras's WSE-3T as letters and figures, not "3 trillion"**
