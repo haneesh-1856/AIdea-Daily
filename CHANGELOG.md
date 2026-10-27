@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-27 · `f5a4f8c` · `main`
+
+**Merge voice-check: hear every clip back with Whisper and retake the ones that are wrong**
+
+- Brings to `main` the check by ear (`4fb259a`), the WSE-3T pronunciation (`3c183ee`) and the 2026-10-26 pronunciation fixes (`208bc32`), with their changelog entries.
+- Merged at the owner's request after the scheduled runs of 2026-10-24 to 10-26 used it; the laptop is now on `main`, so the 5:00 run uses `main`.
+
 ## 2026-10-26 · `208bc32` · `voice-check`
 
 **Say "bn", one dollar, price lists, subreddits, Qwen versions and GR00T the way people do**
