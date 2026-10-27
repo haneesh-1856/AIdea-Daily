@@ -170,6 +170,7 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 "robots.txt" = "robots dot T X T"  # said "robots docs" and "robot stocks" on 2026-10-20 and 10-21
 "404 Media" = "four oh four Media"  # said "four honed Media" on 2026-10-21; it is a daily source
 "WSE-3T" = "W S E 3 T"     # Cerebras's chip: the "3T" rule made it "WSE 3 trillion" on 2026-10-25
+"GR00T" = "Groot"         # Nvidia's robot models, with zeros: heard "gr tpus" on 2026-10-26
 
 [formats]
 # Besides the regular briefing, each run can make two longer episodes from the same stories and sources.
