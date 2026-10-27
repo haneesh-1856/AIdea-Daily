@@ -17,6 +17,7 @@ from common import clips, db, episodes, formats, runlog, script
 from common.report import step_folder, write_report
 from common.settings import ROOT, database_url, load
 from common.text import word_count
+from steps.step10_voice.check import Listen, recheck, run_listener
 
 STEP = 10
 WORKER = Path(__file__).with_name("worker.py")
@@ -27,7 +28,7 @@ RETRY_PHRASE = 12  # on the second try, a sentence longer than this many words i
 # sentences to speak, the voice settings, the folder for the clips -> {sentence id: {"file", "seconds"} or {"error"}}
 Speak = Callable[[list[dict], dict, Path], dict]
 
-SCALES = {"k": "thousand", "m": "million", "b": "billion", "t": "trillion"}
+SCALES = {"k": "thousand", "m": "million", "b": "billion", "t": "trillion", "bn": "billion"}
 SIZES = {"K": "kilobytes", "M": "megabytes", "G": "gigabytes", "T": "terabytes"}
 MONTHS = {"Jan": "January", "Feb": "February", "Mar": "March", "Apr": "April", "Jun": "June", "Jul": "July",
           "Aug": "August", "Sept": "September", "Sep": "September", "Oct": "October", "Nov": "November", "Dec": "December"}
@@ -68,7 +69,7 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     text = re.sub(r"\b[\w.]+(?:-[\w.]+){2,}", lambda m: m.group().replace("-", " ") if re.search(r"\d", m.group()) else m.group(), text)
     # $8-9 million -> 8 to 9 million dollars, not "8 dollars-9 million"
     text = re.sub(
-        rf"\$({AMOUNT})\s*[-–]\s*\$?({AMOUNT})(?:\s*(thousand|million|billion|trillion)\b|([KkMmBbTt])\b)?",
+        rf"\$({AMOUNT})\s*[-–]\s*\$?({AMOUNT})(?:\s*(thousand|million|billion|trillion)\b|(bn|[KkMmBbTt])\b)?",
         lambda m: f"{m.group(1)} to {m.group(2)} {m.group(3) or SCALES.get((m.group(4) or '').lower(), '')} dollars".replace("  ", " "),
         text,
     )
@@ -76,11 +77,13 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     # Before a noun it is "dollar": "a 1.8 billion dollar push", "the 85 to 95,000 dollar range". That is the case
     # after a, the, its, a possessive or a range's "to", when a noun follows: "The $2,399 is" stays "dollars".
     # A price in cents is said with them: $2,599.99 -> 2,599 dollars and 99 cents; $504.00 -> 504 dollars; $0.20 -> 20 cents.
+    # One dollar is "dollar": $1 / $6 came out "1 dollars" on 2026-10-26.
     def dollars(m: re.Match) -> str:
         whole, cents, scale = m.group(2), m.group(3), m.group(4) or SCALES.get((m.group(5) or "").lower(), "")
         after = re.match(r"\s+([a-z][a-z-]*)\b", m.string[m.end():])
         before_noun = m.group(1) and after and after.group(1) not in NOT_NOUNS
-        unit = "dollar" if before_noun else "dollars"
+        one = whole == "1" and not scale and (not cents or len(cents) == 2)
+        unit = "dollar" if before_noun or one else "dollars"
         if scale:
             return (m.group(1) or "") + f"{whole}{'.' + cents if cents else ''} {scale} {unit}"
         if whole == "0" and cents and len(cents) > 2 and int(cents):
@@ -95,10 +98,18 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
 
     text = re.sub(
         rf"(\b(?i:an?|the|its|his|her|their|our)\s+|['’]s\s+|\d\s+to\s+)?\$({WHOLE})(?:\.(\d+))?"
-        r"(?:\s*(thousand|million|billion|trillion)\b|([KkMmBbTt])\b)?(?:\s+USD\b)?",
+        r"(?:\s*(thousand|million|billion|trillion)\b|(bn|[KkMmBbTt])\b)?(?:\s+USD\b)?",
         dollars,
         text,
     )
+    # Prices set side by side with spaced slashes are a list: "$5 / $30 / $0.50" lost its figures on 2026-10-26.
+    text = re.sub(r"\s+/\s+", ", ", text)
+    # r/TrueOpenSource -> r slash TrueOpenSource: heard "arsh lakshu opensource" on 2026-10-26
+    text = re.sub(r"\br/(?=\w)", "r slash ", text)
+    # Qwen3.5-9B -> Qwen 3.5, 9 billion: a name's version is said apart from it, and from the size after it.
+    # "Qwen3.5" came out "Quent 3.3.5" and "Qwen3.5-9B" "Qwen 3.59 billion" on 2026-10-26.
+    text = re.sub(r"\b([A-Z][a-z]+)(\d+(?:\.\d+)*)(?:(-)(?=\d+(?:\.\d+)?[KMBT]\b)|(?![\w.-]))",
+                  lambda m: f"{m.group(1)} {m.group(2)}" + (", " if m.group(3) else ""), text)
     # 501B, 270M, 1T, 8K -> 501 billion, 270 million, 1 trillion, 8 thousand
     text = re.sub(r"(?<![\w.])(\d+(?:\.\d+)?)([KMBT])\b", lambda m: f"{m.group(1)} {SCALES[m.group(2).lower()]}", text)
     # 191MB, 8GB, 270 GiB -> 191 megabytes, 8 gigabytes, 270 gigabytes ("Gi B" on 2026-10-21)
@@ -263,6 +274,28 @@ def problem_with(clip: dict | None, text: str) -> str | None:
     return None
 
 
+def heard_summary(checks: list[dict]) -> str:
+    """Step 10's summary of the check by ear: how many clips were wrong, and how many still are."""
+    left = sum(1 for check in checks if check["left"])
+    return f"{len(checks)} found wrong by ear, {len(checks) - left} fixed" + (f", {left} to hear" if left else "")
+
+
+def heard_report(what: str, checks: list[dict], listen) -> list[str]:
+    """The report's section on the check by ear: every clip found wrong, and what became of it."""
+    if not listen:
+        return []
+    lines = ["", f"## Checked by ear: {what}", "",
+             f"Whisper wrote down every clip and compared it with its sentence: {heard_summary(checks)}."]
+    left = [check for check in checks if check["left"]]
+    if left:
+        lines += ["", "Still wrong after the retakes. Listen to these before publishing:", "",
+                  *(f"- \"{check['text']}\": {check['left']}" for check in left)]
+    fixed = [check for check in checks if not check["left"]]
+    if fixed:
+        lines += ["", "Fixed by a retake:", "", *(f"- \"{check['text']}\": {check['was']}" for check in fixed)]
+    return lines
+
+
 def _formats_lines(conn, run) -> list[str]:
     """What became of each longer episode in this step, for the report."""
     lines = []
@@ -281,7 +314,7 @@ def _formats_lines(conn, run) -> list[str]:
     return lines
 
 
-def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> VoiceResult:
+def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None, listen: Listen | None = None) -> VoiceResult:
     url = database_url(root)
     report = step_folder(root, run_date, STEP) / "report.md"
     folder = root / "out" / run_date.isoformat() / "clips"
@@ -315,6 +348,11 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
             # A clip spoken on an earlier try, whose file is still there, is not spoken again.
             have = {clip.line_id: clip for clip in clips.of_run(conn, run.id) if Path(clip.file).exists()}
 
+        # Each clip is heard back with Whisper and spoken again if it does not say its sentence. Tests that stand in
+        # for the voice pass their own `listen`, or none. Settings added on 2026-10-23; an earlier run uses the file's.
+        heard_by = {key: settings.get(key, load(root)["voice"].get(key)) for key in ("listen", "listen_model", "listen_rounds")}
+        if listen is None and speak is None and heard_by["listen"]:
+            listen = run_listener(root, {**settings, **heard_by}, folder)
         speak = speak or run_worker(root)
         texts = {line.id: spoken(line.text, settings.get("say")) for line in lines}
         longest = settings["pauses"]["longest_phrase"]
@@ -332,6 +370,11 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
             made.update(speak(again, settings, folder))
         failed = [(item, problem_with(made.get(item["id"]), item["text"])) for item in again]
         failed = [(item, problem) for item, problem in failed if problem]
+        checks = []
+        if listen and not failed:
+            plain = {line.id: line.text for line in lines}
+            checks = recheck([dict(item, plain=plain[item["id"]]) for item in wanted], made, speak, listen, settings, folder,
+                             rounds=heard_by["listen_rounds"] or 2)
         took = time.monotonic() - began
 
         unspoken = {item["id"] for item, _ in failed}
@@ -352,13 +395,15 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
 
         # The longer episodes are spoken after the regular one. Imported here because that module uses this one's helpers.
         from steps.formats.voice import voice_formats
-        longer = voice_formats(engine, root, run, settings, speak, folder.parent)
+        longer, longer_checks = voice_formats(engine, root, run, settings, speak, folder.parent, listen, heard_by["listen_rounds"] or 2)
 
         with engine.begin() as conn:
             found = clips.of_run(conn, run.id)
             speech = sum(clip.seconds for clip in found)
             total = speech + sum(clip.pause_after for clip in found)
             summary = f"{len(found)} sentences spoken, {total / 60:.1f} minutes with pauses, made in {took / 60:.1f} minutes"
+            if listen:
+                summary += f", {heard_summary(checks)}"
             summary += "".join(f"; {one}" for one in longer)
             longer_report = _formats_lines(conn, run)
             runlog.finish_step(conn, run.id, STEP, detail=summary)
@@ -387,6 +432,8 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None) -> V
         "| As written | As spoken |",
         "| --- | --- |",
         *(f"| {written.replace('|', '/')} | {said.replace('|', '/')} |" for written, said in changed),
+        *heard_report("the episode", checks, listen),
         *longer_report,
+        *(line for name, found in longer_checks.items() for line in heard_report(f"the {formats.FORMATS[name]['name']}", found, listen)),
     ])
     return VoiceResult(run.id, run_date, "voiced", len(found), total, report)

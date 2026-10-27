@@ -3,6 +3,32 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-26 · `208bc32` · `voice-check`
+
+**Say "bn", one dollar, price lists, subreddits, Qwen versions and GR00T the way people do**
+
+- Found by checking the 2026-10-26 episodes with Whisper: 14 sentences of the episode and 7 of the podcast were still wrong after the retakes.
+- `spoken()`: "$40bn" is "40 billion dollars" (it was "40 dollarsbn"); "$1" is "1 dollar"; prices set side by side with spaced slashes, "$5 / $30 / $0.50", are said as a list with pauses (they ran together as "$5.30.50"); "r/TrueOpenSource" is "r slash True-Open-Source" (heard "Arsh, lacked true open source"); a name's version is said apart from it and from a size after it, "Qwen3.5-9B" as "Qwen 3.5, 9 billion" (heard "Qwen 3.59 billion" and "Quent 3.3.5").
+- `"GR00T" = "Groot"` under `[voice.say]`: Nvidia's robot models, written with zeros, came out "gr tpus".
+- The day's two episodes are kept as they were in `out/2026-10-26/original/`; re-voicing the 21 sentences was stopped when the laptop ran short of memory.
+- 304 tests pass (6 new cases in `steps/step10_voice/test_step.py`).
+
+## 2026-10-25 · `3c183ee` · `voice-check`
+
+**Say Cerebras's WSE-3T as letters and figures, not "3 trillion"**
+
+- `"WSE-3T" = "W S E 3 T"` under `[voice.say]`. The rule that reads 8K, 270M or 1T as numbers made it "WSE 3 trillion" in both 2026-10-25 episodes. Those two sentences were retaken and spliced in by hand that morning.
+
+## 2026-10-24 · `4fb259a` · `voice-check`
+
+**Hear every clip back with Whisper and retake the ones that do not say their sentence**
+
+- New `steps/step10_voice/check.py` and `listener.py`: once the voice model has finished, Whisper (`medium.en`, on the graphics card) writes down every clip of the episode and the podcast, and each is compared with its sentence.
+- A clip with 3 or more words skipped, added or changed, a phrase said twice, a lost ending, a figure not heard, or under 80% of its words heard is spoken again, up to `listen_rounds` (2) times. The take in hand is set aside as `-kept.wav`, and only the better of the two stays. Nothing here stops a run: what is still wrong is listed in step 10's report.
+- New settings under `[voice]`: `listen`, `listen_model`, `listen_rounds`.
+- First run, 2026-10-24: ready at 7:10. 42 clips found wrong, 28 fixed by a retake (dropped endings, garbled names and figures). Of the 14 left, 12 were Whisper writing things its own way ("£200 million" for £200m, "64 megabytes" for 64 MB) and 2 were small slips.
+- On a branch until a few runs come out clean, then to be merged into `main`. 266 tests pass (12 new, in `steps/step10_voice/test_check.py`).
+
 ## 2026-10-22 · `d5de183` · `main`
 
 **Keep the Claude Code sessions and personal settings out of git**

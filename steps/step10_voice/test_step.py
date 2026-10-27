@@ -133,6 +133,12 @@ def test_every_spoken_line_becomes_a_clip_in_order_with_its_pause(root):
     ("It peaks at 8 GiB, not 270GiB.", "It peaks at 8 gigabytes, not 270 gigabytes."),
     ("Load with device_map or pipe.to, e.g. torch_xla, at 3.8 and U.S. sites.", "Load with device map or pipe dot to, for example torch xla, at 3.8 and U.S. sites."),
     ("Use F.scaled_mm, Otter.ai or stateglobe.com.", "Use F dot scaled mm, Otter dot A I or stateglobe dot com."),
+    # Found on 2026-10-26: "bn", one dollar, prices with slashes, a subreddit, and a model's version and size.
+    ("SpaceX closes $40bn deal, worth up to $15bn.", "Space-X closes 40 billion dollars deal, worth up to 15 billion dollars."),
+    ("Luna at $1 / $6 / $0.10, then $1.20 and $1 million.", "Luna at 1 dollar, 6 dollars, 10 cents, then 1 dollar and 20 cents and 1 million dollars."),
+    ("A rival subreddit, r/TrueOpenSource, and and/or.", "A rival subreddit, r slash True-Open-Source, and and/or."),
+    ("Built on Qwen3.5-9B and 501B-A23B.", "Built on Qwen 3.5, 9 billion and 501 billion A23B."),
+    ("Three Qwen3.5 models, Llama3 and GPT-6, not GB300 or Qwen3.5-Coder.", "Three Qwen 3.5 models, Llama 3 and GPT-6, not GB300 or Qwen3.5-Coder."),
 ])
 def test_figures_and_symbols_are_written_the_way_they_are_said(written, said):
     assert spoken(written) == said

@@ -9,6 +9,7 @@ import numpy
 import soundfile
 
 from common import formats
+from steps.step10_voice.check import recheck
 from steps.step10_voice.step import VoiceError, problem_with, spoken
 
 REACTION_TEMPERATURE = 1.0  # a reaction is given more freedom, so that it is not said flatly
@@ -36,12 +37,12 @@ def prepared(root: Path, name: str, segments: list, chosen: dict, corrections: d
     return found
 
 
-def voice_formats(engine, root: Path, run, voice: dict, speak, folder: Path) -> list[str]:
-    """Speak every finished longer script. Returns what to add to step 10's summary.
+def voice_formats(engine, root: Path, run, voice: dict, speak, folder: Path, listen=None, rounds: int = 2) -> tuple[list[str], dict]:
+    """Speak every finished longer script. Returns what to add to step 10's summary, and each script's check by ear.
 
     A script that cannot be spoken is reported and left without audio: the regular episode does not depend on it.
     """
-    said = []
+    said, heard = [], {}
     for name in formats.wanted(run.settings):
         about = formats.FORMATS[name]
         with engine.begin() as conn:
@@ -88,6 +89,8 @@ def voice_formats(engine, root: Path, run, voice: dict, speak, folder: Path) -> 
             failed = [(item, problem_with(made.get(item["id"]), item["plain"])) for item in again]
             failed = [(item, problem) for item, problem in failed if problem]
             note = f"not spoken: {len(failed)} pieces failed twice. The first: \"{failed[0][0]['text']}\" ({failed[0][1]})" if failed else None
+            if listen and not failed:
+                heard[name] = recheck(wanted, made, speak, listen, voice, clip_folder, rounds=rounds)
         except VoiceError as exc:
             made, note = {}, f"not spoken: {exc}"
         unspoken = {item["id"] for item, _ in failed}
@@ -99,7 +102,10 @@ def voice_formats(engine, root: Path, run, voice: dict, speak, folder: Path) -> 
             # Every good clip is recorded, also when some failed, so that a repeat speaks only what is missing.
             formats.update(conn, run.id, name, clips=have, note=note, voice_seconds=(row.voice_seconds or 0) + time.monotonic() - began)
         said.append(f"{about['name']} not spoken" if note else f"{about['name']} {len(pieces)} pieces spoken")
-    return said
+        if name in heard:
+            from steps.step10_voice.step import heard_summary
+            said[-1] += f", {heard_summary(heard[name])}"
+    return said, heard
 
 
 def join_formats(conn, root: Path, run, folder: Path) -> list[str]:
