@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-28 · `0b8adb4` · `test-acoustic-prompt`
+
+**Test the owner's acoustic prompt on today's stories, outside the run**
+
+- `experiments/acoustic_prompt/test.py` sends the 2026-10-28 stories and sources with the owner's prompt (`prompt.md`, placeholders filled) in one request, and saves the script to `runs/2026-10-28/prompt-test/acoustic-script.md`.
+- A test only, on its own branch: nothing in the run calls it. Sonnet 5.5 wrote 4,763 words for $0.26.
+
 ## 2026-10-27 · `f5a4f8c` · `main`
 
 **Merge voice-check: hear every clip back with Whisper and retake the ones that are wrong**
