@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-28 · `0d41ae9` · `test-acoustic-prompt`
+
+**Test the owner's style rules on today's podcast, outside the run**
+
+- `experiments/style_rules/test.py` rewrites the 2026-10-28 podcast from its saved plan, segment by segment, with `style.md` (start with the news, honest open loops, banned clichés, editorial integrity) added after the podcast rules.
+- Saves `style-script.md` and the original as `podcast-script-before.md` in `runs/2026-10-28/prompt-test/`. 7,673 words against 7,862 before, for $0.43. The database is not changed.
+
 ## 2026-10-28 · `0b8adb4` · `test-acoustic-prompt`
 
 **Test the owner's acoustic prompt on today's stories, outside the run**
