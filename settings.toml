@@ -157,7 +157,9 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 [voice.say]
 # How to say a word the voice gets wrong: the word as written = the way to say it. Add to this as you hear mistakes.
 "AIdea" = "I-dea"         # the show's name, said like "idea": "Aidea" was heard "Adia" and "80" on 2026-10-20 and 10-21; "I-dea" 5 times out of 5
+"Claude Code" = "Clawd, Code"  # heard "clod code" and "claw" (2026-10-29): the d of "Clawd" ran into the C of "Code"; first test 2026-10-31
 "Claude" = "Clawd"        # said "Clod" or "Clog" on 2026-10-17, five times out of five
+"Anthropic" = "Ann Thropic"  # slurred "Nthropic", "Enbropic", "Inverpick" on 10-18 to 10-20, dropping the "An"; hyphened spellings did no better; first test 2026-10-31
 "Show HN" = "Show H N"    # said "Shoei Gen" on 2026-10-18
 "Ep" = "Episode"          # "Ep 6" said "Ep 6th" on 2026-10-18
 "ETH" = "ether"           # said "8H" on 2026-10-18

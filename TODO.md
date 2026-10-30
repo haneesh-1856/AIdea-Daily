@@ -50,7 +50,9 @@ Things to fix later. Tick them off as they are done.
 - [x] "Oct. 20, 2026" said "AUC 202026", "10 ms" said "10 mesemes" (twice), "4–8x" said "4x 8x", and "low‑resource" (a no-break hyphen) said "low-free source": rules in `spoken()`.
 - [x] "AWS" said "Ossebusian" and "Allsagas", "Ollama" said "Alama" or "Olima" five times, "Claudes" said "clods" three times: `[voice.say]` entries, picked by speaking each spelling five times.
 - [ ] **"Anthropic" slurred** on 2026-10-18, 10-19 and 10-20 ("Inverpick", "and through PIC", "Enbropic", "Nthropic"), mostly right but not always. No respelling tried ("An-thropic", "Ann-thropic", "Ann-throppick", "Ann-throw-pick") did reliably better.
+  2026-10-30: now `"Anthropic" = "Ann Thropic"` (a space, not a hyphen). Check it in the 2026-10-31 episodes.
 - [ ] **"Claude" in "Claude Code"** heard "clod code" nearly every time, in every spelling tried ("Clawd", "Klawd", "Clawed", "Claw-d", "Clawwd"). Before "Haiku" it is heard "Claude" 4 times out of 6. Whisper predates Claude and "clawed" sounds like "clod" in many American accents, so it needs a listen by ear.
+  2026-10-30: now `"Claude Code" = "Clawd, Code"`. On 10-29 it was heard "claw" because the "d" ran into the "C" of "Code". Check it in the 2026-10-31 episodes.
 - [ ] Once each, not fixed by a rule: "20.59 percent" said "20.9", "123 million" said "1233 million", "runs 115." said "11.5 teen", "Qwen3.8" said "Qwen 3.1… 3.8", "deleting an account" said "the leading-in account", "EN 18286:2026" garbled (2026-10-19). The automatic check below would catch and re-speak these.
 - [x] The show's name heard "Adia Daily" (2026-10-20) and "80 Daily" (2026-10-21): `"AIdea" = "I-dea"`, heard "Idea Daily" 5 times out of 5.
 

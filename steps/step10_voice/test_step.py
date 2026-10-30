@@ -4,7 +4,7 @@ import numpy
 import pytest
 import soundfile
 
-from common import db, runlog
+from common import db, runlog, settings
 from common.settings import database_url
 from steps.step05_score.step import score
 from steps.step06_select.step import select
@@ -254,3 +254,9 @@ def test_it_needs_step_nine_first_and_does_not_run_twice(root):
     fake = FakeVoice()
     again = voice(DAY, root=root, speak=fake)
     assert (again.state, again.clips, fake.calls) == ("already_done", 12, [])
+
+
+def test_claude_code_is_said_as_two_words_before_claude_alone_is_respelled():
+    say = settings.load()["voice"]["say"]
+    assert spoken("Claude Code's agents and Claude Duet, from Anthropic's team.", say) == \
+        "Clawd, Code's agents and Clawd Duet, from Ann Thropic's team."
