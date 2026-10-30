@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-10-30 · `b0741e1` · `main`
+
+**Say "Anthropic" as "Ann Thropic" and "Claude Code" as "Clawd, Code"**
+
+- `"Anthropic" = "Ann Thropic"` under `[voice.say]`. The voice dropped the opening "An" ("Nthropic", "Enbropic", "Inverpick") on 2026-10-18 to 10-20, and spellings with a hyphen did no better.
+- `"Claude Code" = "Clawd, Code"`, placed above `"Claude"` so it matches first. On 2026-10-29 the "d" ran into the "C" of "Code", and it was heard as "claw".
+- Not sampled yet: the 2026-10-31 run is the first test. The 2026-10-30 episodes were left as they were, at the owner's request.
+- 65 step 10 tests pass (1 new in `steps/step10_voice/test_step.py`).
+
 ## 2026-10-27 · `f5a4f8c` · `main`
 
 **Merge voice-check: hear every clip back with Whisper and retake the ones that are wrong**
