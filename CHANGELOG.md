@@ -3,6 +3,14 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-02 · `69233dd` · `main`
+
+**Leave the duo script out of the daily run to save writing cost**
+
+- `duo = false` under `[formats]`. The host-and-guest script was written every day but never spoken, and cost about a quarter of each run's model spend: $0.35 to $0.45 on weekdays from 2026-10-27 to 10-30, $0.17 on 2026-11-02. The 2026-11-03 run is the first without it; set it back to `true` to bring it back.
+- `steps/testkit.py` switches the longer formats off whether the settings have them on or off, since it used to expect `duo = true`.
+- All 307 tests pass.
+
 ## 2026-10-30 · `b0741e1` · `main`
 
 **Say "Anthropic" as "Ann Thropic" and "Claude Code" as "Clawd, Code"**
