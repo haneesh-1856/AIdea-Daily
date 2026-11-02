@@ -229,6 +229,25 @@ def test_a_source_slower_than_the_limit_is_abandoned(root, web, monkeypatch):
     assert health_rows(root)["Lab Blog"].ok is True
 
 
+def test_a_source_that_fails_is_tried_once_more_and_kept_if_it_answers(root, web, monkeypatch):
+    fake_get, calls = step.get, []
+
+    def get_once_failing(url, params=None):
+        if "press.example" in url:
+            calls.append(url)
+            if len(calls) == 1:
+                raise httpx.ReadTimeout("slow this morning")
+        return fake_get(url, params)
+
+    monkeypatch.setattr(step, "get", get_once_failing)
+    start(DAY, root=root, checks=[])
+    result = run(root)
+
+    assert len(calls) == 2
+    assert "Daily Press" in {e["source"] for e in result.entries}
+    assert health_rows(root)["Daily Press"].ok is True
+
+
 def test_a_source_failing_on_several_runs_shows_its_streak(root, web):
     web["https://press.example/feed"] = httpx.ConnectError("no route")
     start(DAY, root=root, checks=[])
