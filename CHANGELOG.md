@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-02 · `8a293d8` · `weekend-edition`
+
+**Give slow sources 40 seconds and a second try; sample a Weekend Edition**
+
+- Step 2: `TIMEOUT` is 40 seconds instead of 20, and every source that failed is tried once more, side by side (`_read_together`). Six sources timed out on 2026-11-02 (Wired, BBC, Gizmodo, The Decoder, Tech Policy Press, Replicate).
+- `experiments/weekend_edition/`: `sample.py` writes a week-in-review from the week's 5 top stories and what was reported since; `speak.py` voices it; `extra.py` writes the day's passed-over stories for the briefing and the podcast. All write from stored articles only and are fact-checked. They were used by hand to lengthen the 2026-11-02 episodes; nothing is wired into the daily run.
+- TODO.md: the six quiet-day ideas, with 1 and 2 under way and 3 to 6 kept for later.
+- 307 tests pass (1 new in `steps/step02_fetch/test_step.py`).
+
 ## 2026-10-30 · `b0741e1` · `main`
 
 **Say "Anthropic" as "Ann Thropic" and "Claude Code" as "Clawd, Code"**
