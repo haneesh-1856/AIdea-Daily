@@ -11,6 +11,7 @@ Every commit to the project, newest first: when, which commit, which branch, and
 - `experiments/weekend_edition/`: `sample.py` writes a week-in-review from the week's 5 top stories and what was reported since; `speak.py` voices it; `extra.py` writes the day's passed-over stories for the briefing and the podcast. All write from stored articles only and are fact-checked. They were used by hand to lengthen the 2026-11-02 episodes; nothing is wired into the daily run.
 - TODO.md: the six quiet-day ideas, with 1 and 2 under way and 3 to 6 kept for later.
 - 307 tests pass (1 new in `steps/step02_fetch/test_step.py`).
+- Pull request [#2](https://github.com/haneesh-1856/AIdea-Daily/pull/2) into `main`, opened 2026-11-02, not merged yet.
 
 ## 2026-10-30 · `b0741e1` · `main`
 
