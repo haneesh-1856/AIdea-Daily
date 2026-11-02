@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-02 · `44b1598` · `main`
+
+**Add STATISTICS.md with the model cost by part for 2026-10-29 to 11-02**
+
+- A new file for figures about the daily runs, newest first, read from the `model_calls` table.
+- First entry: without the duo script the last five runs cost $4.59 ($0.92 a run); the editor (35%) and the podcast writer (34%) take most of it. Three ways to cut further are listed, none tried yet, and the query behind the table is included.
+
 ## 2026-11-02 · `69233dd` · `main`
 
 **Leave the duo script out of the daily run to save writing cost**
