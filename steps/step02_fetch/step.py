@@ -22,7 +22,9 @@ from common.settings import ROOT, database_url
 STEP = 2
 USER_AGENT = "ai-news-agent/0.1 (personal feed reader)"
 HN_SEARCH = "https://hn.algolia.com/api/v1/search_by_date"
-TIMEOUT = 20  # seconds: the limit for each request, and for a source as a whole
+# Seconds: the limit for each request, and for a source as a whole. It was 20 until 2026-11-02, when Wired, BBC,
+# Gizmodo, The Decoder, Tech Policy Press and Replicate all ran past it on the same morning.
+TIMEOUT = 40
 
 
 class FetchError(Exception):
@@ -211,6 +213,17 @@ def read_all(settings: dict, now: datetime) -> list[SourceResult]:
             jobs.append((feed["name"], feed["kind"], lambda feed=feed: read_feed(feed)))
     jobs.append(("Hacker News", "traction", lambda: read_hacker_news(collect["hn_min_points"], cutoff)))
 
+    results = _read_together(jobs)
+    # A source that failed is tried once more, together with the others that failed: a slow or broken morning at one
+    # site is often over a minute later.
+    again = [i for i, result in enumerate(results) if result.error]
+    for i, result in zip(again, _read_together([jobs[i] for i in again]) if again else []):
+        results[i] = result
+    return results
+
+
+def _read_together(jobs: list[tuple]) -> list[SourceResult]:
+    """Read the sources side by side, abandoning any still going after the limit."""
     pool = ThreadPoolExecutor(max_workers=len(jobs))
     futures = [pool.submit(_attempt, *job) for job in jobs]
     wait(futures, timeout=TIMEOUT)

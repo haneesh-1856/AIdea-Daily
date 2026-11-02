@@ -81,6 +81,20 @@ Things to fix later. Tick them off as they are done.
   - Whisper writes numbers and names its own way ("Allama" for Ollama, "$61 .5 million"), so ignore differences of a word or two.
   - Measure pace from the waveform, not from Whisper's word times: Whisper often stretches the first word over the pause before it.
 
+## Quiet days: fuller weekend episodes (owner chose 1 and 2 on 2026-11-02; keep the rest for later)
+
+Weekend runs (Saturday to Monday mornings) fall to 8 to 13 minutes against 20 to 24 on weekdays. On 2026-11-02 there were
+26 new items and 8 stories, about 7.5 minutes of briefing and a 17.5-minute podcast. Suggested floor: 12 and 25 minutes.
+
+- [ ] 1. Stop losing sources to timeouts: 40 s instead of 20 s, and one more try. Six timed out on 2026-11-02.
+- [ ] 2. Weekend Edition: on Saturday to Monday mornings, a week-in-review segment with the week's 3 to 5 biggest
+  stories and what has been reported since, from stored articles. Make a sample for the owner to hear before building it.
+- [ ] 3. One deep dive on a quiet day: the top story at length (background, how sources differ, what to watch), from sources only.
+- [ ] 4. Sources that publish at weekends: AI subreddits, Hugging Face trending models and papers, GitHub trending.
+  Test what real stories each brings before adding it.
+- [ ] 5. Loosen the short-day rule a little, e.g. `watch_from` 3.5 instead of 4.0. That adds stories, but weaker ones.
+- [ ] 6. Change the schedule: skip Sunday and fold its news into a fuller Monday episode.
+
 ## Other
 
 - [ ] The voice report shows "2–3%" as garbled characters (`2â€“3`): an encoding problem somewhere between the script and the report.
