@@ -179,7 +179,7 @@ longest_phrase = 1000     # a sentence with more words than this is spoken phras
 # Step 8 writes them, step 9 checks them, step 10 speaks them and step 11 joins them. Each has its own script
 # and episode file in the day's folder. They add model cost and voice time; set one to false to leave it out.
 podcast = true            # one presenter, conversational: podcast-script.md and podcast-episode.mp3
-duo = true                # a host and a guest: duo-script.md and duo-episode.mp3
+duo = false               # a host and a guest: duo-script.md and duo-episode.mp3 (left out from 2026-11-03 to save writing cost)
 # Which of them step 10 speaks. One left out still gets its script, but no audio, and saves the voice time.
 speak = ["podcast"]
 show_name = "AIdea Daily"
