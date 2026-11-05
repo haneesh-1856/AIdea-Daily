@@ -97,5 +97,7 @@ Weekend runs (Saturday to Monday mornings) fall to 8 to 13 minutes against 20 to
 
 ## Other
 
+- [ ] **Tiny decimals:** "0.00065%" was said as "0.30065", "0.777" and "0.65" on 2026-11-02, in 3 of 4 tries. Spelled out as "zero point zero zero zero six five percent", it was right in 4 of 5. Add a rule to `spoken()` that spells out a decimal with leading zeros.
+
 - [ ] The voice report shows "2–3%" as garbled characters (`2â€“3`): an encoding problem somewhere between the script and the report.
 - [ ] Keep the laptop plugged in from 5:00 to about 7:30. The three episodes take over 2 hours to voice, and on 2026-10-14 the battery died at about 7:35.
