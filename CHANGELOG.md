@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-05 · `009b0e2` · `weekend-edition`
+
+**Leave out the duo episode; note the tiny-decimals voice problem**
+
+- `settings.toml`: `duo = false`. Changed on 2026-11-02 and used by the daily runs from 2026-11-03 to save writing cost; committed on 2026-11-05.
+- `steps/testkit.py`: the test setup now accepts `podcast` and `duo` set to either `true` or `false`, so the tests no longer break when one is switched off.
+- TODO.md: new item to spell out decimals with leading zeros. On 2026-11-02, "0.00065%" was misread in 3 of 4 tries.
+- Tests not run for this commit (skipped at the owner's request).
+
 ## 2026-11-02 · `8a293d8` · `weekend-edition`
 
 **Give slow sources 40 seconds and a second try; sample a Weekend Edition**
