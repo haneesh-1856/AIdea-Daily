@@ -3,6 +3,13 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-08 · `bfae886` · `weekend-edition`
+
+**Say "$1tn" and "$300mn" as trillion and million dollars**
+
+- Step 10: `spoken()` reads "tn" and "mn" after a dollar amount, and in dollar ranges, the same way as "bn". On 2026-11-07, "$1tn" was said "1 dollartn" and "$2.5tn" "2.5 dollarstn".
+- 307 tests pass (1 new in `steps/step10_voice/test_step.py`). One test fails, and it already failed before this change: `test_an_article_read_before_is_not_read_again` in `steps/step06_select/test_step.py`.
+
 ## 2026-11-05 · `009b0e2` · `weekend-edition`
 
 **Leave out the duo episode; note the tiny-decimals voice problem**
