@@ -3,6 +3,12 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-08 · `2d0159d` · `main`
+
+**Give the RSS.com channel link its own Listen section in the README**
+
+- `README.md`: the link to the show on RSS.com moves from a bold line into a `## Listen` section near the top. Cherry-picked from `f77ff5c` on `weekend-edition`.
+
 ## 2026-11-02 · `44b1598` · `main`
 
 **Add STATISTICS.md with the model cost by part for 2026-10-29 to 11-02**
