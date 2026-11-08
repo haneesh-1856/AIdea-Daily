@@ -3,6 +3,12 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-08 · `f77ff5c` · `weekend-edition`
+
+**Give the RSS.com channel link its own Listen section in the README**
+
+- `README.md`: the link to the show on RSS.com moves from a bold line into a `## Listen` section near the top.
+
 ## 2026-11-08 · `bfae886` · `weekend-edition`
 
 **Say "$1tn" and "$300mn" as trillion and million dollars**
