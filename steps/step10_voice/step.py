@@ -28,7 +28,7 @@ RETRY_PHRASE = 12  # on the second try, a sentence longer than this many words i
 # sentences to speak, the voice settings, the folder for the clips -> {sentence id: {"file", "seconds"} or {"error"}}
 Speak = Callable[[list[dict], dict, Path], dict]
 
-SCALES = {"k": "thousand", "m": "million", "b": "billion", "t": "trillion", "bn": "billion"}
+SCALES = {"k": "thousand", "m": "million", "b": "billion", "t": "trillion", "bn": "billion", "tn": "trillion", "mn": "million"}
 SIZES = {"K": "kilobytes", "M": "megabytes", "G": "gigabytes", "T": "terabytes"}
 MONTHS = {"Jan": "January", "Feb": "February", "Mar": "March", "Apr": "April", "Jun": "June", "Jul": "July",
           "Aug": "August", "Sept": "September", "Sep": "September", "Oct": "October", "Nov": "November", "Dec": "December"}
@@ -69,7 +69,7 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     text = re.sub(r"\b[\w.]+(?:-[\w.]+){2,}", lambda m: m.group().replace("-", " ") if re.search(r"\d", m.group()) else m.group(), text)
     # $8-9 million -> 8 to 9 million dollars, not "8 dollars-9 million"
     text = re.sub(
-        rf"\$({AMOUNT})\s*[-–]\s*\$?({AMOUNT})(?:\s*(thousand|million|billion|trillion)\b|(bn|[KkMmBbTt])\b)?",
+        rf"\$({AMOUNT})\s*[-–]\s*\$?({AMOUNT})(?:\s*(thousand|million|billion|trillion)\b|(bn|tn|mn|[KkMmBbTt])\b)?",
         lambda m: f"{m.group(1)} to {m.group(2)} {m.group(3) or SCALES.get((m.group(4) or '').lower(), '')} dollars".replace("  ", " "),
         text,
     )
@@ -98,7 +98,7 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
 
     text = re.sub(
         rf"(\b(?i:an?|the|its|his|her|their|our)\s+|['’]s\s+|\d\s+to\s+)?\$({WHOLE})(?:\.(\d+))?"
-        r"(?:\s*(thousand|million|billion|trillion)\b|(bn|[KkMmBbTt])\b)?(?:\s+USD\b)?",
+        r"(?:\s*(thousand|million|billion|trillion)\b|(bn|tn|mn|[KkMmBbTt])\b)?(?:\s+USD\b)?",
         dollars,
         text,
     )
