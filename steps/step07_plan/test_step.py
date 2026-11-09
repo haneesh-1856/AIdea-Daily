@@ -84,6 +84,15 @@ def test_the_word_cap_follows_the_chosen_length(root, monkeypatch, minutes, cap)
     assert run(root).word_cap == cap
 
 
+def test_without_a_length_the_episode_has_no_cap(root, monkeypatch):
+    fake_web(monkeypatch)
+    edit_settings(root, "length_minutes = 15\n", "")
+    grouped(root, {"top": STRONG})
+    result = run(root)
+    assert result.word_cap == 0
+    assert "no length cap" in (root / "runs" / DAY.isoformat() / "07_plan" / "report.md").read_text(encoding="utf-8")
+
+
 def test_an_empty_shortlist_still_gives_an_outline(root, monkeypatch):
     fake_web(monkeypatch)
     grouped(root, {"weak": [item("Press A")]})

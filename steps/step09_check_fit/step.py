@@ -205,7 +205,8 @@ def check_fit(run_date: date, *, root: Path = ROOT) -> CheckResult:
                 brief = briefs[entry.story_id]
                 has_brief = brief > 0
                 rest = sum(briefs[later.story_id] for later in ranked[place + 1:] if later.kind != "correction")
-                if entry.kind == "correction" or (mode == "full" and used + full + rest <= episode.word_cap):
+                # A word cap of 0 is no cap: every story is told in full.
+                if entry.kind == "correction" or (mode == "full" and (not episode.word_cap or used + full + rest <= episode.word_cap)):
                     form[entry.story_id], used = "full", used + full
                     continue
                 mode = "brief" if mode == "full" else mode
@@ -264,7 +265,7 @@ def check_fit(run_date: date, *, root: Path = ROOT) -> CheckResult:
 
             removed = sum(found == "removed" for found in status.values())
             summary = (
-                f"{'HELD' if held else 'Ready'}: {total} words of a cap of {episode.word_cap}, {removed} sentences removed, "
+                f"{'HELD' if held else 'Ready'}: {total} words{f' of a cap of {episode.word_cap}' if episode.word_cap else ', no cap'}, {removed} sentences removed, "
                 f"{sum(value == 'full' for value in form.values())} stories in full, "
                 f"{sum(value == 'brief' for value in form.values())} brief, {sum(value == 'dropped' for value in form.values())} dropped"
             )

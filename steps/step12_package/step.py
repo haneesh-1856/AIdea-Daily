@@ -109,7 +109,8 @@ def _review_lines(run, episode, told: list, log: list, failed_sources: list, spe
         "- `show-notes.md`: every story's links and confidence label",
         "- `show-notes-short.md`: plain text under the podcast host's 4,000-character limit, to paste in as it is",
         "",
-        f"## Stories ({len(shown)} in the episode, {episode.words} words of a cap of {episode.word_cap})",
+        f"## Stories ({len(shown)} in the episode, {episode.words} words"
+        + (f" of a cap of {episode.word_cap})" if episode.word_cap else ", no length cap)"),
         "",
         "| # | Story | In the episode as | Label | Kind | Score |",
         "| --- | --- | --- | --- | --- | --- |",

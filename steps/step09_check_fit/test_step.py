@@ -197,6 +197,19 @@ def test_over_the_cap_the_top_story_is_told_in_full_and_the_rest_in_brief(root, 
     assert actions.count(("shortened to brief", "the episode reached its word cap")) == 3
 
 
+def test_without_a_length_cap_every_story_is_told_in_full(root, roomy):
+    edit_settings(root, "length_minutes = 15\n", "")
+    edit_settings(root, "hold_above = 0.2", "hold_above = 0.9")
+    grouped(root, {"first": SOURCES, "second": hacker(900), "third": hacker(500), "fourth": hacker(200)})
+    result = run(root, {name: dict(STORY, what_happened=long(400)) for name in ("first", "second", "third", "fourth")})
+
+    assert {title: form for title, (form, _) in forms(root).items()} == {
+        "first": "full", "second": "full", "third": "full", "fourth": "full",
+    }
+    assert result.word_cap == 0 and result.words > 750
+    assert not [row for row in rows(root, db.check_log) if row.action == "shortened to brief"]
+
+
 def test_a_long_story_at_the_top_does_not_push_the_others_out(root, roomy):
     edit_settings(root, "length_minutes = 15", "length_minutes = 5")
     edit_settings(root, "hold_above = 0.2", "hold_above = 0.9")

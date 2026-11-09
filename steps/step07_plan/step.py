@@ -82,7 +82,7 @@ def plan(run_date: date, *, root: Path = ROOT) -> PlanResult:
             runlog.begin_step(conn, run.id, STEP)
 
             # The run's frozen settings are used, not the files.
-            length = run.settings["episode"]["length_minutes"]
+            length = run.settings["episode"].get("length_minutes", 0)  # 0: no length cap, and so a word cap of 0
             word_cap = length * run.settings["episode"]["words_per_minute"]
             episode_id = episodes.create(conn, run.id, length, word_cap)
 
@@ -119,11 +119,11 @@ def _report_lines(run_date: date, summary: str, placed: list, length: int, word_
         "",
         f"{summary}.",
         "",
-        f"The episode may run up to {length} minutes, which is {word_cap} words. That is a ceiling, not a target: "
-        "nothing is added to fill time.",
+        (f"The episode may run up to {length} minutes, which is {word_cap} words. That is a ceiling, not a target: "
+         "nothing is added to fill time." if word_cap else "The episode has no length cap: it runs as long as its stories carry."),
         "",
-        f"A story's length follows its score. The stories below are given {sum(room.values())} words between them; "
-        "if that and the linking parts pass the ceiling, step 9 shortens the lowest-ranked to their brief versions.",
+        f"A story's length follows its score. The stories below are given {sum(room.values())} words between them"
+        + ("; if that and the linking parts pass the ceiling, step 9 shortens the lowest-ranked to their brief versions." if word_cap else "."),
         *(["", f"**A short day.** The editor's own list made an episode of under {short_at:g} minutes, so every story is told "
            "one length longer than its score gives. An update, a story with little source text and a story that is only "
            "worth watching stay quick hits."] if short_at else []),

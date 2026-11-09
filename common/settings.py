@@ -97,7 +97,8 @@ def load(root: Path = ROOT) -> dict:
         problems.append("sources.toml: [settings] not_enough_alone must be a list of words or phrases")
 
     episode = run.get("episode", {})
-    if not (_positive_int(episode.get("length_minutes")) and episode["length_minutes"] <= LONGEST_EPISODE):
+    # length_minutes is optional: left out, an episode has no length cap.
+    if "length_minutes" in episode and not (_positive_int(episode["length_minutes"]) and episode["length_minutes"] <= LONGEST_EPISODE):
         problems.append(f"settings.toml: [episode] length_minutes must be a whole number from 1 to {LONGEST_EPISODE}")
 
     retention = run.get("retention", {})

@@ -35,6 +35,8 @@ def make_root(tmp_path, monkeypatch):
     # top 8 stories scoring 4 or more, a headline for each, and one length of 600 words for every story. A test of
     # the lengths sets its own. A short day is left short, so that a test of selection sees only what it selected,
     # and Hacker News points add nothing, so that a test's scores are the ratings it gave.
+    if not re.search(r"^length_minutes = ", text, flags=re.MULTILINE):  # the real settings may have no cap
+        text = text.replace("[episode]\n", "[episode]\nlength_minutes = 15\n", 1)
     for key, value in BASELINE.items():
         text, found = re.subn(rf"^{key} = [\d.]+", f"{key} = {value}", text, flags=re.MULTILINE)
         assert found == 1, key

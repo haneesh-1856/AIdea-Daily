@@ -91,7 +91,7 @@ def script_page(day: date, episode, told: list[Told], linking: dict, pace: int) 
         f"# AI news briefing: {day:%A}, {long_date(day)}",
         "",
         f"*{episode.words} words, about {max(1, round(episode.words / pace))} minutes at {pace} words a minute. "
-        f"The cap was {episode.word_cap} words.*",
+        + (f"The cap was {episode.word_cap} words.*" if episode.word_cap else "There was no length cap.*"),
         "",
     ]
     if episode.status == "held":

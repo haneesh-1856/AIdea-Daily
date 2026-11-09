@@ -1,9 +1,12 @@
 # Run settings. Sources and the collection filters are in sources.toml.
 
 [episode]
-length_minutes = 45       # the longest an episode may run. A ceiling, not a target: a quiet day is shorter.
-# The voice's measured pace with its pauses: 2,191 words came to 17.1 minutes on 7 October 2026.
-words_per_minute = 130    # used to turn minutes into a word cap
+# No length cap: an episode runs as long as the day's stories carry. The owner's rule is a minimum only, 15 minutes
+# for this briefing (short_day_minutes under [select]) and 35 for the podcast (min_minutes under [formats]).
+# Add `length_minutes = <minutes>` here to bring back a cap; it was 45 until 2026-11-09.
+# The voice's measured pace with its pauses: 145 words a minute over 2026-10-30 to 11-08 (1,724 words came to
+# 12.0 minutes on 8 November). It was 130 with the older voice (2,191 words in 17.1 minutes on 7 October 2026).
+words_per_minute = 145    # used to turn minutes into a word cap
 headlines = 6             # how many of the top stories get a headline at the start of the episode
 
 [retention]
@@ -81,7 +84,7 @@ min_score = 3.0           # the floor: a story below this is left out even when 
 # A short day: when the editor's list makes an episode shorter than this, stories the editor rated but passed over
 # are added (first those marked Know today, then those marked Watch), and every story is told one length longer.
 # A story marked Skip is never added. Set to 0 to leave a short day short.
-short_day_minutes = 15
+short_day_minutes = 17    # a minimum, not a target; aims above the owner's 15-minute minimum, since the written stories come out a little shorter than planned
 watch_from = 4.0          # a story marked Watch needs this score to be added on a short day
 # After the final list (phase 1) the editor makes two more passes. Phase 2 looks again at every story left out and
 # brings back the worthwhile ones (steps/step05_score/recovery.md); it has no switch. Phase 3 picks celebrity, viral
@@ -183,9 +186,10 @@ duo = false               # a host and a guest: duo-script.md and duo-episode.mp
 # Which of them step 10 speaks. One left out still gets its script, but no audio, and saves the voice time.
 speak = ["podcast"]
 show_name = "AIdea Daily"
-min_minutes = 35          # the length to aim for, if the day's news can carry it without padding
-# The pace of conversational speech with its pauses: 5,588 words came to 37.0 minutes on 10 October 2026.
-speaking_pace = 150      # words a minute
+min_minutes = 37          # a minimum, not a target, with no upper limit; aims above the owner's 35-minute minimum
+# The pace of conversational speech with its pauses: 172 words a minute over 2026-11-01 to 11-08 (5,556 words came
+# to 32.1 minutes on 8 November). It was 150 with the older voice (5,588 words in 37.0 minutes on 10 October 2026).
+speaking_pace = 172       # words a minute
 
 [formats.voices]
 # The reference recording each speaker's voice is copied from. Use only voices you have the right to use:

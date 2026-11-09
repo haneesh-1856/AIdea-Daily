@@ -153,7 +153,7 @@ def _report_lines(run, state: str, upcoming: int | None, settings: dict, url: st
         f"| Hacker News minimum points | {settings['collect']['hn_min_points']} |",
         f"| AI keywords | {len(settings['collect']['ai_keywords'])} |",
         f"| Model | {settings['model'].get('name') or 'none chosen'} |",
-        f"| Episode length cap | {settings['episode']['length_minutes']} minutes |",
+        f"| Episode length cap | {str(settings['episode']['length_minutes']) + ' minutes' if settings['episode'].get('length_minutes') else 'none'} |",
         f"| Speaking pace | {settings['episode']['words_per_minute']} words a minute |",
         f"| Keep article text | {settings['retention']['article_text_days']} days |",
         f"| Keep audio | {settings['retention']['audio_days']} days |",
