@@ -176,6 +176,8 @@ def load(root: Path = ROOT) -> dict:
     for key in ("min_minutes", "speaking_pace"):
         if not _positive_int(longer.get(key)):
             problems.append(f"settings.toml: [formats] {key} must be a whole number above zero")
+    if "max_minutes" in longer and not (_positive_int(longer["max_minutes"]) and longer["max_minutes"] >= (longer.get("min_minutes") or 0)):
+        problems.append("settings.toml: [formats] max_minutes must be a whole number, at least min_minutes")
     for key in ("presenter", "host", "guest"):
         if not longer.get("voices", {}).get(key):
             problems.append(f"settings.toml: [formats.voices] {key} is empty")

@@ -23,10 +23,11 @@ FALLBACK_TITLES = {
 TRIES = 2  # a request that fails is made once more
 
 
-def target_words(settings: dict) -> int:
-    """The fewest spoken words the plan should have, from the minimum minutes and the speaking pace.
-    It is a floor, not a target: there is no most, and a busy day runs as long as its stories carry."""
-    return settings["formats"]["min_minutes"] * settings["formats"]["speaking_pace"]
+def target_words(settings: dict) -> tuple[int, int | None]:
+    """The fewest and the most spoken words the plan may have, from the speaking pace. The fewest is a floor, not a
+    target. The most comes from `max_minutes`, and is None when that is left out: then there is no ceiling."""
+    chosen, pace = settings["formats"], settings["formats"]["speaking_pace"]
+    return chosen["min_minutes"] * pace, (chosen["max_minutes"] * pace if chosen.get("max_minutes") else None)
 
 
 def plan_message(day: date, written: list, have: dict) -> str:
@@ -193,7 +194,11 @@ def write_formats(engine: Engine, run, settings: dict, written: list, have: dict
         planned = {name: formats.segments_of(conn, run.id, name) for name in wanted}
     if not all(planned.values()):
         # One plan serves every format, so that they tell the same stories in the same order.
-        rules = prompts.PLAN_RULES.format(show=show, segment_most=SEGMENT_MOST, least=target_words(settings), minutes=chosen["min_minutes"])
+        least, most = target_words(settings)
+        ceiling = (f"on a day with more worth telling, plan longer if today's stories can carry it without padding, but "
+                   f"never more than {most} words, which is {chosen['max_minutes']} minutes" if most else
+                   "there is no upper limit: on a day with more worth telling, plan as long as today's stories can carry without padding")
+        rules = prompts.PLAN_RULES.format(show=show, segment_most=SEGMENT_MOST, least=least, minutes=chosen["min_minutes"], ceiling=ceiling)
         reply, error = _ask(ask, settings, rules, plan_message(run.run_date, ranked, have), prompts.PLAN_ANSWER)
         plan = tidy_plan(reply.data, ranked) if reply else fallback_plan(ranked, settings)
         shortfall = (reply.data.get("shortfall") or "").strip() if reply else f"the plan was made by code, because the request for it failed: {error}"

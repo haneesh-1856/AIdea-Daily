@@ -186,7 +186,8 @@ duo = false               # a host and a guest: duo-script.md and duo-episode.mp
 # Which of them step 10 speaks. One left out still gets its script, but no audio, and saves the voice time.
 speak = ["podcast"]
 show_name = "AIdea Daily"
-min_minutes = 37          # a minimum, not a target, with no upper limit; aims above the owner's 35-minute minimum
+min_minutes = 37          # a minimum, not a target; aims above the owner's 35-minute minimum
+max_minutes = 60          # the podcast's ceiling: on a busy day it may run to 55-60 minutes, not past. Leave out for no ceiling.
 # The pace of conversational speech with its pauses: 172 words a minute over 2026-11-01 to 11-08 (5,556 words came
 # to 32.1 minutes on 8 November). It was 150 with the older voice (5,588 words in 37.0 minutes on 10 October 2026).
 speaking_pace = 172       # words a minute

@@ -27,8 +27,7 @@ stories, if there is one. Do not invent a connection.
 200 to 350, a minor update 80 to 150. The cold_open takes about 180 words, the intro about 160, the closing about 220.
 - No segment is longer than {segment_most} words: split a large group into two segments.
 - The whole episode should come to at least {least} words, which is {minutes} minutes. That is a minimum, not a \
-target, and there is no upper limit: on a day with more worth telling, plan as long as today's stories can carry \
-without padding. If they cannot carry the minimum, plan the length they can carry and say why in \
+target: {ceiling}. If today's stories cannot carry the minimum, plan the length they can carry and say why in \
 shortfall. Otherwise leave shortfall empty.
 
 Use only what the message gives you."""
