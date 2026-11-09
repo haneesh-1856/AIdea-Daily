@@ -3,6 +3,14 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-09 · `0d58d49` · `weekend-edition`
+
+**Give the podcast a 60-minute ceiling; the briefing keeps none**
+
+- `settings.toml`: `max_minutes = 60` under `[formats]`. The owner's rule is now: briefing at least 15 minutes with no maximum, podcast at least 35 and at most 55 to 60.
+- The podcast plan asks for at least 6,364 words (37 minutes) and never more than 10,320 (60 minutes) at 172 words a minute. Left out, `max_minutes` means no ceiling; `common/settings.py` checks it is at least `min_minutes`.
+- 309 tests pass; the step 6 test fails as before.
+
 ## 2026-11-09 · `068f27c` · `weekend-edition`
 
 **Make 15 and 35 minutes minimums with no length cap; use the measured voice paces**
