@@ -3,6 +3,16 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-09 · `068f27c` · `weekend-edition`
+
+**Make 15 and 35 minutes minimums with no length cap; use the measured voice paces**
+
+- The owner's rule: the briefing runs at least 15 minutes and the podcast at least 35. On 2026-11-08 they ran 12.0 and 32.1.
+- `settings.toml`: `words_per_minute` 130 → 145 and `speaking_pace` 150 → 172, measured from the runs of 2026-10-30 to 11-08 in the owner's voice. `short_day_minutes` 15 → 17 and `min_minutes` 35 → 37, a little above the minimum, since the written stories come out shorter than planned.
+- `length_minutes` (45) removed. It is now optional: left out, the word cap is 0 and step 9 tells every story in full. Steps 1, 7, 9, 11 and 12 say "no length cap".
+- Podcast plan (`steps/formats/prompts.py`, `write.py`): asks for at least the minimum words, with no upper limit, instead of a 35-to-40-minute range.
+- 309 tests pass (2 new: no cap in step 7 and step 9). `test_an_article_read_before_is_not_read_again` in step 6 still fails, as before.
+
 ## 2026-11-08 · `f77ff5c` · `weekend-edition`
 
 **Give the RSS.com channel link its own Listen section in the README**
