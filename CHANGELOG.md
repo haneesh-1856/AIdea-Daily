@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `pending` · `weekend-edition`
+
+**voice-rules merged into weekend-edition: the next run (11-11, 4:00) is the first with these changes**
+
+- Brought in, oldest first: the voice test bench and the 77 real mistakes (`c1b3320`), the fair Whisper check (`f24141b`), the podcast opening with the welcome before the hook (`b56b560`), the pronunciation lexicon and its "names not yet tested" review list (`3b9ebde`), the spelling search tool (`a3c6e60`), the first lexicon entries (`601b03e`), the C/D bench re-run (`377c9f7`), and the safe lexicon setting (`d4525d2`): only AIdea and ElevenLabs are live, and Claude, Claude Code, Anthropic and Ollama keep their old `[voice.say]` spellings.
+- Merged after the 11-10 run had finished (06:52), so that run was not affected.
+- To watch on 11-11: the stricter, fairer check may ask for more retakes, so the voice step may take longer.
+- Tests: 419 pass; only the known step 6 test (`test_an_article_read_before_is_not_read_again`) fails.
+
 ## 2026-11-10 · `d4525d2` · `voice-rules`
 
 **Only the bench-confirmed lexicon entries stay live (AIdea, ElevenLabs); the other names go back to their old spellings**
