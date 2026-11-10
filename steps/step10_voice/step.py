@@ -18,6 +18,8 @@ from common.report import step_folder, write_report
 from common.settings import ROOT, database_url, load
 from common.text import word_count
 from steps.step10_voice.check import Listen, recheck, run_listener
+from steps.step10_voice import lexicon as pronunciation
+from steps.step10_voice.lexicon import apply as lexicon_apply, restore as lexicon_restore, says as lexicon_says
 
 STEP = 10
 WORKER = Path(__file__).with_name("worker.py")
@@ -57,12 +59,16 @@ class VoiceResult:
     report: Path
 
 
-def spoken(text: str, say: dict[str, str] | None = None) -> str:
-    """The sentence as it should be said aloud. This changes how the text is spoken, never what it says."""
+def spoken(text: str, say: dict[str, str] | None = None, lexicon: dict[str, dict] | None = None) -> str:
+    """The sentence as it should be said aloud. This changes how the text is spoken, never what it says.
+
+    `lexicon` is the tested pronunciation lexicon (see lexicon.py); its spellings come first, and one respelling is
+    never respelt by `say`. `say` is for a word that has no tested entry yet."""
     # A hyphen of another kind is said as the plain one: "low‑resource", with a no-break hyphen, came out
     # "low-free source" on 2026-10-20.
     text = re.sub(r"[‐‑]", "-", text)
     text = re.sub(r"(?<=\d)\s?×", "x", text)  # 21.5× is 21.5x: "5–6.5×" came out "5 6.5 times" on 2026-10-21
+    text, tested = lexicon_apply(text, lexicon_says(lexicon or {}))
     for written, said in (say or {}).items():
         text = re.sub(rf"(?<![\w$-]){re.escape(written)}(?![\w-])", said, text)
     # A name strung together with hyphens is said in parts: Deepseek-V4.1-Flash-1017 came out "version 4.1.1".
@@ -151,7 +157,7 @@ def spoken(text: str, say: dict[str, str] | None = None) -> str:
     text = text.replace(" & ", " and ").replace("~", "about ")
     text = re.sub(r"[\[\]]", "", text)
     text = re.sub(r"[A-Za-z]+", lambda m: spaced(m.group()), text)
-    return re.sub(r"\s+", " ", text).strip()
+    return re.sub(r"\s+", " ", lexicon_restore(text, tested)).strip()
 
 
 ONES = ("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen "
@@ -296,6 +302,17 @@ def heard_report(what: str, checks: list[dict], listen) -> list[str]:
     return lines
 
 
+def untested_report(texts: list[str], tested: dict, say: dict | None, root: Path) -> list[str]:
+    """The review sheet's list of names in the script that the pronunciation lexicon has not tested."""
+    names = pronunciation.untested(texts, tested, say, root)
+    if not names:
+        return []
+    return ["", f"## Names not yet tested ({len(names)})", "",
+            "Not English words and not in `voice/lexicon.toml`: they are spoken as written. Test them with "
+            "`experiments/voice_bench/lexicon.py` (or leave them if you heard them said well).", "",
+            ", ".join(f"{name}" + (f" ({count})" if count > 1 else "") for name, count in names[:40])]
+
+
 def _formats_lines(conn, run) -> list[str]:
     """What became of each longer episode in this step, for the report."""
     lines = []
@@ -354,7 +371,8 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None, list
         if listen is None and speak is None and heard_by["listen"]:
             listen = run_listener(root, {**settings, **heard_by}, folder)
         speak = speak or run_worker(root)
-        texts = {line.id: spoken(line.text, settings.get("say")) for line in lines}
+        tested = pronunciation.load(root)
+        texts = {line.id: spoken(line.text, settings.get("say"), tested) for line in lines}
         longest = settings["pauses"]["longest_phrase"]
         wanted = [
             {"id": line.id, "position": line.position, "text": texts[line.id], "phrases": phrases(texts[line.id], longest)}
@@ -432,6 +450,7 @@ def voice(run_date: date, *, root: Path = ROOT, speak: Speak | None = None, list
         "| As written | As spoken |",
         "| --- | --- |",
         *(f"| {written.replace('|', '/')} | {said.replace('|', '/')} |" for written, said in changed),
+        *untested_report([line.text for line in lines], tested, settings.get("say"), root),
         *heard_report("the episode", checks, listen),
         *longer_report,
         *(line for name, found in longer_checks.items() for line in heard_report(f"the {formats.FORMATS[name]['name']}", found, listen)),

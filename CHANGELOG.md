@@ -3,6 +3,16 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `HASH2` · `voice-rules`
+
+**A tested pronunciation lexicon that `spoken()` uses, and a list of names not yet tested in each review sheet**
+
+- `steps/step10_voice/lexicon.py` and `voice/lexicon.toml` (one table per word: `say`, `passes` out of `of`, `tested`, `sentence`; or `status = "none"` with the best spelling and score when no spelling reached 4 of 5). Only entries with a spelling and at least 4 passes are used.
+- `spoken(text, say, lexicon)`: the lexicon's spellings are applied first, longest word first and in one pass (a respelling is held as a private-use character), so "Claude Code" is replaced as a whole, never as "Claude" plus "Code", and `[voice.say]` cannot respell a respelling. `[voice.say]` still works for a word with no tested entry. Step 10 and the longer episodes' voice step load the lexicon from the project folder.
+- Review sheet (step 10 report): "Names not yet tested": capitalised or camel-case words that are not among the 15,000 commonest English words (`voice/common-words.txt`, from Peter Norvig's count_1w list) and not in the lexicon or `[voice.say]`. It is a list, not a GPU or model job: the daily run stays as fast as before. The search is a separate command (`experiments/voice_bench/lexicon.py`, next commit) that the owner or the post-run check runs, because it takes about 25 minutes of GPU per 6 names.
+- `steps/step10_voice/test_lexicon.py`: save and load, only tested spellings used, longest-first single pass, say cannot respell a respelling, empty lexicon changes nothing, untested names and the review section, plus tests of the search tool's candidates and judge (they need the tool in the next commit).
+- `steps/step10_voice/README.md` points to the lexicon.
+
 ## 2026-11-10 · `HASH1` · `voice-rules`
 
 **The podcast always opens with the welcome, then the hook**

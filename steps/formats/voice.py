@@ -9,6 +9,7 @@ import numpy
 import soundfile
 
 from common import formats
+from steps.step10_voice import lexicon as pronunciation
 from steps.step10_voice.check import recheck
 from steps.step10_voice.step import VoiceError, problem_with, spoken
 
@@ -16,14 +17,14 @@ REACTION_TEMPERATURE = 1.0  # a reaction is given more freedom, so that it is no
 REACTION_GAIN = 1.25  # and is a little louder than the lines around it (about 2 decibels)
 
 
-def say(text: str, corrections: dict | None) -> str:
+def say(text: str, corrections: dict | None, tested: dict | None = None) -> str:
     """A piece as the voice model is given it: said aloud by step 10's rules, with its expression tags in front."""
     tags = formats.TAG.findall(text)
     words = re.sub(r"[“”]", '"', formats.plain(text)).replace("’", "'")
-    return " ".join([*tags, spoken(words, corrections)])
+    return " ".join([*tags, spoken(words, corrections, tested)])
 
 
-def prepared(root: Path, name: str, segments: list, chosen: dict, corrections: dict | None) -> list[dict]:
+def prepared(root: Path, name: str, segments: list, chosen: dict, corrections: dict | None, tested: dict | None = None) -> list[dict]:
     """The script's pieces with what the voice needs for each: the text to say, whose voice, and a key.
 
     The key names a clip by its voice and its words, so that a run stopped partway, or repeated, speaks only what
@@ -31,7 +32,7 @@ def prepared(root: Path, name: str, segments: list, chosen: dict, corrections: d
     found = formats.pieces(segments)
     for piece in found:
         reference = chosen["voices"][formats.VOICES[piece["speaker"]]]
-        piece["say"] = say(piece["text"], corrections)
+        piece["say"] = say(piece["text"], corrections, tested)
         piece["reference"] = str(root / reference)
         piece["key"] = hashlib.sha1(f"{reference}|{piece['say']}".encode()).hexdigest()[:16]
     return found
@@ -56,7 +57,7 @@ def voice_formats(engine, root: Path, run, voice: dict, speak, folder: Path, lis
             said.append(f"{about['name']} script only")
             continue
         chosen = run.settings["formats"]
-        pieces = prepared(root, name, segments, chosen, voice.get("say"))
+        pieces = prepared(root, name, segments, chosen, voice.get("say"), pronunciation.load(root))
         missing = sorted({piece["reference"] for piece in pieces if not Path(piece["reference"]).exists()})
         if missing:
             with engine.begin() as conn:

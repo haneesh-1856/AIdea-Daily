@@ -19,7 +19,7 @@ Step 11 then joins the clips into `out/<date>/episode.mp3`.
 - **Use only a voice you have the right to use.** The model copies whatever recording it is given.
 - **Nothing is sent to a paid voice service.** The model runs on the PC's graphics card.
 - **Preparation changes how text is spoken, never what it says.** The script is not altered.
-- **Names the voice gets wrong are said from a list you add to:** `[voice.say]` in `settings.toml`.
+- **Names the voice gets wrong are said from a tested lexicon:** `voice/lexicon.toml` (word, spelling, passes out of 5, date). `experiments/voice_bench/lexicon.py search` finds and tests a spelling; each day's review sheet lists "Names not yet tested". `[voice.say]` in `settings.toml` still works for a word with no tested entry yet.
 - **A failed clip is tried once more.** If it fails again the run stops, so a broken episode is never produced. The good clips are kept, and a rerun speaks only what is missing.
 - **A clip of an unbelievable length for its words counts as failed.**
 - **A held episode is not voiced** until you have looked at it.
