@@ -3,7 +3,7 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
-## 2026-11-10 · `PENDING` · `voice-rules`
+## 2026-11-10 · `f24141b` · `voice-rules`
 
 **Make the Whisper check fair: the same plain tokens on both sides, spoken form accepted, real errors still fail**
 
