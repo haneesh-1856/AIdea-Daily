@@ -3,7 +3,7 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
-## 2026-11-10 · `pending` · `weekend-edition`
+## 2026-11-10 · `4d129e9` · `weekend-edition`
 
 **voice-rules merged into weekend-edition: the next run (11-11, 4:00) is the first with these changes**
 
