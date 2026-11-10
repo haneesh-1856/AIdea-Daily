@@ -64,8 +64,8 @@ class Talker:
             self.requests.append(("plan", user))
             numbers = [int(number) for number in re.findall(r"^(\d+)\. ", user, flags=re.MULTILINE)]
             data = self.plan if self.plan is not None else {"shortfall": "", "segments": [
-                {"kind": "cold_open", "title": "Cold open", "angle": "", "stories": [], "words": 180},
                 {"kind": "intro", "title": "Introduction", "angle": "", "stories": [], "words": 160},
+                {"kind": "cold_open", "title": "Cold open", "angle": "", "stories": [], "words": 180},
                 {"kind": "stories", "title": "The biggest stories", "angle": "Two launches.", "stories": numbers, "words": 600},
                 {"kind": "closing", "title": "Closing takeaway", "angle": "", "stories": [], "words": 220},
             ]}
@@ -156,7 +156,7 @@ def test_each_speaker_is_given_their_own_reference_voice_and_a_reaction_more_fre
     assert by_text["[surprised] So what happened?!"]["temperature"] == 1.0
     assert by_text["Lab shipped a thing."]["temperature"] == 0.5
     # The same words in the same voice are spoken once, however often the script says them.
-    talk = sorted(text for text in by_text if "show notes" not in text and "Today's stories" not in text and "all for today" not in text)
+    talk = sorted(text for text in by_text if "show notes" not in text and "Today's stories" not in text and "all for today" not in text and "Welcome to" not in text and not text.startswith("It's Tuesday"))
     assert talk == ["It is available now.", "Lab shipped a thing.", "[surprised] So what happened?!"]
     # The host says the credits and the goodbye.
     credits = next(one for text, one in by_text.items() if text.startswith("Today's stories came from Lab and Press A."))
@@ -206,7 +206,7 @@ def test_a_plan_that_forgets_or_repeats_a_story_still_tells_each_once():
         {"kind": "closing", "title": "Remember this", "angle": "", "stories": [2], "words": 10},
     ]}, ranked)
 
-    assert [segment["kind"] for segment in made] == ["cold_open", "intro", "stories", "stories", "closing"]
+    assert [segment["kind"] for segment in made] == ["intro", "cold_open", "stories", "stories", "closing"]
     assert [segment["story_ids"] for segment in made] == [[], [], [10], [11, 12], []]
     assert made[2]["words"] == 1100 and made[-1]["title"] == "Remember this" and made[-1]["words"] == 80
 
@@ -218,7 +218,7 @@ def test_when_the_plan_cannot_be_asked_for_one_is_made_by_code(root):
     assert talker.asked("plan") == ["plan", "plan"]  # asked once more before giving up
     for name in ("podcast", "duo"):
         segments = [row for row in rows(root, db.format_segments) if row.format == name]
-        assert [segment.kind for segment in segments] == ["cold_open", "intro", "stories", "closing"]
+        assert [segment.kind for segment in segments] == ["intro", "cold_open", "stories", "closing"]
         assert len(segments[2].story_ids) == 2 and all(segment.lines for segment in segments)
     assert "made by code" in rows(root, db.format_scripts)[0].shortfall
 
@@ -230,9 +230,9 @@ def test_a_format_the_model_fails_on_is_left_out_and_the_rest_of_the_day_is_made
     names = {file.name for file in result.folder.iterdir()}
     assert {"episode.mp3", "podcast-script.md", "podcast-episode.mp3"} <= names
     assert "duo-script.md" not in names and "duo-episode.mp3" not in names
-    assert talker.asked("duo") == ["duo: Cold open", "duo: Introduction", "duo: Introduction"]  # nothing after the failure
+    assert talker.asked("duo") == ["duo: Introduction", "duo: Introduction"]  # nothing after the failure
     review = (result.folder / "review.md").read_text(encoding="utf-8")
-    assert "Not made: segment 2, Introduction, could not be written" in review
+    assert "Not made: segment 1, Introduction, could not be written" in review
     assert result.status == "ready"
 
 
@@ -307,3 +307,32 @@ def test_a_conversation_moves_faster_than_a_reader():
     assert gap_after(piece("GUEST", 1), piece("HOST", 2, reaction=True), pauses) == 0.2
     assert gap_after(piece("GUEST", 1), piece("HOST", 2, opens=True), pauses) == 1.1
     assert gap_after(piece("GUEST", 1), None, pauses) == 0.0
+
+
+def test_the_plan_always_opens_with_the_welcome_then_the_hook_whatever_order_the_model_gave():
+    class Story:
+        story_id = 1
+
+    for order in (["cold_open", "intro"], ["intro", "cold_open"], ["stories"], []):
+        data = {"segments": [{"kind": kind, "title": "", "angle": "", "stories": [1], "words": 100} for kind in order]}
+        made = tidy_plan(data, [Story()])
+        assert [segment["kind"] for segment in made][:2] == ["intro", "cold_open"]
+        assert made[-1]["kind"] == "closing"
+
+
+def test_the_opening_lines_are_made_to_start_with_the_welcome_and_the_date():
+    from datetime import date
+    from steps.formats.write import ensure_welcome
+
+    day = date(2026, 11, 10)
+    said = "Tuesday, 10 November 2026"
+    # No welcome at all: one is put first.
+    lines = ensure_welcome([{"speaker": "PRESENTER", "text": "What if a chip could think?"}], "AIdea Daily", day)
+    assert lines[0]["text"] == f"Welcome to AIdea Daily. It's {said}." and len(lines) == 2
+    # A welcome without the date: the date is added after the welcome sentence.
+    lines = ensure_welcome([{"speaker": "PRESENTER", "text": "Welcome to AIdea Daily. Big day."}], "AIdea Daily", day)
+    assert lines[0]["text"] == f"Welcome to AIdea Daily. It's {said}. Big day." and len(lines) == 1
+    # Already right: untouched.
+    right = [{"speaker": "PRESENTER", "text": f"Welcome to AIdea Daily, it is {said}."}]
+    assert ensure_welcome(right, "AIdea Daily", day) == right
+    assert ensure_welcome([], "AIdea Daily", day) == []

@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `HASH1` · `voice-rules`
+
+**The podcast always opens with the welcome, then the hook**
+
+- Before, the plan put a `cold_open` first and "Welcome to AIdea Daily" came about 70 seconds in. Now the order is intro (the welcome and the date, about 90 words), then cold_open (the hook), then the stories, then the closing.
+- `steps/formats/prompts.py`: the plan rules and the intro and cold-open rules say so; the intro's first sentence is "Welcome to {show}." and the second gives the date; the hook follows it.
+- `steps/formats/write.py`, in code so that a model that ignores the prompt still gets it: `tidy_plan` always puts the intro first and the cold_open second whatever order the model gave (and adds either if missing); `ensure_welcome` makes the intro's lines start with "Welcome to <show>." and carry the date, adding a welcome line or the date when the model left them out. The kind rules are now formatted with the show's name.
+- `steps/formats/test_formats.py`: the plan test orders (intro, cold_open, ...), a new test for four model orders, a new test for `ensure_welcome` (no welcome, welcome without the date, already right, empty).
+
 ## 2026-11-10 · `f24141b` · `voice-rules`
 
 **Make the Whisper check fair: the same plain tokens on both sides, spoken form accepted, real errors still fail**

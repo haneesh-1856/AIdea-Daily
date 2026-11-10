@@ -13,7 +13,7 @@ from steps.step08_write.step import spoken_date, story_message
 STEP = 8
 SEGMENT_MOST = 1100  # words: a longer segment is split by the planner, so that one request never writes too much
 # What the linking segments take when the plan is made by code, and the fewest words any segment is given.
-BOOKENDS = {"cold_open": ("Cold open", 180), "intro": ("Introduction", 160), "closing": ("Closing takeaway", 220)}
+BOOKENDS = {"intro": ("Introduction", 90), "cold_open": ("Cold open", 180), "closing": ("Closing takeaway", 220)}
 LEAST_WORDS = 80
 # The segments of a plan made by code, from where step 7 placed each story.
 FALLBACK_TITLES = {
@@ -72,7 +72,8 @@ def tidy_plan(data: dict, ranked: list) -> list[dict]:
         return {"kind": kind, "title": (segment.get("title") or "").strip() or title, "angle": (segment.get("angle") or "").strip(),
                 "story_ids": [], "words": segment.get("words") or words}
 
-    plan = [bookend("cold_open"), bookend("intro"), *middle, bookend("closing")]
+    # The welcome always comes first, then the hook: whatever order the model gave the two, they are set here.
+    plan = [bookend("intro"), bookend("cold_open"), *middle, bookend("closing")]
     for segment in plan:
         words = segment["words"] if isinstance(segment["words"], int) else 0
         segment["words"] = max(LEAST_WORDS, min(SEGMENT_MOST, words))
@@ -137,6 +138,21 @@ def segment_message(day: date, show: str, plan: list, segment, before, by_story:
         parts += ["", f"===== Story {number} of {len(segment.story_ids)} (rank {entry.rank} of {len(by_story)} today) =====",
                   story_message(entry, sources, earlier, limit)]
     return "\n".join(parts)
+
+
+def ensure_welcome(lines: list[dict], show: str, day: date) -> list[dict]:
+    """The opening segment's lines made to start with the welcome and the date, whatever the model wrote."""
+    if not lines:
+        return lines
+    date_said = spoken_date(day)
+    first = lines[0]["text"]
+    if not re.match(rf"\W*(?:\[[^\]]*\]\s*)*welcome to {re.escape(show)}", first, re.I):
+        lines = [{"speaker": lines[0]["speaker"], "text": f"Welcome to {show}. It's {date_said}."}, *lines]
+    elif date_said.lower() not in " ".join(line["text"] for line in lines[:3]).lower():
+        sentence = re.match(r"(.*?[.!?])(\s|$)", first)
+        head = sentence.group(1) if sentence else first
+        lines = [{"speaker": lines[0]["speaker"], "text": f"{head} It's {date_said}. {first[len(head):].strip()}".strip()}, *lines[1:]]
+    return lines
 
 
 def clean_lines(data: dict, speakers: tuple) -> list[dict]:
@@ -220,11 +236,13 @@ def write_formats(engine: Engine, run, settings: dict, written: list, have: dict
         for place, segment in enumerate(plan):
             if segment.lines:
                 continue
-            rules = prompts.RULES[name].format(show=show, words=segment.words) + "\n\n" + prompts.KIND_RULES[segment.kind]
+            rules = prompts.RULES[name].format(show=show, words=segment.words) + "\n\n" + prompts.KIND_RULES[segment.kind].format(show=show)
             message = segment_message(run.run_date, show, plan, segment, plan[place - 1] if place else None, by_story, have,
                                       settings["write"]["max_source_words"])
             reply, error = _ask(ask, settings, rules, message, prompts.segment_answer(speakers))
             lines = clean_lines(reply.data, speakers) if reply else []
+            if segment.kind == "intro":
+                lines = ensure_welcome(lines, show, run.run_date)
             if reply and not lines:
                 error = "the model returned no lines"
             with engine.begin() as conn:

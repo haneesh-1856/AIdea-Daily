@@ -24,7 +24,7 @@ a higher one only when they are one subject. Do not move a story up because it i
 - For each segment write its angle in one or two sentences: what it is about and what real connection joins its \
 stories, if there is one. Do not invent a connection.
 - Give each segment its length in spoken words. A major story deserves 350 to 600 words, a useful or surprising one \
-200 to 350, a minor update 80 to 150. The cold_open takes about 180 words, the intro about 160, the closing about 220.
+200 to 350, a minor update 80 to 150. The intro takes about 90 words, the cold_open about 180, the closing about 220.
 - No segment is longer than {segment_most} words: split a large group into two segments.
 - The whole episode should come to at least {least} words, which is {minutes} minutes. That is a minimum, not a \
 target: {ceiling}. If today's stories cannot carry the minimum, plan the length they can carry and say why in \
@@ -99,11 +99,11 @@ Length: about {words} words of speech for this segment. Do not pad to reach it: 
 much, write less."""
 
 KIND_RULES = {
-    "cold_open": "This segment is the cold open. No greeting and no show name: start straight in the story, and "
-                 "end on the question the episode will answer.",
-    "intro": "This segment is the introduction. Welcome the listener to the show, give the date, say how many "
-             "stories there are and what the listener will get, without giving every headline away. End by "
-             "leading into the first segment of stories.",
+    "cold_open": "This segment is the hook, spoken straight after the welcome. No greeting and no show name: start "
+                 "straight in the story, and end on the question the episode will answer.",
+    "intro": "This segment opens the episode, before anything else. Its very first sentence is \"Welcome to {show}.\" "
+             "and the second gives the date. Then, in a sentence or two, say what the listener will get today, "
+             "without giving any headline away. Keep it short: the hook follows straight after it.",
     "stories": "This segment tells the stories listed in the message, in the order given, each once.",
     "closing": "This segment is the closing. Draw the one thing to remember from today's stories, without retelling "
                "them. Do not say goodbye, thank the listener, credit sources or promise a next episode's content: the "
