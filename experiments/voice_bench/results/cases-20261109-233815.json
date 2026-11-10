@@ -1,0 +1,5237 @@
+{
+ "cases_file": "experiments/voice_bench/cases.json",
+ "n": 5,
+ "started": "20261109-233815",
+ "voice_seconds": 1106,
+ "total_seconds": 1318,
+ "settings": {
+  "engine": "chatterbox-turbo",
+  "temperature": 0.5,
+  "clean": true,
+  "speed": 1.0
+ },
+ "retakes": 0,
+ "results": [
+  {
+   "id": "A01",
+   "group": "A",
+   "kind": "decimals + number+unit",
+   "text": "The README reports 9.1 to 14.7 tokens per second for the 284B model on 64 GB of RAM.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "expect": [
+    "64"
+   ],
+   "spoken": "The README reports 9.1 to 14.7 tokens per second for the 284 billion model on 64 gigabytes of RAM.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The README reports 9.1-14.7 tokens per second for the 284 billion model on 64GB of RAM.",
+     "seconds": 7.42,
+     "file": "experiments\\voice_bench\\clips\\A01-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 64 not heard"
+     ],
+     "fault": "the figure 64 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "The readme reports 9.1 to 14.7 tokens per second for the 284 billion model on 64GB of RAM.",
+     "seconds": 6.82,
+     "file": "experiments\\voice_bench\\clips\\A01-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figure 64 not heard"
+     ],
+     "fault": "the figure 64 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "The readme reports 9.1-14.7 tokens per second for the 284 billion model on 64GB of RAM.",
+     "seconds": 6.93,
+     "file": "experiments\\voice_bench\\clips\\A01-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 64 not heard"
+     ],
+     "fault": "the figure 64 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "The readme reports 9.1 to 14.7 tokens per second for the 284 billion model on 64GB of RAM.",
+     "seconds": 6.9,
+     "file": "experiments\\voice_bench\\clips\\A01-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 64 not heard"
+     ],
+     "fault": "the figure 64 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "The readme reports 9.1 to 14.7 tokens per second for the 284 billion model on 64GB of RAM.",
+     "seconds": 7.83,
+     "file": "experiments\\voice_bench\\clips\\A01-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 64 not heard"
+     ],
+     "fault": "the figure 64 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A02",
+   "group": "A",
+   "kind": "model number + decimals",
+   "text": "Its own README reports 9.1 to 14.7 tokens per second for a DeepSeek model, on a 16-core AMD Ryzen 9 9955HX.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "expect": [
+    "9955"
+   ],
+   "forbid": [
+    "99755"
+   ],
+   "spoken": "Its own README reports 9.1 to 14.7 tokens per second for a Deep-Seek model, on a 16-core AMD Ryzen 9 9955HX.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "its own README reports 9.1 to 14.7 tokens per second for a DeepSeq model on a 16 core AMD Ryzen 99 Tide 955HX.",
+     "seconds": 10.06,
+     "file": "experiments\\voice_bench\\clips\\A02-t1.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"9 9955hx\" was not heard",
+      "expected \"9955\" not heard"
+     ],
+     "fault": "the ending \"9 9955hx\" was not heard"
+    },
+    {
+     "take": 2,
+     "heard": "Its own README reports 9.1 to 14.7 tokens per second for a DeepSeq model on a 16-core AMD Ryzen 99955HX.",
+     "seconds": 9.48,
+     "file": "experiments\\voice_bench\\clips\\A02-t2.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"9 9955hx\" was not heard"
+     ],
+     "fault": "the ending \"9 9955hx\" was not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Its own README reports 9.1 to 14.7 tokens per second for a DeepSeq model on a 16-core AMD Ryzen 99955HX.",
+     "seconds": 9.31,
+     "file": "experiments\\voice_bench\\clips\\A02-t3.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"9 9955hx\" was not heard"
+     ],
+     "fault": "the ending \"9 9955hx\" was not heard"
+    },
+    {
+     "take": 4,
+     "heard": "Its own readme reports 9.1 to 14.7 tokens per second for a deep-seat model on a 16 core AMD Ryzen 99955HX.",
+     "seconds": 10.13,
+     "file": "experiments\\voice_bench\\clips\\A02-t4.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"9 9955hx\" was not heard"
+     ],
+     "fault": "the ending \"9 9955hx\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "its own readme reports 9.1 to 14.7 tokens per second for a DeepSeq model on a 16-core AMD Ryzen 99955HX.",
+     "seconds": 9.81,
+     "file": "experiments\\voice_bench\\clips\\A02-t5.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"9 9955hx\" was not heard"
+     ],
+     "fault": "the ending \"9 9955hx\" was not heard"
+    }
+   ]
+  },
+  {
+   "id": "A03",
+   "group": "A",
+   "kind": "long decimal",
+   "text": "The README reports a logit cosine similarity of 1.00000 against the unpatched runtime on the same checkpoint.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "forbid": [
+    "fought"
+   ],
+   "spoken": "The README reports a logit cosine similarity of 1.00000 against the unpatched runtime on the same checkpoint.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The readme reports a logit cosine similarity of one dot and satpan hast runtime on the same checkpoint.",
+     "seconds": 5.56,
+     "file": "experiments\\voice_bench\\clips\\A03-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"1.00000 against the unpatched\" was not heard (heard \"1 dot and satpan hast\")"
+     ],
+     "fault": "\"1.00000 against the unpatched\" was not heard (heard \"1 dot and satpan hast\")"
+    },
+    {
+     "take": 2,
+     "heard": "The README reports a logit cosine similarity of 1.0 in SINFORT against the unpatched runtime on the same checkpoint.",
+     "seconds": 6.47,
+     "file": "experiments\\voice_bench\\clips\\A03-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"1.0 in sinfort\" was heard but is not in the sentence"
+     ],
+     "fault": "\"1.0 in sinfort\" was heard but is not in the sentence"
+    },
+    {
+     "take": 3,
+     "heard": "The README reports a logit cosine similarity of 1.0 and so find it against the unpassed runtime on the same checkpoint.",
+     "seconds": 6.9,
+     "file": "experiments\\voice_bench\\clips\\A03-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"1.0 and so find it\" was heard but is not in the sentence"
+     ],
+     "fault": "\"1.0 and so find it\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "The README reports a logic cosine similarity of 1 by non-synphide against the unpatched runtime on the same checkpoint.",
+     "seconds": 6.69,
+     "file": "experiments\\voice_bench\\clips\\A03-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"1 by non synphide\" was heard but is not in the sentence"
+     ],
+     "fault": "\"1 by non synphide\" was heard but is not in the sentence"
+    },
+    {
+     "take": 5,
+     "heard": "The readme reports a logit cosine similarity of 1.noncent-fodded against the unpatched runtime on the same checkpoint.",
+     "seconds": 7.26,
+     "file": "experiments\\voice_bench\\clips\\A03-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"1 noncent fodded\" was heard but is not in the sentence"
+     ],
+     "fault": "\"1 noncent fodded\" was heard but is not in the sentence"
+    }
+   ]
+  },
+  {
+   "id": "A04",
+   "group": "A",
+   "kind": "many figures + GiB",
+   "text": "Standard UD-IQ1_S builds occupy 76.87 GiB, more than the roughly 62.5 GiB of usable RAM on a 64 GB Linux system. llama-modchip shrinks the checkpoint to 56.56 GiB, at 1.71 bits per weight.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "expect": [
+    "64"
+   ],
+   "spoken": "Standard UD-IQ1 S builds occupy 76.87 gigabytes, more than the roughly 62.5 gigabytes of usable RAM on a 64 gigabytes Linux system. llama-modchip shrinks the checkpoint to 56.56 gigabytes, at 1.71 bits per weight.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Standard UD-IQ1S builds occupy 76.87GB, more than the roughly 62.5GB of usable RAM on a 64GB Linux system. Lamad chip shrinks the checkpoint to 56.56GB, at 1.71 bits per wait.",
+     "seconds": 17.35,
+     "file": "experiments\\voice_bench\\clips\\A04-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figures 76.87, 62.5, 64, 56.56 not heard"
+     ],
+     "fault": "the figures 76.87, 62.5, 64, 56.56 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "Standard UD-EQ1-S builds occupy 76.87 GB, more than the roughly 62.5 GB of usable RAM on a 64 GB Linux system. Llama chip-shinks the checkpoint to 56.56 GB at 1.71 bits per weight.",
+     "seconds": 16.61,
+     "file": "experiments\\voice_bench\\clips\\A04-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Standard UD-IQ1 S builds occupy 76.87 GB, more than the roughly 62.5 GB of usable RAM on a 64 GB Linux system. Llama chip shrinks the checkpoint to 56.56 GB, at 1.71 bits per wait.",
+     "seconds": 16.49,
+     "file": "experiments\\voice_bench\\clips\\A04-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Standard UDI-Q1 S-bills occupy 76.87GB, more than the roughly 62.5GB of usable RAM, on a 64GB Linux system. Llama and chip shrimps the checkpoint to 56.56GB at 1.71 bits per weight.",
+     "seconds": 17.44,
+     "file": "experiments\\voice_bench\\clips\\A04-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"and chip shrimps\" was heard but is not in the sentence; the figures 76.87, 62.5, 64, 56.56 not heard"
+     ],
+     "fault": "\"and chip shrimps\" was heard but is not in the sentence; the figures 76.87, 62.5, 64, 56.56 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "Standard UD-IQ1-S builds occupy 76.87 GB, more than the roughly 62.5 GB of usable RAM on a 64 GB Linux system. Llama chip shrinks the checkpoint to 56.56 GB at 1.71 bits per wait.",
+     "seconds": 19.07,
+     "file": "experiments\\voice_bench\\clips\\A04-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "A05",
+   "group": "A",
+   "kind": "number+unit K cache",
+   "text": "The model plus a 256K KV cache then locks into RAM with zero swap, using 57.61 to 58.9 GiB.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "forbid": [
+    "256000",
+    "256 000"
+   ],
+   "spoken": "The model plus a 256 thousand KV cache then locks into RAM with zero swap, using 57.61 to 58.9 gigabytes.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The model plus a 256,000 kV cache then locks into RAM with ZeroSwap using 57.61 to 58.9GB.",
+     "seconds": 9.12,
+     "file": "experiments\\voice_bench\\clips\\A05-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 58.9 not heard",
+      "forbidden \"256000\" heard"
+     ],
+     "fault": "the figure 58.9 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "The model, plus a 256,000 kV cache, then locks into RAM with ZeroSwap using 57.61 to 58.9GB.",
+     "seconds": 9.29,
+     "file": "experiments\\voice_bench\\clips\\A05-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figure 58.9 not heard",
+      "forbidden \"256000\" heard"
+     ],
+     "fault": "the figure 58.9 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "The model plus a 256,000 kV cache then locks into RAM with zero-swap, using 57.61 to 58.9 GB.",
+     "seconds": 8.58,
+     "file": "experiments\\voice_bench\\clips\\A05-t3.wav",
+     "pass": false,
+     "problems": [
+      "forbidden \"256000\" heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The model plus a 256,000 kV cache then locks into RAM with ZeroSwap using 57.61 to 58.9GB.",
+     "seconds": 8.65,
+     "file": "experiments\\voice_bench\\clips\\A05-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 58.9 not heard",
+      "forbidden \"256000\" heard"
+     ],
+     "fault": "the figure 58.9 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "The Model Plus at 256000 kV cache then locks into RAM with zero swap, using 57.61 to 58.9GB.",
+     "seconds": 8.51,
+     "file": "experiments\\voice_bench\\clips\\A05-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 58.9 not heard",
+      "forbidden \"256000\" heard"
+     ],
+     "fault": "the figure 58.9 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A06",
+   "group": "A",
+   "kind": "price list + date",
+   "text": "On June 26, 2026, OpenAI announced GPT-5.6 Sol at $5 / $30 / $0.50 and Luna at $1 / $6 / $0.10.",
+   "source": "2026-10-26 runs/2026-10-26/10_voice/report.md",
+   "spoken": "On June 26, 2026, Open-AI announced GPT-5.6 Sol at 5 dollars, 30 dollars, 50 cents and Luna at 1 dollar, 6 dollars, 10 cents.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "On June 26, 2026, OpenAI announced GBT 5.6 Sol at $5.00, $30.00, $0.50 and Luna at $1.00, $6.00, $0.10.",
+     "seconds": 9.33,
+     "file": "experiments\\voice_bench\\clips\\A06-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 14 of 19 words heard as written"
+     ],
+     "fault": "only 14 of 19 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "on June 26, 2026, OpenAI announced GPT 5.6 Sol at $5.00, $30.50 and Luna at $1.00, $6.10.",
+     "seconds": 11.03,
+     "file": "experiments\\voice_bench\\clips\\A06-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"1 6 0.10\" was not heard (heard \"1.00 6.10\"); the ending \"6 0.10\" was not heard; the figures 30, 0.50, 0.10 not heard"
+     ],
+     "fault": "\"1 6 0.10\" was not heard (heard \"1.00 6.10\"); the ending \"6 0.10\" was not heard; the figures 30, 0.50, 0.10 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "On June 26, 2026, OpenAI announced GPT 5.6 Sol at $5, $30, $0.50 and Luna at $1, $6.10.",
+     "seconds": 10.41,
+     "file": "experiments\\voice_bench\\clips\\A06-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.10 not heard"
+     ],
+     "fault": "the figure 0.10 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "On June 26, 2021, OpenAI announced GPT 5.6 Sol at $5.00, $30.00, $0.50 and Luna at $1.00, $6.00, $0.10",
+     "seconds": 10.69,
+     "file": "experiments\\voice_bench\\clips\\A06-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 2026 not heard"
+     ],
+     "fault": "the figure 2026 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "On June 26, 2026, OpenAI announced GPT 5.6 Sol at $5, $30.50 and Luna at $1, $6.10.",
+     "seconds": 10.52,
+     "file": "experiments\\voice_bench\\clips\\A06-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figures 30, 0.50, 0.10 not heard"
+     ],
+     "fault": "the figures 30, 0.50, 0.10 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A07",
+   "group": "A",
+   "kind": "price list + date",
+   "text": "On September 22, OpenAI announced GPT-6 Sol at $2 / $10 / $0.20 and GPT-6 Luna at $0.10 / $0.50 / $0.01.",
+   "source": "2026-10-26 runs/2026-10-26/10_voice/report.md",
+   "spoken": "On September 22, Open-AI announced GPT-6 Sol at 2 dollars, 10 dollars, 20 cents and GPT-6 Luna at 10 cents, 50 cents, 1 cent.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "On September 22nd, OpenAI announced GBT6 Sol at $2, $10.20 and GBT6 Luna at $0.10, $0.50, $0.01.",
+     "seconds": 10.11,
+     "file": "experiments\\voice_bench\\clips\\A07-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figures 22, 10, 0.20 not heard"
+     ],
+     "fault": "the figures 22, 10, 0.20 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "On September 22nd, OpenAI announced GBT6 Sol at $2, $10.20 and GBT6 Luna at $0.10, $0.50, $0.01.",
+     "seconds": 8.55,
+     "file": "experiments\\voice_bench\\clips\\A07-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figures 22, 10, 0.20 not heard"
+     ],
+     "fault": "the figures 22, 10, 0.20 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "on September 22nd. OpenAI announced GPT-6 Sol at $2, $10.20 and GPT-6 Luna at $0.10, $0.50, $0.01.",
+     "seconds": 9.8,
+     "file": "experiments\\voice_bench\\clips\\A07-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figures 22, 10, 0.20 not heard"
+     ],
+     "fault": "the figures 22, 10, 0.20 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "On September 22nd, OpenAI announced GPT-6 Sol at $2, $10, $0.20 and GPT-6 Luna at $0.10, $0.50, $0.01.",
+     "seconds": 8.81,
+     "file": "experiments\\voice_bench\\clips\\A07-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 22 not heard"
+     ],
+     "fault": "the figure 22 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "on September 22, OpenAI announced GPT-6 Sol at $2.00, $10.00, 20 cents and GPT-6 Luna at 10 cents, 50 cents, 1 cent.",
+     "seconds": 12.26,
+     "file": "experiments\\voice_bench\\clips\\A07-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"2 10 0.20\" was not heard (heard \"2.00 10.00 20 cents\"); \"0.10 0.50 0.01\" was not heard (heard \"10 cents 50 cents 1 cent\"); the ending \"0.50 0.01\" was not heard; the figures 0.20, 0.10, 0.50, 0.01 not heard"
+     ],
+     "fault": "\"2 10 0.20\" was not heard (heard \"2.00 10.00 20 cents\"); \"0.10 0.50 0.01\" was not heard (heard \"10 cents 50 cents 1 cent\"); the ending \"0.50 0.01\" was not heard; the figures 0.20, 0.10, 0.50, 0.01 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A08",
+   "group": "A",
+   "kind": "tiny percent",
+   "text": "The 4B model reached roughly 92% attack success, and success stayed positive at a 0.0005% poison rate.",
+   "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+   "spoken": "The 4 billion model reached roughly 92 percent attack success, and success stayed positive at a 0.0005 percent poison rate.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The 4 billion model reached roughly 92% attack success and success stayed positive at a 0.0 Russian 5% poison rate.",
+     "seconds": 7.26,
+     "file": "experiments\\voice_bench\\clips\\A08-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"0.0 russian 5\" was heard but is not in the sentence; the figure 0.0005 not heard"
+     ],
+     "fault": "\"0.0 russian 5\" was heard but is not in the sentence; the figure 0.0005 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "The 4 billion model reached roughly 92% attack success, and success stayed positive at a 0.075% poison rate.",
+     "seconds": 7.35,
+     "file": "experiments\\voice_bench\\clips\\A08-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.0005 not heard"
+     ],
+     "fault": "the figure 0.0005 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "The 4 billion model reached roughly 92% attack success, and success stayed positive at a 0.075% poison rate.",
+     "seconds": 7.69,
+     "file": "experiments\\voice_bench\\clips\\A08-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.0005 not heard"
+     ],
+     "fault": "the figure 0.0005 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "The $4 billion model reached roughly 92% attack success, and success stayed positive at a 0.075% poison rate.",
+     "seconds": 8.16,
+     "file": "experiments\\voice_bench\\clips\\A08-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.0005 not heard"
+     ],
+     "fault": "the figure 0.0005 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "The 4 billion model reached roughly 92% attack success and success stayed positive at a 0.715% poison rate.",
+     "seconds": 7.7,
+     "file": "experiments\\voice_bench\\clips\\A08-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.0005 not heard"
+     ],
+     "fault": "the figure 0.0005 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A09",
+   "group": "A",
+   "kind": "tiny percent",
+   "text": "Police say that works out to an error rate of 0.00065%.",
+   "source": "2026-11-02 runs/2026-11-02/10_voice/report.md",
+   "spoken": "Police say that works out to an error rate of 0.00065 percent.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Police say that works out to an error rate of 0.065%.",
+     "seconds": 3.88,
+     "file": "experiments\\voice_bench\\clips\\A09-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.00065 not heard"
+     ],
+     "fault": "the figure 0.00065 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "Police say that works out to an error rate of 0.0765%.",
+     "seconds": 4.4,
+     "file": "experiments\\voice_bench\\clips\\A09-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.00065 not heard"
+     ],
+     "fault": "the figure 0.00065 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Police say that works out to an error rate of 0.065%.",
+     "seconds": 4.07,
+     "file": "experiments\\voice_bench\\clips\\A09-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.00065 not heard"
+     ],
+     "fault": "the figure 0.00065 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "Police say that works out to an error rate of 0.67%.",
+     "seconds": 4.08,
+     "file": "experiments\\voice_bench\\clips\\A09-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.00065 not heard"
+     ],
+     "fault": "the figure 0.00065 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "Police say that works out to an error rate of 0.0065%.",
+     "seconds": 4.2,
+     "file": "experiments\\voice_bench\\clips\\A09-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.00065 not heard"
+     ],
+     "fault": "the figure 0.00065 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A10",
+   "group": "A",
+   "kind": "many figures",
+   "text": "At a $965 billion private valuation, a 1% stake is worth nearly $10 billion, so Menlo's roughly $14 billion position is only about 1.5% of the company.",
+   "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+   "spoken": "At a 965 billion dollar private valuation, a 1 percent stake is worth nearly 10 billion dollars, so Menlo's roughly 14 billion dollars position is only about 1.5 percent of the company.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "at a $965 billion private valuation, a 1% stake is worth nearly $10 billion, so Menlo's roughly $14 billion position is only about 1.5% of the company.",
+     "seconds": 11.4,
+     "file": "experiments\\voice_bench\\clips\\A10-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "At a 965 billion dollar private valuation, a 1% stake is worth nearly 10 billion dollars. Do not amend the scent of the company.",
+     "seconds": 8.06,
+     "file": "experiments\\voice_bench\\clips\\A10-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"so menlos roughly 14 billion position is only about 1.5 percent\" was not heard (heard \"dollars do not amend the scent\"); the figures 14, 1.5 not heard"
+     ],
+     "fault": "\"so menlos roughly 14 billion position is only about 1.5 percent\" was not heard (heard \"dollars do not amend the scent\"); the figures 14, 1.5 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "At a $9.65 billion private valuation, a 1% stake is worth nearly $10 billion. The Menlo's roughly $14 billion position is only about 1.5% of the company.",
+     "seconds": 12.01,
+     "file": "experiments\\voice_bench\\clips\\A10-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 965 not heard"
+     ],
+     "fault": "the figure 965 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "at a 9.65 billion dollar private valuation.",
+     "seconds": 9.19,
+     "file": "experiments\\voice_bench\\clips\\A10-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"a 1 percent stake is worth nearly 10 billion so menlos roughly 14 billion position is only about 1.5 percent of the company\" was not heard; the ending \"the company\" was not heard; the figures 965, 10, 14, 1.5 not heard"
+     ],
+     "fault": "\"a 1 percent stake is worth nearly 10 billion so menlos roughly 14 billion position is only about 1.5 percent of the company\" was not heard; the ending \"the company\" was not heard; the figures 965, 10, 14, 1.5 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "At the $9.65 billion private valuation, a 1% stake is worth nearly $10 billion. So Menlo's roughly $14 billion position is only about 1.5% of the company.",
+     "seconds": 11.4,
+     "file": "experiments\\voice_bench\\clips\\A10-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 965 not heard"
+     ],
+     "fault": "the figure 965 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A11",
+   "group": "A",
+   "kind": "date",
+   "text": "It's Wednesday, 28 October 2026, and I'm glad you're here.",
+   "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+   "spoken": "It's Wednesday, 28 October 2026, and I'm glad you're here.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "It's Wednesday 28th October 2026 and I'm glad you're here.",
+     "seconds": 3.62,
+     "file": "experiments\\voice_bench\\clips\\A11-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 28 not heard"
+     ],
+     "fault": "the figure 28 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "It's Wednesday 28th October 2026 and I'm glad you're here.",
+     "seconds": 3.62,
+     "file": "experiments\\voice_bench\\clips\\A11-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figure 28 not heard"
+     ],
+     "fault": "the figure 28 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "It's Wednesday 28th October 2026 and I'm glad you're here.",
+     "seconds": 3.9,
+     "file": "experiments\\voice_bench\\clips\\A11-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 28 not heard"
+     ],
+     "fault": "the figure 28 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "It's Wednesday 28th October 2026, and I'm glad you're here.",
+     "seconds": 4.21,
+     "file": "experiments\\voice_bench\\clips\\A11-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 28 not heard"
+     ],
+     "fault": "the figure 28 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "It's Wednesday, 13th October, 13th 36th and I'm glad you're here.",
+     "seconds": 3.66,
+     "file": "experiments\\voice_bench\\clips\\A11-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figures 28, 2026 not heard"
+     ],
+     "fault": "the figures 28, 2026 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A12",
+   "group": "A",
+   "kind": "date",
+   "text": "The New York Times announced an iOS-only beta on October 23 that lets subscribers modify recipes with AI.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "spoken": "The New York Times announced an i-OS-only beta on October 23 that lets subscribers modify recipes with AI.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The New York Times announced an iOS-only beta on October 23rd that lets subscribers modify recipes with AI.",
+     "seconds": 5.99,
+     "file": "experiments\\voice_bench\\clips\\A12-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 23 not heard"
+     ],
+     "fault": "the figure 23 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "The New York Times announced an iOS-only beta on October 23 that lets subscribers modify recipes with AI.",
+     "seconds": 6.07,
+     "file": "experiments\\voice_bench\\clips\\A12-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The New York Times announced an iOS-only beta on October 23rd that lets subscribers modify recipes with AI.",
+     "seconds": 6.13,
+     "file": "experiments\\voice_bench\\clips\\A12-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 23 not heard"
+     ],
+     "fault": "the figure 23 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "The New York Times announced an iOS-only beta on October 23rd that lets subscribers modify recipes with AI.",
+     "seconds": 6.02,
+     "file": "experiments\\voice_bench\\clips\\A12-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 23 not heard"
+     ],
+     "fault": "the figure 23 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "The New York Times announced an iOS-only beta on October 23rd that lets subscribers modify recipes with AI.",
+     "seconds": 6.49,
+     "file": "experiments\\voice_bench\\clips\\A12-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 23 not heard"
+     ],
+     "fault": "the figure 23 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A13",
+   "group": "A",
+   "kind": "price + decimal",
+   "text": "Then there's price. Google says it has dropped the price 30% from Omni 1.1, to $0.07 per second for 720p video.",
+   "source": "2026-11-07 runs/2026-11-07/10_voice/report.md",
+   "spoken": "Then there's price. Google says it has dropped the price 30 percent from Omni 1.1, to 7 cents per second for 720p video.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "then there's price. Google says it has dropped the price 30% from Omni 1.1 to 7 cents per second for 720p video.",
+     "seconds": 8.04,
+     "file": "experiments\\voice_bench\\clips\\A13-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.07 not heard"
+     ],
+     "fault": "the figure 0.07 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "then there's brand. Google says it has dropped the price 30% from Omni 1.1 to 7 cents per second for 720p video.",
+     "seconds": 8.04,
+     "file": "experiments\\voice_bench\\clips\\A13-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.07 not heard"
+     ],
+     "fault": "the figure 0.07 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Then there's price.",
+     "seconds": 8.62,
+     "file": "experiments\\voice_bench\\clips\\A13-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"google says it has dropped the price 30 percent from omni 1.1 to 0.07 per second for 720p video\" was not heard; the ending \"720p video\" was not heard; the figures 30, 1.1, 0.07 not heard"
+     ],
+     "fault": "\"google says it has dropped the price 30 percent from omni 1.1 to 0.07 per second for 720p video\" was not heard; the ending \"720p video\" was not heard; the figures 30, 1.1, 0.07 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "then there's price. Google says it has dropped the price 30% from Omni 1.1 to 7 cents per second for 720p video.",
+     "seconds": 7.48,
+     "file": "experiments\\voice_bench\\clips\\A13-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.07 not heard"
+     ],
+     "fault": "the figure 0.07 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "than this price. Google says it has dropped the price 30% from Omni 1.1 to 7 cents per second for 720p video.",
+     "seconds": 7.38,
+     "file": "experiments\\voice_bench\\clips\\A13-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 0.07 not heard"
+     ],
+     "fault": "the figure 0.07 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A14",
+   "group": "A",
+   "kind": "price list",
+   "text": "A hundred 10-second clips at 768P come to $40 on Lite, $60 on Highspeed and $80 on H3.",
+   "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+   "spoken": "A hundred 10-second clips at 768P come to 40 dollars on Lite, 60 dollars on Highspeed and 80 dollars on H3.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "110 second clips at 768b come to $40 on light, $60 on high speed and $80 on H3.",
+     "seconds": 8.68,
+     "file": "experiments\\voice_bench\\clips\\A14-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+     ],
+     "fault": "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "100 10-second clips at 768p. Come to $40 on light, $60 on high speed and $80 on East 3.",
+     "seconds": 7.98,
+     "file": "experiments\\voice_bench\\clips\\A14-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 14 of 19 words heard as written"
+     ],
+     "fault": "only 14 of 19 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "110 second clips at 768p come to $40 on light, $60 on high speed and $80 on H3.",
+     "seconds": 7.71,
+     "file": "experiments\\voice_bench\\clips\\A14-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+     ],
+     "fault": "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "110 second clips at 768b come to $40 on light, $60 on high speed and $80 on H3.",
+     "seconds": 7.85,
+     "file": "experiments\\voice_bench\\clips\\A14-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+     ],
+     "fault": "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "110 second clips at 768p come to $40 on light, $60 on high speed and $80 on each three.",
+     "seconds": 7.94,
+     "file": "experiments\\voice_bench\\clips\\A14-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+     ],
+     "fault": "\"a hundred 10\" was not heard (heard \"110\"); the figure 10 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A15",
+   "group": "A",
+   "kind": "number+unit",
+   "text": "The proofs hold only under strict conditions: a specific processor architecture, single-threaded programs, and inputs under 64 MB.",
+   "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+   "expect": [
+    "64"
+   ],
+   "spoken": "The proofs hold only under strict conditions: a specific processor architecture, single-threaded programs, and inputs under 64 megabytes.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The probes hold only under strict conditions, a specific processor architecture, single-threaded programs, and inputs under 64MB.",
+     "seconds": 9.04,
+     "file": "experiments\\voice_bench\\clips\\A15-t1.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"64 mb\" was not heard; the figure 64 not heard"
+     ],
+     "fault": "the ending \"64 mb\" was not heard; the figure 64 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "The proofs hold only under strict conditions, a specific processor architecture, single-threaded programs, and inputs under 64 megabytes.",
+     "seconds": 7.92,
+     "file": "experiments\\voice_bench\\clips\\A15-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The proofs hold only under strict conditions, a specific processor architecture, single-threaded programs and inputs under 64 MB.",
+     "seconds": 8.7,
+     "file": "experiments\\voice_bench\\clips\\A15-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The proofs hold only under strict conditions, the specific processor architecture, single-threaded programs, and inputs under 64MB.",
+     "seconds": 8.5,
+     "file": "experiments\\voice_bench\\clips\\A15-t4.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"64 mb\" was not heard; the figure 64 not heard"
+     ],
+     "fault": "the ending \"64 mb\" was not heard; the figure 64 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "The proofs hold only under strict condition, a specific processor architecture, single-threaded program, and inputs under 64MB.",
+     "seconds": 8.32,
+     "file": "experiments\\voice_bench\\clips\\A15-t5.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"64 mb\" was not heard; the figure 64 not heard"
+     ],
+     "fault": "the ending \"64 mb\" was not heard; the figure 64 not heard"
+    }
+   ]
+  },
+  {
+   "id": "A16",
+   "group": "A",
+   "kind": "scale suffix",
+   "text": "Meta plans $95bn stock offering to help cover AI expansion.",
+   "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+   "expect": [
+    "meta"
+   ],
+   "spoken": "Meta plans 95 billion dollars stock offering to help cover AI expansion.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "MetaPlan's $95 billion stock offering to help cover AI expansion.",
+     "seconds": 4.0,
+     "file": "experiments\\voice_bench\\clips\\A16-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 10 words heard as written"
+     ],
+     "fault": "only 7 of 10 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Meta plans $95 billion stock offering to help cover AI expansion.",
+     "seconds": 4.15,
+     "file": "experiments\\voice_bench\\clips\\A16-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "MetaPlan's $95 billion stock offering to help cover AI expansion.",
+     "seconds": 4.0,
+     "file": "experiments\\voice_bench\\clips\\A16-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 10 words heard as written"
+     ],
+     "fault": "only 7 of 10 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Meta plans $95 billion stock offering to help cover AI expansion.",
+     "seconds": 3.95,
+     "file": "experiments\\voice_bench\\clips\\A16-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "MetaPlan's $95 billion stock offering to help cover AI expansion.",
+     "seconds": 4.12,
+     "file": "experiments\\voice_bench\\clips\\A16-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 10 words heard as written"
+     ],
+     "fault": "only 7 of 10 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "B01",
+   "group": "B",
+   "kind": "name-version-size",
+   "text": "Researchers tested Qwen3.8-27B with a simulated 403 error on a web page request.",
+   "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+   "expect": [
+    "3.8"
+   ],
+   "spoken": "Researchers tested Qwen 3.8, 27 billion with a simulated 403 error on a web page request.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Researchers tested QAN 3.827 billion with a simulated 403 error on a webpage request.",
+     "seconds": 5.75,
+     "file": "experiments\\voice_bench\\clips\\B01-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"qan 3.827 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qan 3.827 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 2,
+     "heard": "Researchers tested QUEN 3.8 27 billion with a simulated 403 error on a webpage request.",
+     "seconds": 6.43,
+     "file": "experiments\\voice_bench\\clips\\B01-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"quen 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quen 3.8 27 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 3,
+     "heard": "Researchers tested Quan 3.8 27 billion with a simulated 403 error on a webpage request.",
+     "seconds": 5.62,
+     "file": "experiments\\voice_bench\\clips\\B01-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"quan 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quan 3.8 27 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "Research just tested QEN 3.827 billion with a simulated 403 error on a web page request.",
+     "seconds": 6.15,
+     "file": "experiments\\voice_bench\\clips\\B01-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"qen 3.827 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qen 3.827 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 5,
+     "heard": "Researchers tested QUENT 3.827 billion with a simulated 403 error on a web page request.",
+     "seconds": 5.9,
+     "file": "experiments\\voice_bench\\clips\\B01-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"quent 3.827 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quent 3.827 billion\" was heard but is not in the sentence"
+    }
+   ]
+  },
+  {
+   "id": "B02",
+   "group": "B",
+   "kind": "name-version-size",
+   "text": "Nous Research trained Qwen3.8-27B on about 53 million tokens.",
+   "source": "2026-11-08 runs/2026-11-08/10_voice/report.md",
+   "expect": [
+    "3.8"
+   ],
+   "spoken": "Nous Research trained Qwen 3.8, 27 billion on about 53 million tokens.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Noose Research trained QAN 3.827 billion on about 53 million tokens.",
+     "seconds": 5.17,
+     "file": "experiments\\voice_bench\\clips\\B02-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"qan 3.827 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qan 3.827 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 2,
+     "heard": "News research train quen 3.8, 27 billion on about 53 million tokens.",
+     "seconds": 6.09,
+     "file": "experiments\\voice_bench\\clips\\B02-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"trained qwen3.8 27b\" was not heard (heard \"train quen 3.8 27 billion\")"
+     ],
+     "fault": "\"trained qwen3.8 27b\" was not heard (heard \"train quen 3.8 27 billion\")"
+    },
+    {
+     "take": 3,
+     "heard": "News research trained Quinn 3.8 27 billion on about 53 million tokens.",
+     "seconds": 5.83,
+     "file": "experiments\\voice_bench\\clips\\B02-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"quinn 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quinn 3.8 27 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "News Research trained Quant 3.8 $27 billion on about 53 million tokens.",
+     "seconds": 5.42,
+     "file": "experiments\\voice_bench\\clips\\B02-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"quant 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quant 3.8 27 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 5,
+     "heard": "NUS Research Traincoin 3.3,28,27 billion on about 53 million tokens.",
+     "seconds": 5.92,
+     "file": "experiments\\voice_bench\\clips\\B02-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"trained qwen3.8 27b\" was not heard (heard \"traincoin 3.3 28 27 billion\")",
+      "expected \"3.8\" not heard"
+     ],
+     "fault": "\"trained qwen3.8 27b\" was not heard (heard \"traincoin 3.3 28 27 billion\")"
+    }
+   ]
+  },
+  {
+   "id": "B03",
+   "group": "B",
+   "kind": "name-version-size",
+   "text": "And the locally served, open-weight Qwen3.8-27B rises from 66.8% to 92.4%.",
+   "source": "2026-10-25 runs/2026-10-25/10_voice/report.md",
+   "expect": [
+    "3.8"
+   ],
+   "spoken": "And the locally served, open-weight Qwen 3.8, 27 billion rises from 66.8 percent to 92.4 percent.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "and the locally served open-weight quen 3.8, 27 billion rises from 66.8% to 92.4%",
+     "seconds": 8.01,
+     "file": "experiments\\voice_bench\\clips\\B03-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"quen 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quen 3.8 27 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 2,
+     "heard": "and the locally served open-weight Kwan 3.8-27 billion rises from 66.8% to 92.4%.",
+     "seconds": 6.77,
+     "file": "experiments\\voice_bench\\clips\\B03-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"kwan 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"kwan 3.8 27 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 3,
+     "heard": "and the locally served Open Weight Quant 3.8, 27 billion rises from 66.8% to 92.4%.",
+     "seconds": 7.77,
+     "file": "experiments\\voice_bench\\clips\\B03-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"quant 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quant 3.8 27 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "and the locally served openweight gwent 3.27 billion rises from 66.8% to 92.4%",
+     "seconds": 8.09,
+     "file": "experiments\\voice_bench\\clips\\B03-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 11 of 15 words heard as written",
+      "expected \"3.8\" not heard"
+     ],
+     "fault": "only 11 of 15 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "and the locally served open-weight QEN 3.8-27 billion rises from 66.8% to 92.4%.",
+     "seconds": 7.38,
+     "file": "experiments\\voice_bench\\clips\\B03-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"qen 3.8 27 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qen 3.8 27 billion\" was heard but is not in the sentence"
+    }
+   ]
+  },
+  {
+   "id": "B04",
+   "group": "B",
+   "kind": "name-version-size",
+   "text": "They start with a small pre-trained Qwen3 0.6B model and implement evaluation, inference-time scaling, reinforcement learning and distillation in Python and PyTorch.",
+   "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+   "spoken": "They start with a small pre-trained Qwen 3 0.6 billion model and implement evaluation, inference-time scaling, reinforcement learning and distillation in Python and Py-Torch.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "They start with a small pre-trained QUEN 30.6 billion model and implement evaluation, inference time scaling, reinforcement learning and distillation in Python and PyTorch.",
+     "seconds": 10.28,
+     "file": "experiments\\voice_bench\\clips\\B04-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"quen 30.6 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"quen 30.6 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 2,
+     "heard": "They start with a small pre-trained QAN3 0.6 billion model and implement evaluation, inference time scaling, reinforcement learning and distillation in Python and PyTorch.",
+     "seconds": 10.06,
+     "file": "experiments\\voice_bench\\clips\\B04-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"qan3 0.6 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qan3 0.6 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 3,
+     "heard": "They start with a small pre-trained QAN30.6 billion model and implement evaluation, inference time scaling, reinforcement learning and distillation in Python and PyTorch.",
+     "seconds": 10.13,
+     "file": "experiments\\voice_bench\\clips\\B04-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "They start with a small pre-trained QEN 3 0.6 billion model and implement evaluation, inference time scaling, reinforcement learning and distillation in Python and PyTorch.",
+     "seconds": 10.73,
+     "file": "experiments\\voice_bench\\clips\\B04-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"qen 3 0.6 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qen 3 0.6 billion\" was heard but is not in the sentence"
+    },
+    {
+     "take": 5,
+     "heard": "They start with a small pre-trained QAN3 0.6 billion model and implement evaluation, inference time scaling, reinforcement learning and distillation in Python and PyTorch.",
+     "seconds": 10.28,
+     "file": "experiments\\voice_bench\\clips\\B04-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"qan3 0.6 billion\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qan3 0.6 billion\" was heard but is not in the sentence"
+    }
+   ]
+  },
+  {
+   "id": "B05",
+   "group": "B",
+   "kind": "name-version-size",
+   "text": "Its new 164M-parameter vision encoder matches Qwen3.5-2B's encoder in accuracy with 2.2x fewer FLOPs.",
+   "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+   "spoken": "Its new 164 million-parameter vision encoder matches Qwen 3.5, 2 billion's encoder in accuracy with 2.2 times fewer FLOPs.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Its new 164 million parameter vision encoder matches QAN 3.5 2 billions encoder in accuracy with 2.2 times fewer flops.",
+     "seconds": 8.87,
+     "file": "experiments\\voice_bench\\clips\\B05-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"qan 3.5 2 billions\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qan 3.5 2 billions\" was heard but is not in the sentence"
+    },
+    {
+     "take": 2,
+     "heard": "Its new 164 million parameter vision encoder matches QEN 3.5 2 billions encoder in accuracy with 2.2 times fewer flops.",
+     "seconds": 8.77,
+     "file": "experiments\\voice_bench\\clips\\B05-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"qen 3.5 2 billions\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qen 3.5 2 billions\" was heard but is not in the sentence"
+    },
+    {
+     "take": 3,
+     "heard": "Its new 164 million barometer vision encoder matches Qualcomm 3.5, 2 billionth encoder in accuracy with 2.2 times fewer flops.",
+     "seconds": 9.14,
+     "file": "experiments\\voice_bench\\clips\\B05-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"164 million barometer\" was heard but is not in the sentence; \"qualcomm 3.5 2 billionth\" was heard but is not in the sentence"
+     ],
+     "fault": "\"164 million barometer\" was heard but is not in the sentence; \"qualcomm 3.5 2 billionth\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "its new 164 million parameter vision encoder matches QEN 3.5. 2 billions encoder in accuracy with 2.2 times fewer flops.",
+     "seconds": 9.02,
+     "file": "experiments\\voice_bench\\clips\\B05-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"qen 3.5 2 billions\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qen 3.5 2 billions\" was heard but is not in the sentence"
+    },
+    {
+     "take": 5,
+     "heard": "its new 164 million parameter vision encoder matches QAN 3.5 two billions encoder in accuracy with 2.2 times fewer flops",
+     "seconds": 8.91,
+     "file": "experiments\\voice_bench\\clips\\B05-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"qan 3.5 2 billions\" was heard but is not in the sentence"
+     ],
+     "fault": "\"qan 3.5 2 billions\" was heard but is not in the sentence"
+    }
+   ]
+  },
+  {
+   "id": "B06",
+   "group": "B",
+   "kind": "model name K3.1",
+   "text": "Moonshot AI has released Kimi K3.1 Pro, a version of Kimi K3 with much more post-training compute.",
+   "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+   "expect": [
+    "kimi"
+   ],
+   "spoken": "Moonshot AI has released Kimi K3.1 Pro, a version of Kimi K3 with much more post-training compute.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Moonshot AI has released Kimi K 3.1 Pro, a version of Kimi K 3 with much more post-training compute.",
+     "seconds": 6.76,
+     "file": "experiments\\voice_bench\\clips\\B06-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Moonshot AI has released KimiK 3.1 Pro, a version of KimiK 3 with much more post-training compute.",
+     "seconds": 6.43,
+     "file": "experiments\\voice_bench\\clips\\B06-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 14 of 18 words heard as written"
+     ],
+     "fault": "only 14 of 18 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Moonshot AI has released Kameki 3.0 Pro, a version of Kameki 3.0 with much more post-training compute.",
+     "seconds": 6.01,
+     "file": "experiments\\voice_bench\\clips\\B06-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 14 of 18 words heard as written",
+      "expected \"kimi\" not heard"
+     ],
+     "fault": "only 14 of 18 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Moonshot AI has released KimiK 3.0 Pro, a version of KimiK 3.0 with much more post-training compute.",
+     "seconds": 6.49,
+     "file": "experiments\\voice_bench\\clips\\B06-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 14 of 18 words heard as written"
+     ],
+     "fault": "only 14 of 18 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "Moonshot AI has released Chemekay 3.1 Pro, a version of Chemekay 3 with much more pulse-draining compute.",
+     "seconds": 6.0,
+     "file": "experiments\\voice_bench\\clips\\B06-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 12 of 18 words heard as written",
+      "expected \"kimi\" not heard"
+     ],
+     "fault": "only 12 of 18 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "B07",
+   "group": "B",
+   "kind": "model name K3.1",
+   "text": "Kimi K3.1 Pro is unconfirmed, and Ripple-65B is a company's own claim.",
+   "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+   "expect": [
+    "kimi"
+   ],
+   "spoken": "Kimi K3.1 Pro is unconfirmed, and Ripple-65 billion is a company's own claim.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Kimi K 3.1 Pro is unconfirmed and Ripple 65 billion is a company's own claim.",
+     "seconds": 4.92,
+     "file": "experiments\\voice_bench\\clips\\B07-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Kimikkei 3.1 Pro is unconfirmed and Ripple 65 billion is a company's own claim.",
+     "seconds": 5.44,
+     "file": "experiments\\voice_bench\\clips\\B07-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 10 of 13 words heard as written"
+     ],
+     "fault": "only 10 of 13 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Kimiket 3.Pro is unconfirmed, and Triple65 billion is a company's own claim.",
+     "seconds": 5.57,
+     "file": "experiments\\voice_bench\\clips\\B07-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 9 of 13 words heard as written"
+     ],
+     "fault": "only 9 of 13 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Kimi K 3.1 Pro is unconfirmed and Ripple 65 billion is a company's own claim.",
+     "seconds": 5.28,
+     "file": "experiments\\voice_bench\\clips\\B07-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Kimi K 3.1 Pro is unconfirmed and Ripple 65 billion is a company's own claim.",
+     "seconds": 5.32,
+     "file": "experiments\\voice_bench\\clips\\B07-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "B08",
+   "group": "B",
+   "kind": "version v2.2",
+   "text": "Vals AI evaluated Tencent's new open-weight Hy4 on Vals Index v2.2.",
+   "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+   "spoken": "Vals AI evaluated Tencent's new open-weight Hy 4 on Vals Index version 2.2.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "BalsAI Valuated Tencent's New Open Weight High 4 on Bals Index version 2.2",
+     "seconds": 4.76,
+     "file": "experiments\\voice_bench\\clips\\B08-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 6 of 12 words heard as written"
+     ],
+     "fault": "only 6 of 12 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Vaal's AI evaluated Tencent's new open weight high 4 on Vaal's index version 2.2.",
+     "seconds": 5.53,
+     "file": "experiments\\voice_bench\\clips\\B08-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 8 of 12 words heard as written"
+     ],
+     "fault": "only 8 of 12 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "BALSE I evaluated Tencent's new open weight high 4 on BALSE index version 2.2.",
+     "seconds": 5.06,
+     "file": "experiments\\voice_bench\\clips\\B08-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 12 words heard as written"
+     ],
+     "fault": "only 7 of 12 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Valve's AI evaluated Tencent's new open-weight HIFOR on Valve's Index version 2.2.",
+     "seconds": 4.99,
+     "file": "experiments\\voice_bench\\clips\\B08-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 8 of 12 words heard as written"
+     ],
+     "fault": "only 8 of 12 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "BalsAI evaluated Tencent's new open-weight Hi4 on Bals Index version 2.2.",
+     "seconds": 5.32,
+     "file": "experiments\\voice_bench\\clips\\B08-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 12 words heard as written"
+     ],
+     "fault": "only 7 of 12 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "B09",
+   "group": "B",
+   "kind": "version v1.1",
+   "text": "It is built on DharmaOCR-LITE v1.1 with a LoRA adapter trained on 43,384 examples.",
+   "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+   "spoken": "It is built on Dharma-OCR-LITE version 1.1 with a Lo-RA adapter trained on forty-three thousand three hundred eighty-four examples.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "It is built on Dama OCR Lite version 1.1 with a LoRa adapter trained on 43,384 examples.",
+     "seconds": 7.47,
+     "file": "experiments\\voice_bench\\clips\\B09-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "It is built on Dama OCR Lite version 1.1, with a low-ri adapter trained on 43,384 examples.",
+     "seconds": 7.65,
+     "file": "experiments\\voice_bench\\clips\\B09-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "It is built on Damma Ocarolite version 1.1 with a low radar adapter trained on 43380 for example.",
+     "seconds": 7.43,
+     "file": "experiments\\voice_bench\\clips\\B09-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"dharmaocr lite v1.1\" was not heard (heard \"damma ocarolite version 1.1\"); the ending \"43384 examples\" was not heard; the figure 43384 not heard"
+     ],
+     "fault": "\"dharmaocr lite v1.1\" was not heard (heard \"damma ocarolite version 1.1\"); the ending \"43384 examples\" was not heard; the figure 43384 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "It is built on Dharma Ocalaide version 1.1.",
+     "seconds": 7.52,
+     "file": "experiments\\voice_bench\\clips\\B09-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"dharmaocr lite v1.1 with a lora adapter trained on 43384 examples\" was not heard (heard \"dharma ocalaide version 1.1\"); the ending \"43384 examples\" was not heard; the figure 43384 not heard"
+     ],
+     "fault": "\"dharmaocr lite v1.1 with a lora adapter trained on 43384 examples\" was not heard (heard \"dharma ocalaide version 1.1\"); the ending \"43384 examples\" was not heard; the figure 43384 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "It is built on Dama OCR Lite version 1.1, with a LoRa adapter trained on 43,384 examples.",
+     "seconds": 7.0,
+     "file": "experiments\\voice_bench\\clips\\B09-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "B10",
+   "group": "B",
+   "kind": "versions + hyphen code",
+   "text": "Vals lists it as weaker on EMB v1.1, Legal Research Bench, and HLAB-Vals-1.1, where it scores 12.50%.",
+   "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+   "spoken": "Vals lists it as weaker on EMB version 1.1, Legal Research Bench, and HLAB Vals 1.1, where it scores 12.50 percent.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "VALS lists it as weaker on EMB v1.1, Legal Research Bench, and HLA-B VALS v1.1, where it scores 12.5 reset percent.",
+     "seconds": 10.74,
+     "file": "experiments\\voice_bench\\clips\\B10-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 1.1 not heard"
+     ],
+     "fault": "the figure 1.1 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "VALS lists it as Beaker on EMB version 1.1, Legal Research Bench and HLA-B VALS 1.1, where it scores 12.5%.",
+     "seconds": 9.24,
+     "file": "experiments\\voice_bench\\clips\\B10-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "VALS lists it as weaker on EMB version 1.1, Legal Research Bench and HLAB VALS 1.1, where it scores 12.5%",
+     "seconds": 9.4,
+     "file": "experiments\\voice_bench\\clips\\B10-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "VALS lists it as weaker on EMB version 1.1, Legal Research Bench, and HLA-B VALS 1.1, where it scores 12.55%.",
+     "seconds": 9.83,
+     "file": "experiments\\voice_bench\\clips\\B10-t4.wav",
+     "pass": false,
+     "problems": [
+      "the figure 12.50 not heard"
+     ],
+     "fault": "the figure 12.50 not heard"
+    },
+    {
+     "take": 5,
+     "heard": "BALZ lists it as weaker on EMB version 1.1, Legal Research Bench and HLAB BALZ 1.1, where it scores 12.55%.",
+     "seconds": 10.36,
+     "file": "experiments\\voice_bench\\clips\\B10-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 12.50 not heard"
+     ],
+     "fault": "the figure 12.50 not heard"
+    }
+   ]
+  },
+  {
+   "id": "B11",
+   "group": "B",
+   "kind": "ALL_CAPS underscore",
+   "text": "Setting LLAMA_MOE_TOP_K to 5 or 4 is optional and trades a small perplexity change for faster decoding.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "forbid": [
+    "lalamao"
+   ],
+   "spoken": "Setting LLAMA MOE TOP K to 5 or 4 is optional and trades a small perplexity change for faster decoding.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Setting LAN AMO Top-K to 5 or 4 is optional and trades a small perplexity change for faster decoding.",
+     "seconds": 7.14,
+     "file": "experiments\\voice_bench\\clips\\B11-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Setting LIMA mode top K to 5 or 4 is optional and trades a small perplexity change for faster decoding.",
+     "seconds": 6.47,
+     "file": "experiments\\voice_bench\\clips\\B11-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Setting LALAMA O Top K to 504 is optional and trades a small perplexity change for faster decoding.",
+     "seconds": 7.12,
+     "file": "experiments\\voice_bench\\clips\\B11-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"5 or 4\" was not heard (heard \"504\")"
+     ],
+     "fault": "\"5 or 4\" was not heard (heard \"504\")"
+    },
+    {
+     "take": 4,
+     "heard": "Setting LMMA Top-K to 5 or 4 is optional and trades a small perplexity change for faster decoding.",
+     "seconds": 6.43,
+     "file": "experiments\\voice_bench\\clips\\B11-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Setting LMR mode DOPK to fiber 4 is optional and creates a small perplexity change for faster decoding.",
+     "seconds": 5.97,
+     "file": "experiments\\voice_bench\\clips\\B11-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"llama moe top k\" was not heard (heard \"lmr mode dopk\")"
+     ],
+     "fault": "\"llama moe top k\" was not heard (heard \"lmr mode dopk\")"
+    }
+   ]
+  },
+  {
+   "id": "B12",
+   "group": "B",
+   "kind": "arch code",
+   "text": "It is built to run sparse Mixture-of-Experts models entirely in system RAM on x86_64 and ARM64 processors.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "arm"
+   ],
+   "forbid": [
+    "adam64"
+   ],
+   "spoken": "It is built to run sparse Mixture-of-Experts models entirely in system RAM on x86 64 and ARM64 processors.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "It is built to run sparse mixture of experts' models entirely in system RAM on x86-64 and ARPAN64 processors.",
+     "seconds": 6.33,
+     "file": "experiments\\voice_bench\\clips\\B12-t1.wav",
+     "pass": false,
+     "problems": [
+      "expected \"arm\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "It is built to run sparse mixture of experts models entirely in system RAM on x86-64 and ARM64 processors.",
+     "seconds": 7.98,
+     "file": "experiments\\voice_bench\\clips\\B12-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "It is built to run sparse mixture of experts models entirely in system RAM on x86-64 and ARM64 processors.",
+     "seconds": 7.22,
+     "file": "experiments\\voice_bench\\clips\\B12-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "It is built to run sparse mixture of experts models entirely in system RAM on x86-64 and ARM64 processors.",
+     "seconds": 7.71,
+     "file": "experiments\\voice_bench\\clips\\B12-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "It is built to run sparse mixture of experts' models entirely in system RAM on x86-64 and experts' caches.",
+     "seconds": 5.92,
+     "file": "experiments\\voice_bench\\clips\\B12-t5.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"arm64 processors\" was not heard",
+      "expected \"arm\" not heard"
+     ],
+     "fault": "the ending \"arm64 processors\" was not heard"
+    }
+   ]
+  },
+  {
+   "id": "B13",
+   "group": "B",
+   "kind": "code names",
+   "text": "llama-modchip is a set of ggml and llama.cpp kernel patches, quantization transcoders and runtime tools.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "ggml"
+   ],
+   "forbid": [
+    "monsheep",
+    "subpp"
+   ],
+   "spoken": "llama-modchip is a set of ggml and llama dot cpp kernel patches, quantization transcoders and runtime tools.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "LaMa's pick is a set of GEGMAL and LaMa.cppKantal patches, quantization transcoders, and runtime tools.",
+     "seconds": 6.56,
+     "file": "experiments\\voice_bench\\clips\\B13-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"llama cpp kernel\" was not heard (heard \"lama cppkantal\")",
+      "expected \"ggml\" not heard"
+     ],
+     "fault": "\"llama cpp kernel\" was not heard (heard \"lama cppkantal\")"
+    },
+    {
+     "take": 2,
+     "heard": "Lamamo chip is a set of ggmla and llama.sappe.p kernel patches, quantization transcoders and runtime tools.",
+     "seconds": 6.75,
+     "file": "experiments\\voice_bench\\clips\\B13-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 13 of 17 words heard as written"
+     ],
+     "fault": "only 13 of 17 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Llama Mode Chip is a set of Geek MLS and llama.cpp kernel patches, quantization transcoders and runtime tools.",
+     "seconds": 5.45,
+     "file": "experiments\\voice_bench\\clips\\B13-t3.wav",
+     "pass": false,
+     "problems": [
+      "expected \"ggml\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Lamashep is a set of k-Kamalas and lama.sub, cpp kernel patches, quantization transcoders and runtime tools.",
+     "seconds": 6.49,
+     "file": "experiments\\voice_bench\\clips\\B13-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 13 of 17 words heard as written",
+      "expected \"ggml\" not heard"
+     ],
+     "fault": "only 13 of 17 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "A llama mode chip is a set of VGML ads and llama.cpp kernel patches, quantization transcoders and runtime tools.",
+     "seconds": 7.45,
+     "file": "experiments\\voice_bench\\clips\\B13-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"ggml\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "B14",
+   "group": "B",
+   "kind": "version + brand",
+   "text": "The project is on GitHub, with release v2.4.0 and models on Hugging Face.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "hugging face"
+   ],
+   "forbid": [
+    "hugging fate"
+   ],
+   "spoken": "The project is on Git-Hub, with release version 2.4.0 and models on Hugging Face.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The project is on GitHub with release version 2.4.0 and models on Hugging Face.",
+     "seconds": 5.3,
+     "file": "experiments\\voice_bench\\clips\\B14-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "The project is on github, with release version 2.4.0 and models on hugging face.",
+     "seconds": 4.98,
+     "file": "experiments\\voice_bench\\clips\\B14-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "A project is on GitHub with release version 2.4.0 and models on Hugging Face.",
+     "seconds": 4.82,
+     "file": "experiments\\voice_bench\\clips\\B14-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The project is on GitHub, with release version 2.4.0 and models on Hugging Face.",
+     "seconds": 5.12,
+     "file": "experiments\\voice_bench\\clips\\B14-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "The project is on GitHub, with release version 2.4.0 and models on Hugging Face.",
+     "seconds": 5.66,
+     "file": "experiments\\voice_bench\\clips\\B14-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "B15",
+   "group": "B",
+   "kind": "path/endpoint",
+   "text": "Phonon works with the OpenAI-compatible /v1/audio/speech endpoint, so existing OpenAI SDK code only needs a new base URL.",
+   "source": "2026-10-25 runs/2026-10-25/10_voice/report.md",
+   "spoken": "Phonon works with the Open-AI-compatible /version 1/audio/speech endpoint, so existing Open-AI SDK code only needs a new base URL.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "FON works with the OpenAI Compatibles version 1 audio speech endpoint, so existing OpenAI SDK code only needs a new base URL.",
+     "seconds": 7.99,
+     "file": "experiments\\voice_bench\\clips\\B15-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Pond works with the OpenAI-compatible slash version one dash audio speech endpoint. So existing OpenAI SDK code only needs a new base URL.",
+     "seconds": 8.56,
+     "file": "experiments\\voice_bench\\clips\\B15-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"slash version 1 dash\" was heard but is not in the sentence"
+     ],
+     "fault": "\"slash version 1 dash\" was heard but is not in the sentence"
+    },
+    {
+     "take": 3,
+     "heard": "Phone works with the OpenAI-compatible slash version 1.0 as that your speech endpoint, so existing OpenAI SDK code only needs a new base URL.",
+     "seconds": 8.15,
+     "file": "experiments\\voice_bench\\clips\\B15-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"slash version 1.0 as that your\" was heard but is not in the sentence"
+     ],
+     "fault": "\"slash version 1.0 as that your\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "FON works with the OpenAI-compatible slash version one audio speech endpoint. So existing OpenAI SDK code only needs a new base URL.",
+     "seconds": 9.33,
+     "file": "experiments\\voice_bench\\clips\\B15-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"slash version 1\" was heard but is not in the sentence"
+     ],
+     "fault": "\"slash version 1\" was heard but is not in the sentence"
+    },
+    {
+     "take": 5,
+     "heard": "Phone works with the OpenAI-compatible slash version 1.0 audio speech endpoint, so existing OpenAI SDK code only needs a new base URL.",
+     "seconds": 8.65,
+     "file": "experiments\\voice_bench\\clips\\B15-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"slash version 1.0\" was heard but is not in the sentence"
+     ],
+     "fault": "\"slash version 1.0\" was heard but is not in the sentence"
+    }
+   ]
+  },
+  {
+   "id": "B16",
+   "group": "B",
+   "kind": "chip code",
+   "text": "Huawei plans to launch the Ascend 960DT early next year.",
+   "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+   "expect": [
+    "960"
+   ],
+   "spoken": "Huawei plans to launch the Ascend 960DT early next year.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Huawei plans to launch the ASAN 960 DTE early next year.",
+     "seconds": 3.93,
+     "file": "experiments\\voice_bench\\clips\\B16-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Huawei plans to launch the ASAN 960 DDT early next year.",
+     "seconds": 3.6,
+     "file": "experiments\\voice_bench\\clips\\B16-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Huawei plans to launch the Arson 960 DTT early next year.",
+     "seconds": 3.61,
+     "file": "experiments\\voice_bench\\clips\\B16-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"arson 960 dtt\" was heard but is not in the sentence"
+     ],
+     "fault": "\"arson 960 dtt\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "Huawei plans to launch the ASAN 960 DT early next year.",
+     "seconds": 3.54,
+     "file": "experiments\\voice_bench\\clips\\B16-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Huawei plans to launch the asan 960 dt early next year.",
+     "seconds": 3.41,
+     "file": "experiments\\voice_bench\\clips\\B16-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C01",
+   "group": "C",
+   "kind": "surname Huang",
+   "text": "The New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based datacenter company Megaspeed, to gather information on American AI chips and potentially influence Nvidia.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "huang"
+   ],
+   "spoken": "The New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based datacenter company Megaspeed, to gather information on American AI chips and potentially influence Nvidia.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Wang, an executive at the Singapore-based data center company Megaspede, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 11.79,
+     "file": "experiments\\voice_bench\\clips\\C01-t1.wav",
+     "pass": false,
+     "problems": [
+      "expected \"huang\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Wong, an executive at the Singapore-based data center company Megaspede, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 11.56,
+     "file": "experiments\\voice_bench\\clips\\C01-t2.wav",
+     "pass": false,
+     "problems": [
+      "expected \"huang\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based data center company Megaspeed, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 11.99,
+     "file": "experiments\\voice_bench\\clips\\C01-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Wong, an executive at the Singapore-based data center company Megaspede, to gather information on American AI chips and potentially influence Nvidia.",
+     "seconds": 11.39,
+     "file": "experiments\\voice_bench\\clips\\C01-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"huang\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Wong, an executive at the Singapore-based data center company Megaspede, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 12.33,
+     "file": "experiments\\voice_bench\\clips\\C01-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"huang\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C02",
+   "group": "C",
+   "kind": "surname Huang",
+   "text": "She is no relation to Jensen Huang.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "huang"
+   ],
+   "spoken": "She is no relation to Jensen Huang.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "She is no relation to Jensen Huang.",
+     "seconds": 1.9,
+     "file": "experiments\\voice_bench\\clips\\C02-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "She has no relation to Jensen Hong.",
+     "seconds": 1.63,
+     "file": "experiments\\voice_bench\\clips\\C02-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "She is no relation to Jensen Huang.",
+     "seconds": 1.93,
+     "file": "experiments\\voice_bench\\clips\\C02-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "She is no relation to Jensen Huang.",
+     "seconds": 2.41,
+     "file": "experiments\\voice_bench\\clips\\C02-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "She is no relation to Jensen Huang.",
+     "seconds": 2.32,
+     "file": "experiments\\voice_bench\\clips\\C02-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C03",
+   "group": "C",
+   "kind": "surname Huang",
+   "text": "Three House committees have asked Huang for a closed-door briefing.",
+   "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+   "expect": [
+    "huang"
+   ],
+   "spoken": "Three House committees have asked Huang for a closed-door briefing.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Three House committees have asked Huang for a closed-door briefing.",
+     "seconds": 2.96,
+     "file": "experiments\\voice_bench\\clips\\C03-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Three House committees have asked Huang for a closed-door briefing.",
+     "seconds": 2.79,
+     "file": "experiments\\voice_bench\\clips\\C03-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Three House committees have asked Huang for a closed-door briefing.",
+     "seconds": 3.02,
+     "file": "experiments\\voice_bench\\clips\\C03-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Three House committees have asked Wang for a closed-door briefing.",
+     "seconds": 2.83,
+     "file": "experiments\\voice_bench\\clips\\C03-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"huang\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Three House committees have asked Juan for a closed-door briefing.",
+     "seconds": 2.92,
+     "file": "experiments\\voice_bench\\clips\\C03-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"huang\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C04",
+   "group": "C",
+   "kind": "surname Karpathy",
+   "text": "Andrej Karpathy says he built HackerTube, a curated video site drawn from 20 years of Hacker News, in one weekend using Claude.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "karpathy"
+   ],
+   "spoken": "Andrej Karpathy says he built Hacker-Tube, a curated video site drawn from 20 years of Hacker News, in one weekend using Clawd.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Andrej Karpathy says he built HackerTube, a curated video site drawn from 20 years of hacker news, in one weekend using Claude.",
+     "seconds": 9.83,
+     "file": "experiments\\voice_bench\\clips\\C04-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Andresh Kapati says he built Hacker2, a curated video site drawn from 20 years of Hacker News in one weekend using Claude.",
+     "seconds": 8.35,
+     "file": "experiments\\voice_bench\\clips\\C04-t2.wav",
+     "pass": false,
+     "problems": [
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Andraj Karpati says he built Hackerju, a curated video site drawn from 20 years of hacker news in one weekend using Claude.",
+     "seconds": 7.74,
+     "file": "experiments\\voice_bench\\clips\\C04-t3.wav",
+     "pass": false,
+     "problems": [
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Andres Carpathi says he built HackerTube, a curated video site drawn from 20 years of hacker news, in one weekend using Claude.",
+     "seconds": 7.4,
+     "file": "experiments\\voice_bench\\clips\\C04-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Andresh Karpati says he built HackerTube, a curated video site drawn from 20 years of hacker news, in one weekend using Claude.",
+     "seconds": 8.17,
+     "file": "experiments\\voice_bench\\clips\\C04-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C05",
+   "group": "C",
+   "kind": "surname Karpathy",
+   "text": "First, Andrej Karpathy and a weekend project.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "expect": [
+    "karpathy"
+   ],
+   "spoken": "First, Andrej Karpathy and a weekend project.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "First Andreshkarpathy and a weekend project.",
+     "seconds": 2.3,
+     "file": "experiments\\voice_bench\\clips\\C05-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "First Andresh Kapati and a weekend project.",
+     "seconds": 2.29,
+     "file": "experiments\\voice_bench\\clips\\C05-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "First Andresh Karpathy and Weekend Project",
+     "seconds": 2.2,
+     "file": "experiments\\voice_bench\\clips\\C05-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "First, Andres Capati and a weekend project.",
+     "seconds": 2.24,
+     "file": "experiments\\voice_bench\\clips\\C05-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "First, Andresh Kapati and a weekend project.",
+     "seconds": 2.65,
+     "file": "experiments\\voice_bench\\clips\\C05-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "C06",
+   "group": "C",
+   "kind": "company Suno",
+   "text": "Rights holders of Elvis Presley and the publisher of Eminem records are suing AI music company Suno over music and lyrics that mimic the artists.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "suno"
+   ],
+   "forbid": [
+    "so no"
+   ],
+   "spoken": "Rights holders of Elvis Presley and the publisher of Eminem records are suing AI music company Suno over music and lyrics that mimic the artists.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Suno over music and lyrics that mimic the artists.",
+     "seconds": 8.33,
+     "file": "experiments\\voice_bench\\clips\\C06-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI Music Company, Suno, over music and lyrics that mimic the artists.",
+     "seconds": 7.53,
+     "file": "experiments\\voice_bench\\clips\\C06-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Suno over music and lyrics that mimic the artists.",
+     "seconds": 8.89,
+     "file": "experiments\\voice_bench\\clips\\C06-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Sono over music and lyrics that mimic the artist.",
+     "seconds": 7.94,
+     "file": "experiments\\voice_bench\\clips\\C06-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"suno\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Sono over music and lyrics that mimic the artists.",
+     "seconds": 7.46,
+     "file": "experiments\\voice_bench\\clips\\C06-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"suno\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C07",
+   "group": "C",
+   "kind": "company Suno",
+   "text": "The plaintiffs claim Suno illegally generates music and lyrics imitating the artists.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "suno"
+   ],
+   "spoken": "The plaintiffs claim Suno illegally generates music and lyrics imitating the artists.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The plaintiff's claims Suno illegally generates music and lyrics imitating the artist.",
+     "seconds": 4.24,
+     "file": "experiments\\voice_bench\\clips\\C07-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "The plaintiffs claim Suno illegally generates music and lyrics imitating the artists.",
+     "seconds": 4.65,
+     "file": "experiments\\voice_bench\\clips\\C07-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The plaintiffs claim Sono illegally generates music and lyrics imitating the artists.",
+     "seconds": 4.57,
+     "file": "experiments\\voice_bench\\clips\\C07-t3.wav",
+     "pass": false,
+     "problems": [
+      "expected \"suno\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The plaintiffs claim Sono illegally generates music and lyrics imitating the artists.",
+     "seconds": 4.29,
+     "file": "experiments\\voice_bench\\clips\\C07-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"suno\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "A plaintiff's kimsono illegally generates music and lyrics imitating the artists.",
+     "seconds": 4.12,
+     "file": "experiments\\voice_bench\\clips\\C07-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 9 of 12 words heard as written",
+      "expected \"suno\" not heard"
+     ],
+     "fault": "only 9 of 12 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "C08",
+   "group": "C",
+   "kind": "product Siri",
+   "text": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "siri"
+   ],
+   "forbid": [
+    "celie"
+   ],
+   "spoken": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Apple CEO John Turnus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 6.81,
+     "file": "experiments\\voice_bench\\clips\\C08-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 7.2,
+     "file": "experiments\\voice_bench\\clips\\C08-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federicki to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 6.7,
+     "file": "experiments\\voice_bench\\clips\\C08-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Apple CEO John Turnus is reportedly pressing Craig Federico to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 6.0,
+     "file": "experiments\\voice_bench\\clips\\C08-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 6.51,
+     "file": "experiments\\voice_bench\\clips\\C08-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C09",
+   "group": "C",
+   "kind": "place Thurrock",
+   "text": "The Thurrock Hammers motorcycle club wants to return to racing on the site, which was once a motorcycle stadium.",
+   "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+   "expect": [
+    "thurrock"
+   ],
+   "spoken": "The Thurrock Hammers motorcycle club wants to return to racing on the site, which was once a motorcycle stadium.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The Tharok Hammers Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.99,
+     "file": "experiments\\voice_bench\\clips\\C09-t1.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "that the Rockhammers motorcycle club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.34,
+     "file": "experiments\\voice_bench\\clips\\C09-t2.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The Tarak Hammers Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.92,
+     "file": "experiments\\voice_bench\\clips\\C09-t3.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "that Taro Camera's Motorcycle Club wants to return to racing on the site which was once a motorcycle stadium.",
+     "seconds": 5.51,
+     "file": "experiments\\voice_bench\\clips\\C09-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"the thurrock hammers\" was not heard (heard \"that taro cameras\")",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"the thurrock hammers\" was not heard (heard \"that taro cameras\")"
+    },
+    {
+     "take": 5,
+     "heard": "the Theracammer's Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.72,
+     "file": "experiments\\voice_bench\\clips\\C09-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C10",
+   "group": "C",
+   "kind": "place Thurrock",
+   "text": "Thurrock Council says many responses came from outside the local area.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "thurrock"
+   ],
+   "spoken": "Thurrock Council says many responses came from outside the local area.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The rock council says many responses came from outside the local area.",
+     "seconds": 3.3,
+     "file": "experiments\\voice_bench\\clips\\C10-t1.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "The Rock Council says many responses came from outside the local area.",
+     "seconds": 3.23,
+     "file": "experiments\\voice_bench\\clips\\C10-t2.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Thura Kansa says many responses came from outside the local area.",
+     "seconds": 3.29,
+     "file": "experiments\\voice_bench\\clips\\C10-t3.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The Royal Council says many responses came from outside the local area.",
+     "seconds": 3.32,
+     "file": "experiments\\voice_bench\\clips\\C10-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "The rock council says many responses came from outside the local area.",
+     "seconds": 3.3,
+     "file": "experiments\\voice_bench\\clips\\C10-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C11",
+   "group": "C",
+   "kind": "org Foxglove",
+   "text": "Foxglove says the site would emit up to 570,000 tonnes of emissions each year.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "foxglove"
+   ],
+   "forbid": [
+    "fox club"
+   ],
+   "spoken": "Foxglove says the site would emit up to five hundred seventy thousand tonnes of emissions each year.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Foxblab says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.5,
+     "file": "experiments\\voice_bench\\clips\\C11-t1.wav",
+     "pass": false,
+     "problems": [
+      "expected \"foxglove\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Foxglove says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.78,
+     "file": "experiments\\voice_bench\\clips\\C11-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Foxglove says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 5.5,
+     "file": "experiments\\voice_bench\\clips\\C11-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Foxglove says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.7,
+     "file": "experiments\\voice_bench\\clips\\C11-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Foxglove says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.57,
+     "file": "experiments\\voice_bench\\clips\\C11-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C12",
+   "group": "C",
+   "kind": "outlet Gizmodo",
+   "text": "Gizmodo wonders if that will mean more bugs.",
+   "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+   "expect": [
+    "gizmodo"
+   ],
+   "spoken": "Gizmodo wonders if that will mean more bugs.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Kizmodo wonders if that will mean more bugs.",
+     "seconds": 2.26,
+     "file": "experiments\\voice_bench\\clips\\C12-t1.wav",
+     "pass": false,
+     "problems": [
+      "expected \"gizmodo\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Because Modo wonders if that will mean more bugs.",
+     "seconds": 2.89,
+     "file": "experiments\\voice_bench\\clips\\C12-t2.wav",
+     "pass": false,
+     "problems": [
+      "expected \"gizmodo\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Kizmodo wonders if that will mean more bugs.",
+     "seconds": 2.73,
+     "file": "experiments\\voice_bench\\clips\\C12-t3.wav",
+     "pass": false,
+     "problems": [
+      "expected \"gizmodo\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Gizmodo wonders if that will mean more bugs.",
+     "seconds": 2.4,
+     "file": "experiments\\voice_bench\\clips\\C12-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Gizmodo wonders if that will mean more bugs.",
+     "seconds": 2.45,
+     "file": "experiments\\voice_bench\\clips\\C12-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C13",
+   "group": "C",
+   "kind": "person names",
+   "text": "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab.",
+   "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+   "expect": [
+    "takehi",
+    "khattab"
+   ],
+   "spoken": "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "It's called Sparz of Wade Space Programming by Rikiya Takei, Jayden Thieu, Alex Jeng, and Omar Khatab.",
+     "seconds": 6.79,
+     "file": "experiments\\voice_bench\\clips\\C13-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 11 of 17 words heard as written",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "only 11 of 17 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "It's called Sparks of Wait Space Programming, by the Kiyotake, Jayran Tiu, Alex Zhang, and Omar Khatab.",
+     "seconds": 6.33,
+     "file": "experiments\\voice_bench\\clips\\C13-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"rikiya takehi jayden teoh\" was not heard (heard \"the kiyotake jayran tiu\")",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "\"rikiya takehi jayden teoh\" was not heard (heard \"the kiyotake jayran tiu\")"
+    },
+    {
+     "take": 3,
+     "heard": "It's called Sparks of Wait Space Programming by Rikiya Takei, Jayden Teo, Alex Chang, and Omar Khatab.",
+     "seconds": 6.6,
+     "file": "experiments\\voice_bench\\clips\\C13-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 12 of 17 words heard as written",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "only 12 of 17 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "It's called Sparks of Wait Space Programming by Rikiya Takei, Jane Teo, Alex Zhang, and Omar Khatab.",
+     "seconds": 7.49,
+     "file": "experiments\\voice_bench\\clips\\C13-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 12 of 17 words heard as written",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "only 12 of 17 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "It's called Sparks of Wait Space Programming by Ricky Ataki, Jayden Tio, Alex Zhang, and Omar Khatab.",
+     "seconds": 5.87,
+     "file": "experiments\\voice_bench\\clips\\C13-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 12 of 17 words heard as written",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "only 12 of 17 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "C14",
+   "group": "C",
+   "kind": "person name",
+   "text": "TechCrunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre Stock.",
+   "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+   "expect": [
+    "pierre stock"
+   ],
+   "spoken": "Tech-Crunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre Stock.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "TechCrunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre's talk.",
+     "seconds": 5.31,
+     "file": "experiments\\voice_bench\\clips\\C14-t1.wav",
+     "pass": false,
+     "problems": [
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "TechCrunch stresses Mistral's argument that open waits cannot be cut off, quoting Bierstoff.",
+     "seconds": 4.52,
+     "file": "experiments\\voice_bench\\clips\\C14-t2.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"pierre stock\" was not heard",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "the ending \"pierre stock\" was not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Tech crown stresses mistress. Argument that open weights cannot be cut off. Quoting P.A. Stock.",
+     "seconds": 4.65,
+     "file": "experiments\\voice_bench\\clips\\C14-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 11 of 14 words heard as written",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "only 11 of 14 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "TechCrunch stresses Mistral's argument that open waits cannot be cut off, quoting Bierstock.",
+     "seconds": 4.81,
+     "file": "experiments\\voice_bench\\clips\\C14-t4.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"pierre stock\" was not heard",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "the ending \"pierre stock\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "TechCrunch stresses Mistral's argument that open waits cannot be cut off, quoting Pierre Stock.",
+     "seconds": 4.86,
+     "file": "experiments\\voice_bench\\clips\\C14-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C15",
+   "group": "C",
+   "kind": "person name",
+   "text": "Daniel Jalkut argued that you can tweak the algorithm without reducing its randomness.",
+   "source": "2026-11-01 runs/2026-11-01/10_voice/report.md",
+   "expect": [
+    "jalkut"
+   ],
+   "spoken": "Daniel Jalkut argued that you can tweak the algorithm without reducing its randomness.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Daniel Jahl could argue that you can tweak the algorithm without reducing its randomness.",
+     "seconds": 4.37,
+     "file": "experiments\\voice_bench\\clips\\C15-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"jahl could argue\" was heard but is not in the sentence",
+      "expected \"jalkut\" not heard"
+     ],
+     "fault": "\"jahl could argue\" was heard but is not in the sentence"
+    },
+    {
+     "take": 2,
+     "heard": "Daniel Jelkot argued that you can treat the algorithm without reducing its randomness.",
+     "seconds": 4.19,
+     "file": "experiments\\voice_bench\\clips\\C15-t2.wav",
+     "pass": false,
+     "problems": [
+      "expected \"jalkut\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Daniel Jelkot argued that you can tweak the algorithm without reducing its randomness.",
+     "seconds": 4.08,
+     "file": "experiments\\voice_bench\\clips\\C15-t3.wav",
+     "pass": false,
+     "problems": [
+      "expected \"jalkut\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Daniel Jalkot argued that you can tweet the algorithm without reducing its randomness.",
+     "seconds": 4.43,
+     "file": "experiments\\voice_bench\\clips\\C15-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"jalkut\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Daniel Jogut argued that you can tweak the algorithm without reducing its randomness.",
+     "seconds": 4.26,
+     "file": "experiments\\voice_bench\\clips\\C15-t5.wav",
+     "pass": false,
+     "problems": [
+      "expected \"jalkut\" not heard"
+     ],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "D01",
+   "group": "D",
+   "kind": "Claude Code respelling",
+   "text": "Karpathy then built TristanTube, which he says was \"one-shotted with Claude Code in 3 minutes,\" with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "claude code"
+   ],
+   "forbid_raw": [
+    "claude,\\s*code"
+   ],
+   "spoken": "Karpathy then built Tristan-Tube, which he says was \"one-shotted with Clawd, Code in 3 minutes,\" with forty-seven thousand videos drawn from a You-Tube channel list by Tristan Hume.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Kapati then built TristanTube, which he says was one-shotted with Claude. Code in 3 minutes, with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+     "seconds": 10.18,
+     "file": "experiments\\voice_bench\\clips\\D01-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Karpati then built TristanTube, which he says was one-shotted with Claude. Code in 3 minutes. There is to 7000 videos drawn from a YouTube channel list by Tristan Hume.",
+     "seconds": 10.11,
+     "file": "experiments\\voice_bench\\clips\\D01-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"there is to 7000\" was heard but is not in the sentence; the figure 47000 not heard"
+     ],
+     "fault": "\"there is to 7000\" was heard but is not in the sentence; the figure 47000 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Karpathy then billed Tristan to, which he says was one-shotted with Claude, code in three minutes, with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+     "seconds": 11.19,
+     "file": "experiments\\voice_bench\\clips\\D01-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"billed tristan to\" was heard but is not in the sentence",
+      "forbidden pattern /claude,\\s*code/ matched"
+     ],
+     "fault": "\"billed tristan to\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "Kapati then built TristanTube, which he says was once charted with Claude code in 3 minutes, with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+     "seconds": 9.63,
+     "file": "experiments\\voice_bench\\clips\\D01-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Karpathy then built Tristan tube, which he says was one-shotted with clod, goad in three minutes. There are 7,000 videos drawn from a YouTube channel list by Tristan Hume.",
+     "seconds": 11.18,
+     "file": "experiments\\voice_bench\\clips\\D01-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"there are 7000\" was heard but is not in the sentence; the figure 47000 not heard",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"there are 7000\" was heard but is not in the sentence; the figure 47000 not heard"
+    }
+   ]
+  },
+  {
+   "id": "D02",
+   "group": "D",
+   "kind": "Claude Code respelling",
+   "text": "Claude Code and OpenCode are examples.",
+   "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+   "expect": [
+    "claude code"
+   ],
+   "forbid_raw": [
+    "claude,\\s*code"
+   ],
+   "spoken": "Clawd, Code and Open-Code are examples.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "cloud, code and open code are examples.",
+     "seconds": 2.33,
+     "file": "experiments\\voice_bench\\clips\\D02-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 4 of 6 words heard as written",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "only 4 of 6 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Plot, code, and open code are examples.",
+     "seconds": 2.57,
+     "file": "experiments\\voice_bench\\clips\\D02-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 4 of 6 words heard as written",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "only 4 of 6 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Plaid, code, and open code are examples.",
+     "seconds": 2.53,
+     "file": "experiments\\voice_bench\\clips\\D02-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 4 of 6 words heard as written",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "only 4 of 6 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Cloud Code and Open Code are examples.",
+     "seconds": 2.73,
+     "file": "experiments\\voice_bench\\clips\\D02-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 4 of 6 words heard as written",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "only 4 of 6 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "cloud, code, and open code are examples.",
+     "seconds": 2.38,
+     "file": "experiments\\voice_bench\\clips\\D02-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 4 of 6 words heard as written",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "only 4 of 6 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "D03",
+   "group": "D",
+   "kind": "Claude respelling",
+   "text": "Anthropic says Amazon, Google and Microsoft, the cloud partners that help sell Claude, increasingly see it as a competitor.",
+   "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+   "expect": [
+    "claude"
+   ],
+   "forbid": [
+    "clog",
+    "clod"
+   ],
+   "spoken": "Ann Thropic says Amazon, Google and Microsoft, the cloud partners that help sell Clawd, increasingly see it as a competitor.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropic says Amazon, Google and Microsoft, the cloud partners that help sell Claude, increasingly see it as a competitor.",
+     "seconds": 6.48,
+     "file": "experiments\\voice_bench\\clips\\D03-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Anthropic says Amazon, Google and Microsoft, the cloud partners that help sell Claude, increasingly see it as a competitor.",
+     "seconds": 6.54,
+     "file": "experiments\\voice_bench\\clips\\D03-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Anthropix has Amazon, Google and Microsoft.",
+     "seconds": 2.59,
+     "file": "experiments\\voice_bench\\clips\\D03-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"the cloud partners that help sell claude increasingly see it as a competitor\" was not heard; the ending \"a competitor\" was not heard",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"the cloud partners that help sell claude increasingly see it as a competitor\" was not heard; the ending \"a competitor\" was not heard"
+    },
+    {
+     "take": 4,
+     "heard": "Anthropix says Amazon, Google and Microsoft, the cloud partners that help sell Plod, increasingly see it as a competitor.",
+     "seconds": 6.53,
+     "file": "experiments\\voice_bench\\clips\\D03-t4.wav",
+     "pass": false,
+     "problems": [
+      "expected \"claude\" not heard"
+     ],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Anthropix as Amazon, Google, and Microsoft, the cloud partners that help sell Claude, increasingly see it as a competitor.",
+     "seconds": 7.16,
+     "file": "experiments\\voice_bench\\clips\\D03-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "D04",
+   "group": "D",
+   "kind": "Claude respelling",
+   "text": "Anthropic's text watermark is easy to bypass on several older Claude models.",
+   "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+   "expect": [
+    "claude"
+   ],
+   "forbid": [
+    "clog",
+    "clod"
+   ],
+   "spoken": "Ann Thropic's text watermark is easy to bypass on several older Clawd models.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropix TEX watermark is easy to bypass on several older clod models.",
+     "seconds": 4.13,
+     "file": "experiments\\voice_bench\\clips\\D04-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 9 of 12 words heard as written",
+      "expected \"claude\" not heard",
+      "forbidden \"clod\" heard"
+     ],
+     "fault": "only 9 of 12 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Anthropix TEX watermark is easy to bypass on several older cloud models.",
+     "seconds": 4.17,
+     "file": "experiments\\voice_bench\\clips\\D04-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 9 of 12 words heard as written",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "only 9 of 12 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Anthropix Texwatermark is easy to bypass on several older Claude models.",
+     "seconds": 4.78,
+     "file": "experiments\\voice_bench\\clips\\D04-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 9 of 12 words heard as written"
+     ],
+     "fault": "only 9 of 12 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Anthropix TEX watermark is easy to bypass on several older clod models.",
+     "seconds": 4.91,
+     "file": "experiments\\voice_bench\\clips\\D04-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 9 of 12 words heard as written",
+      "expected \"claude\" not heard",
+      "forbidden \"clod\" heard"
+     ],
+     "fault": "only 9 of 12 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "Anthropix TEX watermark is easy to bypass on several older Claude models.",
+     "seconds": 3.89,
+     "file": "experiments\\voice_bench\\clips\\D04-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "D05",
+   "group": "D",
+   "kind": "Anthropic respelling",
+   "text": "Anthropic published a revised S-1/A filing on Monday.",
+   "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+   "expect": [
+    "anthropic"
+   ],
+   "spoken": "Ann Thropic published a revised S-1/A filing on Monday.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropic published a revised S1-A filing on Monday.",
+     "seconds": 3.42,
+     "file": "experiments\\voice_bench\\clips\\D05-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Anthropic published a revised S1SA filing on Monday.",
+     "seconds": 3.47,
+     "file": "experiments\\voice_bench\\clips\\D05-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 10 words heard as written"
+     ],
+     "fault": "only 7 of 10 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Anthropic published a revised S1-A filing on Monday.",
+     "seconds": 3.44,
+     "file": "experiments\\voice_bench\\clips\\D05-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Anthropic published a revised S1SA filing on Monday.",
+     "seconds": 3.29,
+     "file": "experiments\\voice_bench\\clips\\D05-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 10 words heard as written"
+     ],
+     "fault": "only 7 of 10 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "Anthropic published a revised S1A filing on Monday.",
+     "seconds": 2.93,
+     "file": "experiments\\voice_bench\\clips\\D05-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 10 words heard as written"
+     ],
+     "fault": "only 7 of 10 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "D06",
+   "group": "D",
+   "kind": "Anthropic respelling",
+   "text": "Anthropic's filing talks about at least an estimated $808 billion in obligations if it follows through on all its agreements.",
+   "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+   "expect": [
+    "anthropic"
+   ],
+   "spoken": "Ann Thropic's filing talks about at least an estimated 808 billion dollars in obligations if it follows through on all its agreements.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropix filing talks about at least an estimated $880 billion in obligations if it follows through on all its agreements.",
+     "seconds": 7.94,
+     "file": "experiments\\voice_bench\\clips\\D06-t1.wav",
+     "pass": false,
+     "problems": [
+      "the figure 808 not heard",
+      "expected \"anthropic\" not heard"
+     ],
+     "fault": "the figure 808 not heard"
+    },
+    {
+     "take": 2,
+     "heard": "Anthropic filing talks about at least an estimated $888 billion in obligation if it follows through on all its agreements.",
+     "seconds": 7.1,
+     "file": "experiments\\voice_bench\\clips\\D06-t2.wav",
+     "pass": false,
+     "problems": [
+      "the figure 808 not heard"
+     ],
+     "fault": "the figure 808 not heard"
+    },
+    {
+     "take": 3,
+     "heard": "anthropics filing talks about at least an estimated 818 billion dollars in obligation if it follows through on all its agreements",
+     "seconds": 8.38,
+     "file": "experiments\\voice_bench\\clips\\D06-t3.wav",
+     "pass": false,
+     "problems": [
+      "the figure 808 not heard"
+     ],
+     "fault": "the figure 808 not heard"
+    },
+    {
+     "take": 4,
+     "heard": "Anthropics filing talks about at least an estimated $808 billion in obligations.",
+     "seconds": 5.9,
+     "file": "experiments\\voice_bench\\clips\\D06-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"if it follows through on all its agreements\" was not heard; the ending \"its agreements\" was not heard"
+     ],
+     "fault": "\"if it follows through on all its agreements\" was not heard; the ending \"its agreements\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "Anthropix filing talks about at least an estimated $818 billion in obligations if it follows through on all its agreements.",
+     "seconds": 7.79,
+     "file": "experiments\\voice_bench\\clips\\D06-t5.wav",
+     "pass": false,
+     "problems": [
+      "the figure 808 not heard",
+      "expected \"anthropic\" not heard"
+     ],
+     "fault": "the figure 808 not heard"
+    }
+   ]
+  },
+  {
+   "id": "D07",
+   "group": "D",
+   "kind": "ElevenLabs respelling",
+   "text": "It's available now in ElevenCreative and through ElevenAPI, and you can also try it in the ElevenLabs mobile app.",
+   "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+   "expect": [
+    "elevenlabs"
+   ],
+   "spoken": "It's available now in Eleven-Creative and through Eleven-API, and you can also try it in the Eleven Labs mobile app.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "It's available now in 11 creative and through 11 API, and you can also try it in the 11 latch mobile app.",
+     "seconds": 6.52,
+     "file": "experiments\\voice_bench\\clips\\D07-t1.wav",
+     "pass": false,
+     "problems": [
+      "extra words heard: \"creative api latch\"",
+      "expected \"elevenlabs\" not heard"
+     ],
+     "fault": "extra words heard: \"creative api latch\""
+    },
+    {
+     "take": 2,
+     "heard": "It's available now in 11 Creative and 2.11 API, and you can also try it in the 11 Labs mobile app.",
+     "seconds": 5.95,
+     "file": "experiments\\voice_bench\\clips\\D07-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 15 of 19 words heard as written",
+      "expected \"elevenlabs\" not heard"
+     ],
+     "fault": "only 15 of 19 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "It's available now in 11 Creative and through 11 Appy, and you can also try it in the 11 Labs mobile app.",
+     "seconds": 6.7,
+     "file": "experiments\\voice_bench\\clips\\D07-t3.wav",
+     "pass": false,
+     "problems": [
+      "extra words heard: \"creative appy labs\"",
+      "expected \"elevenlabs\" not heard"
+     ],
+     "fault": "extra words heard: \"creative appy labs\""
+    },
+    {
+     "take": 4,
+     "heard": "It's available now in 11 Creative and through 11 API, and you can also try it in the 11 Labs mobile app.",
+     "seconds": 5.65,
+     "file": "experiments\\voice_bench\\clips\\D07-t4.wav",
+     "pass": false,
+     "problems": [
+      "extra words heard: \"creative api labs\"",
+      "expected \"elevenlabs\" not heard"
+     ],
+     "fault": "extra words heard: \"creative api labs\""
+    },
+    {
+     "take": 5,
+     "heard": "It's available now in 11 Creative and through 11 API and you can also try it in the 11 Labs mobile app.",
+     "seconds": 6.59,
+     "file": "experiments\\voice_bench\\clips\\D07-t5.wav",
+     "pass": false,
+     "problems": [
+      "extra words heard: \"creative api labs\"",
+      "expected \"elevenlabs\" not heard"
+     ],
+     "fault": "extra words heard: \"creative api labs\""
+    }
+   ]
+  },
+  {
+   "id": "D08",
+   "group": "D",
+   "kind": "Ollama respelling",
+   "text": "The custom quantized files use a tensor type that unpatched llama.cpp, Ollama and LM Studio reject, so users need the project's own binary.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "forbid": [
+    "a la moz"
+   ],
+   "spoken": "The custom quantized files use a tensor type that unpatched llama dot cpp, Oh llama and LM Studio reject, so users need the project's own binary.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The custom quantized files use a tensor type that unpatched llama.cpp. Ollama and LMStudio reject, so users need the project's own binary.",
+     "seconds": 8.24,
+     "file": "experiments\\voice_bench\\clips\\D08-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "The custom quantized files use a tensor type that unbatch llama.cpp or llama and lmstudio reject, so users need the project's own binary.",
+     "seconds": 8.61,
+     "file": "experiments\\voice_bench\\clips\\D08-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The custom quantized files use a tensor type that unpatched llama.seppp. Oh, llama and lmstudio reject, so users need the project's own binary.",
+     "seconds": 10.91,
+     "file": "experiments\\voice_bench\\clips\\D08-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The custom quantized files use a denser type that unpatched llama.cpp or llama and lmstudio reject, so users need the project's own binary.",
+     "seconds": 8.96,
+     "file": "experiments\\voice_bench\\clips\\D08-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "The custom quantized files use a tensor type that unpatched llama.cpp or llama and lmstudio reject, so users need the project's own binary.",
+     "seconds": 9.3,
+     "file": "experiments\\voice_bench\\clips\\D08-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "D09",
+   "group": "D",
+   "kind": "AIdea respelling",
+   "text": "That is all for today on AIdea Daily. Thanks for listening.",
+   "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+   "expect": [
+    "daily"
+   ],
+   "forbid": [
+    "adia"
+   ],
+   "spoken": "That is all for today on I-dea Daily. Thanks for listening.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "That is all for today on IDEA Daily. Thanks for listening.",
+     "seconds": 2.88,
+     "file": "experiments\\voice_bench\\clips\\D09-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "that is offered today on IDEA Daily. Thanks for listening.",
+     "seconds": 3.27,
+     "file": "experiments\\voice_bench\\clips\\D09-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 8 of 11 words heard as written"
+     ],
+     "fault": "only 8 of 11 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "That is all for today on IDEA Daily. Thanks for listening.",
+     "seconds": 2.84,
+     "file": "experiments\\voice_bench\\clips\\D09-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "That is all for today on IDEA Daily. Thanks for listening.",
+     "seconds": 3.16,
+     "file": "experiments\\voice_bench\\clips\\D09-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "That is all for today on Idea Daily. Thanks for listening.",
+     "seconds": 3.17,
+     "file": "experiments\\voice_bench\\clips\\D09-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "D10",
+   "group": "D",
+   "kind": "404 Media respelling",
+   "text": "404 Media reports on Proton, the Swiss company behind the encrypted email service Proton Mail.",
+   "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+   "forbid": [
+    "honed"
+   ],
+   "spoken": "four oh four Media reports on Proton, the Swiss company behind the encrypted email service Proton Mail.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "404 Media reports on Proton, the Swiss company behind the encrypted email service ProtonMail.",
+     "seconds": 5.17,
+     "file": "experiments\\voice_bench\\clips\\D10-t1.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"proton mail\" was not heard"
+     ],
+     "fault": "the ending \"proton mail\" was not heard"
+    },
+    {
+     "take": 2,
+     "heard": "404 Media reports on Proton, the Swiss company behind the encrypted email service ProtonMail.",
+     "seconds": 5.58,
+     "file": "experiments\\voice_bench\\clips\\D10-t2.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"proton mail\" was not heard"
+     ],
+     "fault": "the ending \"proton mail\" was not heard"
+    },
+    {
+     "take": 3,
+     "heard": "404 media reports on proton the Swiss company behind the encrypted email service proton mail",
+     "seconds": 4.98,
+     "file": "experiments\\voice_bench\\clips\\D10-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "404 Media reports on Proton, the Swiss company behind the encrypted email service ProtonMail.",
+     "seconds": 6.09,
+     "file": "experiments\\voice_bench\\clips\\D10-t4.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"proton mail\" was not heard"
+     ],
+     "fault": "the ending \"proton mail\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "404 media reports on proton the swiss company behind the encrypted email service proton mail",
+     "seconds": 6.07,
+     "file": "experiments\\voice_bench\\clips\\D10-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "E01",
+   "group": "E",
+   "kind": "short line",
+   "text": "Welcome to AIdea Daily.",
+   "source": "2026-11-02 runs/2026-11-02/10_voice/report.md",
+   "spoken": "Welcome to I-dea Daily.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Welcome to IDEA Daily.",
+     "seconds": 2.1,
+     "file": "experiments\\voice_bench\\clips\\E01-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Welcome to IDEA Daily.",
+     "seconds": 1.51,
+     "file": "experiments\\voice_bench\\clips\\E01-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Welcome to IDEA Daily",
+     "seconds": 1.38,
+     "file": "experiments\\voice_bench\\clips\\E01-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Welcome to IDEA Daily.",
+     "seconds": 1.45,
+     "file": "experiments\\voice_bench\\clips\\E01-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "Welcome to Idea Daily.",
+     "seconds": 1.27,
+     "file": "experiments\\voice_bench\\clips\\E01-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "E02",
+   "group": "E",
+   "kind": "short line",
+   "text": "Who confirmed the result?",
+   "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+   "spoken": "Who confirmed the result?",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "or confirm the result.",
+     "seconds": 1.26,
+     "file": "experiments\\voice_bench\\clips\\E02-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 2 of 4 words heard as written"
+     ],
+     "fault": "only 2 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Who confirmed the result?",
+     "seconds": 1.26,
+     "file": "experiments\\voice_bench\\clips\\E02-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "who confirmed the result.",
+     "seconds": 1.17,
+     "file": "experiments\\voice_bench\\clips\\E02-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "or confirm the result.",
+     "seconds": 1.29,
+     "file": "experiments\\voice_bench\\clips\\E02-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 2 of 4 words heard as written"
+     ],
+     "fault": "only 2 of 4 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "who confirm the result.",
+     "seconds": 1.01,
+     "file": "experiments\\voice_bench\\clips\\E02-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "E03",
+   "group": "E",
+   "kind": "short line",
+   "text": "Wired's point is narrower.",
+   "source": "2026-10-25 runs/2026-10-25/10_voice/report.md",
+   "spoken": "Wired's point is narrower.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "where this point is narrower.",
+     "seconds": 1.27,
+     "file": "experiments\\voice_bench\\clips\\E03-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Wired's point is narrower.",
+     "seconds": 1.45,
+     "file": "experiments\\voice_bench\\clips\\E03-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Weirs point is narrower.",
+     "seconds": 1.31,
+     "file": "experiments\\voice_bench\\clips\\E03-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Wired's point is narrower.",
+     "seconds": 1.36,
+     "file": "experiments\\voice_bench\\clips\\E03-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Wired's point is narrower.",
+     "seconds": 1.89,
+     "file": "experiments\\voice_bench\\clips\\E03-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "E04",
+   "group": "E",
+   "kind": "short line",
+   "text": "Before, you'd just click.",
+   "source": "2026-11-01 runs/2026-11-01/10_voice/report.md",
+   "spoken": "Before, you'd just click.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "before you just",
+     "seconds": 1.5,
+     "file": "experiments\\voice_bench\\clips\\E04-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 2 of 4 words heard as written"
+     ],
+     "fault": "only 2 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "before, you just click.",
+     "seconds": 1.7,
+     "file": "experiments\\voice_bench\\clips\\E04-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "before.",
+     "seconds": 15.4,
+     "file": "experiments\\voice_bench\\clips\\E04-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"youd just click\" was not heard; the ending \"just click\" was not heard"
+     ],
+     "fault": "\"youd just click\" was not heard; the ending \"just click\" was not heard"
+    },
+    {
+     "take": 4,
+     "heard": "before you just click",
+     "seconds": 1.75,
+     "file": "experiments\\voice_bench\\clips\\E04-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "before you just click.",
+     "seconds": 1.67,
+     "file": "experiments\\voice_bench\\clips\\E04-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "E05",
+   "group": "E",
+   "kind": "short line",
+   "text": "Now, there's a catch.",
+   "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+   "spoken": "Now, there's a catch.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Now, there's a catch.",
+     "seconds": 1.46,
+     "file": "experiments\\voice_bench\\clips\\E05-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "No, there's a catch.",
+     "seconds": 1.52,
+     "file": "experiments\\voice_bench\\clips\\E05-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "No. There's a catch.",
+     "seconds": 1.42,
+     "file": "experiments\\voice_bench\\clips\\E05-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Now there's a catch.",
+     "seconds": 1.12,
+     "file": "experiments\\voice_bench\\clips\\E05-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Now, there's a catch.",
+     "seconds": 1.61,
+     "file": "experiments\\voice_bench\\clips\\E05-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "E06",
+   "group": "E",
+   "kind": "short line",
+   "text": "Those are their characterisations.",
+   "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+   "spoken": "Those are their characterisations.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Those are their characterizations.",
+     "seconds": 1.72,
+     "file": "experiments\\voice_bench\\clips\\E06-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "Those are their characterizations.",
+     "seconds": 2.0,
+     "file": "experiments\\voice_bench\\clips\\E06-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "Those are their characterizations.",
+     "seconds": 2.07,
+     "file": "experiments\\voice_bench\\clips\\E06-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "those are the characterizations.",
+     "seconds": 1.64,
+     "file": "experiments\\voice_bench\\clips\\E06-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 2 of 4 words heard as written"
+     ],
+     "fault": "only 2 of 4 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "Those are their characterizations.",
+     "seconds": 1.9,
+     "file": "experiments\\voice_bench\\clips\\E06-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "E07",
+   "group": "E",
+   "kind": "short line",
+   "text": "And there are sceptics.",
+   "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+   "spoken": "And there are sceptics.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "and there are skeptics.",
+     "seconds": 1.08,
+     "file": "experiments\\voice_bench\\clips\\E07-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "and there are skeptics.",
+     "seconds": 2.24,
+     "file": "experiments\\voice_bench\\clips\\E07-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "and there are spectics.",
+     "seconds": 1.9,
+     "file": "experiments\\voice_bench\\clips\\E07-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "And there are skeptics.",
+     "seconds": 1.77,
+     "file": "experiments\\voice_bench\\clips\\E07-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "and there are skeptics.",
+     "seconds": 2.16,
+     "file": "experiments\\voice_bench\\clips\\E07-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "E08",
+   "group": "E",
+   "kind": "short line",
+   "text": "You'd want a say.",
+   "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+   "spoken": "You'd want a say.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "you'd want to say.",
+     "seconds": 0.9,
+     "file": "experiments\\voice_bench\\clips\\E08-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "you'd want to say.",
+     "seconds": 1.49,
+     "file": "experiments\\voice_bench\\clips\\E08-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "you'd want to see.",
+     "seconds": 0.85,
+     "file": "experiments\\voice_bench\\clips\\E08-t3.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"a say\" was not heard"
+     ],
+     "fault": "the ending \"a say\" was not heard"
+    },
+    {
+     "take": 4,
+     "heard": "you'd want to see.",
+     "seconds": 1.32,
+     "file": "experiments\\voice_bench\\clips\\E08-t4.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"a say\" was not heard"
+     ],
+     "fault": "the ending \"a say\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "you'd want to say.",
+     "seconds": 0.91,
+     "file": "experiments\\voice_bench\\clips\\E08-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "E09",
+   "group": "E",
+   "kind": "short line",
+   "text": "First, the training terms.",
+   "source": "2026-11-06 runs/2026-11-06/10_voice/report.md",
+   "spoken": "First, the training terms.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "First, the training terms.",
+     "seconds": 1.79,
+     "file": "experiments\\voice_bench\\clips\\E09-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "First, the training terms.",
+     "seconds": 1.81,
+     "file": "experiments\\voice_bench\\clips\\E09-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "First, the training terms.",
+     "seconds": 1.88,
+     "file": "experiments\\voice_bench\\clips\\E09-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "for the training terms.",
+     "seconds": 1.59,
+     "file": "experiments\\voice_bench\\clips\\E09-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "First, the training terms.",
+     "seconds": 2.04,
+     "file": "experiments\\voice_bench\\clips\\E09-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "E10",
+   "group": "E",
+   "kind": "short line",
+   "text": "Two bills stand out.",
+   "source": "2026-11-08 runs/2026-11-08/10_voice/report.md",
+   "spoken": "Two bills stand out.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Do bills stand out?",
+     "seconds": 1.32,
+     "file": "experiments\\voice_bench\\clips\\E10-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "to build stand out.",
+     "seconds": 1.16,
+     "file": "experiments\\voice_bench\\clips\\E10-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 2 of 4 words heard as written"
+     ],
+     "fault": "only 2 of 4 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "to build stand out.",
+     "seconds": 1.4,
+     "file": "experiments\\voice_bench\\clips\\E10-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 2 of 4 words heard as written"
+     ],
+     "fault": "only 2 of 4 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "Do Bells Stand Out!",
+     "seconds": 1.13,
+     "file": "experiments\\voice_bench\\clips\\E10-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 2 of 4 words heard as written"
+     ],
+     "fault": "only 2 of 4 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "Two bills, ten out.",
+     "seconds": 1.24,
+     "file": "experiments\\voice_bench\\clips\\E10-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "E11",
+   "group": "E",
+   "kind": "short line",
+   "text": "The repository ones do.",
+   "source": "2026-11-07 runs/2026-11-07/10_voice/report.md",
+   "spoken": "The repository ones do.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The repository wants to.",
+     "seconds": 1.23,
+     "file": "experiments\\voice_bench\\clips\\E11-t1.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"ones do\" was not heard"
+     ],
+     "fault": "the ending \"ones do\" was not heard"
+    },
+    {
+     "take": 2,
+     "heard": "the repository wants to.",
+     "seconds": 1.38,
+     "file": "experiments\\voice_bench\\clips\\E11-t2.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"ones do\" was not heard"
+     ],
+     "fault": "the ending \"ones do\" was not heard"
+    },
+    {
+     "take": 3,
+     "heard": "The repository wants to.",
+     "seconds": 1.7,
+     "file": "experiments\\voice_bench\\clips\\E11-t3.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"ones do\" was not heard"
+     ],
+     "fault": "the ending \"ones do\" was not heard"
+    },
+    {
+     "take": 4,
+     "heard": "The repository wants to.",
+     "seconds": 1.42,
+     "file": "experiments\\voice_bench\\clips\\E11-t4.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"ones do\" was not heard"
+     ],
+     "fault": "the ending \"ones do\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "The repository wants to.",
+     "seconds": 1.82,
+     "file": "experiments\\voice_bench\\clips\\E11-t5.wav",
+     "pass": false,
+     "problems": [
+      "the ending \"ones do\" was not heard"
+     ],
+     "fault": "the ending \"ones do\" was not heard"
+    }
+   ]
+  },
+  {
+   "id": "E12",
+   "group": "E",
+   "kind": "short line",
+   "text": "That's the trust problem.",
+   "source": "2026-11-06 runs/2026-11-06/10_voice/report.md",
+   "spoken": "That's the trust problem.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "That's the trust problem.",
+     "seconds": 1.29,
+     "file": "experiments\\voice_bench\\clips\\E12-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "That's the trust problem.",
+     "seconds": 1.32,
+     "file": "experiments\\voice_bench\\clips\\E12-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "That's the trust problem.",
+     "seconds": 1.52,
+     "file": "experiments\\voice_bench\\clips\\E12-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "That's the trust problem.",
+     "seconds": 1.21,
+     "file": "experiments\\voice_bench\\clips\\E12-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "That's a trust problem.",
+     "seconds": 1.07,
+     "file": "experiments\\voice_bench\\clips\\E12-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 3 of 4 words heard as written"
+     ],
+     "fault": "only 3 of 4 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "R01",
+   "group": "R",
+   "kind": "random slip",
+   "text": "Claims are cheap, and some of them are very hard to check from the outside.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "forbid": [
+    "games are cheap"
+   ],
+   "spoken": "Claims are cheap, and some of them are very hard to check from the outside.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "claims are cheap, and some of them are very hard to check from the outside.",
+     "seconds": 3.63,
+     "file": "experiments\\voice_bench\\clips\\R01-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Claims are cheap and some of them are very hard to check from the outside.",
+     "seconds": 3.7,
+     "file": "experiments\\voice_bench\\clips\\R01-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Claims are cheap, and some of them are very hard to check from the outside.",
+     "seconds": 3.32,
+     "file": "experiments\\voice_bench\\clips\\R01-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Flames are cheap and some of them are very hard to check from the outside.",
+     "seconds": 3.14,
+     "file": "experiments\\voice_bench\\clips\\R01-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "claims are cheap, and some of them are very hard to check from the outside.",
+     "seconds": 3.5,
+     "file": "experiments\\voice_bench\\clips\\R01-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "R02",
+   "group": "R",
+   "kind": "random slip",
+   "text": "Analyst Patrick Moorhead says Anthropic owes investors more detail on risk odds.",
+   "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+   "spoken": "Analyst Patrick Moorhead says Ann Thropic owes investors more detail on risk odds.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Analyst Patrick Morehead says anthropic owes investors more detail on risk odds.",
+     "seconds": 4.18,
+     "file": "experiments\\voice_bench\\clips\\R02-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Analyst Patrick Moorhead says Antropic owes investors more detail on risk odds.",
+     "seconds": 4.58,
+     "file": "experiments\\voice_bench\\clips\\R02-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Analyst Patrick Morehead says Anthropic owes investors more detail on risk odds.",
+     "seconds": 4.18,
+     "file": "experiments\\voice_bench\\clips\\R02-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Analyst Patrick Moorhead says Entropic owes investors more detail on risk cards.",
+     "seconds": 4.76,
+     "file": "experiments\\voice_bench\\clips\\R02-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Analyst Patrick Moorhead says Anthropic owes investors more detail on risk odds.",
+     "seconds": 4.91,
+     "file": "experiments\\voice_bench\\clips\\R02-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "R03",
+   "group": "R",
+   "kind": "random slip",
+   "text": "Worth a look if local agents are your thing.",
+   "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+   "spoken": "Worth a look if local agents are your thing.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Worth a look if local agents are your thing.",
+     "seconds": 2.33,
+     "file": "experiments\\voice_bench\\clips\\R03-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Worth a look if local agents are your thing.",
+     "seconds": 2.2,
+     "file": "experiments\\voice_bench\\clips\\R03-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "or to look if local agents are your thing.",
+     "seconds": 2.11,
+     "file": "experiments\\voice_bench\\clips\\R03-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 7 of 9 words heard as written"
+     ],
+     "fault": "only 7 of 9 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "What a look if local agents are your thing.",
+     "seconds": 1.99,
+     "file": "experiments\\voice_bench\\clips\\R03-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "where to look if local agents are your",
+     "seconds": 1.79,
+     "file": "experiments\\voice_bench\\clips\\R03-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 6 of 9 words heard as written"
+     ],
+     "fault": "only 6 of 9 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "R04",
+   "group": "R",
+   "kind": "random slip",
+   "text": "They are not equally solid, so I'll tell you which is which.",
+   "source": "2026-10-29 runs/2026-10-29/10_voice/report.md",
+   "spoken": "They are not equally solid, so I'll tell you which is which.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "They are not equally solid, so I'll tell you which is which.",
+     "seconds": 2.87,
+     "file": "experiments\\voice_bench\\clips\\R04-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "They are not equally solid, so I'll tell you which is which.",
+     "seconds": 3.05,
+     "file": "experiments\\voice_bench\\clips\\R04-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "They are not equally solid, so I'll tell you which is which.",
+     "seconds": 2.72,
+     "file": "experiments\\voice_bench\\clips\\R04-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "They are not equally solid, so I'll tell you which is which.",
+     "seconds": 2.63,
+     "file": "experiments\\voice_bench\\clips\\R04-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "They are not equally solid, so I'll tell you which is which.",
+     "seconds": 2.42,
+     "file": "experiments\\voice_bench\\clips\\R04-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "R05",
+   "group": "R",
+   "kind": "random slip",
+   "text": "They're also upfront about the downsides.",
+   "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+   "spoken": "They're also upfront about the downsides.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "They're also upfront about the downsides.",
+     "seconds": 2.14,
+     "file": "experiments\\voice_bench\\clips\\R05-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "They're also up front about the down side.",
+     "seconds": 1.75,
+     "file": "experiments\\voice_bench\\clips\\R05-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 4 of 6 words heard as written"
+     ],
+     "fault": "only 4 of 6 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "They're also upfront about the downsides.",
+     "seconds": 1.88,
+     "file": "experiments\\voice_bench\\clips\\R05-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "They're also upfront about the downsides.",
+     "seconds": 1.93,
+     "file": "experiments\\voice_bench\\clips\\R05-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "They're also upfront about the downsides.",
+     "seconds": 2.04,
+     "file": "experiments\\voice_bench\\clips\\R05-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "R06",
+   "group": "R",
+   "kind": "random slip",
+   "text": "The boot sector is hand-written assembly.",
+   "source": "2026-11-01 runs/2026-11-01/10_voice/report.md",
+   "spoken": "The boot sector is hand-written assembly.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The boot sector is handwritten assembly.",
+     "seconds": 2.63,
+     "file": "experiments\\voice_bench\\clips\\R06-t1.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 2,
+     "heard": "The boot sector is handwritten assembly.",
+     "seconds": 2.64,
+     "file": "experiments\\voice_bench\\clips\\R06-t2.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 3,
+     "heard": "The boat sector is a handwritten assembly.",
+     "seconds": 2.52,
+     "file": "experiments\\voice_bench\\clips\\R06-t3.wav",
+     "pass": false,
+     "problems": [
+      "only 4 of 7 words heard as written"
+     ],
+     "fault": "only 4 of 7 words heard as written"
+    },
+    {
+     "take": 4,
+     "heard": "The boot sector is handwritten assembly.",
+     "seconds": 1.98,
+     "file": "experiments\\voice_bench\\clips\\R06-t4.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    },
+    {
+     "take": 5,
+     "heard": "The boot sector is handwritten assembly.",
+     "seconds": 2.4,
+     "file": "experiments\\voice_bench\\clips\\R06-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 5 of 7 words heard as written"
+     ],
+     "fault": "only 5 of 7 words heard as written"
+    }
+   ]
+  },
+  {
+   "id": "R07",
+   "group": "R",
+   "kind": "random slip",
+   "text": "Both stories today have that same flavour: ordinary people bumping up against automation, one with a flood of text, the other with a box on wheels.",
+   "source": "2026-11-08 runs/2026-11-08/10_voice/report.md",
+   "spoken": "Both stories today have that same flavour: ordinary people bumping up against automation, one with a flood of text, the other with a box on wheels.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Both stories today have that same flavor, ordinary people bumping up against automation, one with a flood of text.",
+     "seconds": 6.75,
+     "file": "experiments\\voice_bench\\clips\\R07-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+     ],
+     "fault": "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+    },
+    {
+     "take": 2,
+     "heard": "Both stories today have that same flavor. Ordinary people bumping up against automation. One with a flood of text.",
+     "seconds": 6.66,
+     "file": "experiments\\voice_bench\\clips\\R07-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+     ],
+     "fault": "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Both stories today have that same flavor, ordinary people bumping up against automation.",
+     "seconds": 5.21,
+     "file": "experiments\\voice_bench\\clips\\R07-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"1 with a flood of text the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+     ],
+     "fault": "\"1 with a flood of text the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+    },
+    {
+     "take": 4,
+     "heard": "Both stories today have that same flavor. Ordinary people bumping up against automation. One with a flood of text.",
+     "seconds": 6.97,
+     "file": "experiments\\voice_bench\\clips\\R07-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+     ],
+     "fault": "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "Both stories today have that same flavor, ordinary people bumping up against automation, one with a flood of text.",
+     "seconds": 6.19,
+     "file": "experiments\\voice_bench\\clips\\R07-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+     ],
+     "fault": "\"the other with a box on wheels\" was not heard; the ending \"on wheels\" was not heard"
+    }
+   ]
+  },
+  {
+   "id": "R08",
+   "group": "R",
+   "kind": "random slip",
+   "text": "Waymo operates commercially in 15 US cities and faces opposition from labor unions, ride-hailing giants and others.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "forbid": [
+    "right healing"
+   ],
+   "spoken": "Waymo operates commercially in 15 US cities and faces opposition from labor unions, ride-hailing giants and others.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Waymo operates commercially in 15 US cities and faces opposition from labor unions, ride-hailing giants and others.",
+     "seconds": 7.27,
+     "file": "experiments\\voice_bench\\clips\\R08-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Waymo operates commercially in 15 U.S. cities and faces opposition from labor unions.",
+     "seconds": 5.53,
+     "file": "experiments\\voice_bench\\clips\\R08-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"ride hailing giants and others\" was not heard; the ending \"and others\" was not heard"
+     ],
+     "fault": "\"ride hailing giants and others\" was not heard; the ending \"and others\" was not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Waymo operates commercially in 15 U.S. cities and faces opposition from labor unions, ride-hailing giants and others.",
+     "seconds": 6.14,
+     "file": "experiments\\voice_bench\\clips\\R08-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Waymo operates commercially in 15 U.S. cities and faces opposition from labor unions.",
+     "seconds": 5.04,
+     "file": "experiments\\voice_bench\\clips\\R08-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"ride hailing giants and others\" was not heard; the ending \"and others\" was not heard"
+     ],
+     "fault": "\"ride hailing giants and others\" was not heard; the ending \"and others\" was not heard"
+    },
+    {
+     "take": 5,
+     "heard": "UEMO operates commercially in 15 U.S. cities and faces opposition from labor unions, pride-healing giants and others.",
+     "seconds": 6.56,
+     "file": "experiments\\voice_bench\\clips\\R08-t5.wav",
+     "pass": false,
+     "problems": [
+      "only 14 of 18 words heard as written"
+     ],
+     "fault": "only 14 of 18 words heard as written"
+    }
+   ]
+  }
+ ]
+}

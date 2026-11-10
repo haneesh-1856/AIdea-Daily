@@ -3,6 +3,15 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `HASH` · `voice-rules`
+
+**Add the voice test bench and a 77-case list of real mistakes, with the "before" baseline**
+
+- `experiments/voice_bench/bench.py`: speaks each case N times (default 5) with the real `spoken()`, `phrases()`, worker and listener, and judges each take with the real `check.fault()` plus the case's `expect`, `forbid` and `forbid_raw`. One worker job for all takes; the worker's retakes are off (`retakes = 0`), so every take is independent. A case passes with 4 of 5. `--text-only` prints text and spoken form without the GPU; `--n`, `--group`, `--ids` pick the work. It refuses to start while `python -m steps` runs or between 03:30 and 05:30.
+- `experiments/voice_bench/cases.json`: 77 cases from the 10-24 to 11-09 reports and the 11-09 Whisper transcripts, in groups A numbers (16), B codes and product names (16), C names (15), D respellings (10), E short lines (12), R random slips (8).
+- Baseline on unchanged code (18 min voice, 22 min with Whisper): cases passing A 0/16, B 2/16, C 3/15, D 2/10, E 2/12, R 4/8. Clips of the latest run stay in `clips/` (git-ignored); results are in `results/`.
+- No change to the pipeline itself.
+
 ## 2026-11-09 · `0d58d49` · `weekend-edition`
 
 **Give the podcast a 60-minute ceiling; the briefing keeps none**

@@ -1,0 +1,714 @@
+[
+ {
+  "id": "A01",
+  "group": "A",
+  "kind": "decimals + number+unit",
+  "text": "The README reports 9.1 to 14.7 tokens per second for the 284B model on 64 GB of RAM.",
+  "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+  "expect": [
+   "64"
+  ]
+ },
+ {
+  "id": "A02",
+  "group": "A",
+  "kind": "model number + decimals",
+  "text": "Its own README reports 9.1 to 14.7 tokens per second for a DeepSeek model, on a 16-core AMD Ryzen 9 9955HX.",
+  "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+  "expect": [
+   "9955"
+  ],
+  "forbid": [
+   "99755"
+  ]
+ },
+ {
+  "id": "A03",
+  "group": "A",
+  "kind": "long decimal",
+  "text": "The README reports a logit cosine similarity of 1.00000 against the unpatched runtime on the same checkpoint.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "forbid": [
+   "fought"
+  ]
+ },
+ {
+  "id": "A04",
+  "group": "A",
+  "kind": "many figures + GiB",
+  "text": "Standard UD-IQ1_S builds occupy 76.87 GiB, more than the roughly 62.5 GiB of usable RAM on a 64 GB Linux system. llama-modchip shrinks the checkpoint to 56.56 GiB, at 1.71 bits per weight.",
+  "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+  "expect": [
+   "64"
+  ]
+ },
+ {
+  "id": "A05",
+  "group": "A",
+  "kind": "number+unit K cache",
+  "text": "The model plus a 256K KV cache then locks into RAM with zero swap, using 57.61 to 58.9 GiB.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "forbid": [
+   "256000",
+   "256 000"
+  ]
+ },
+ {
+  "id": "A06",
+  "group": "A",
+  "kind": "price list + date",
+  "text": "On June 26, 2026, OpenAI announced GPT-5.6 Sol at $5 / $30 / $0.50 and Luna at $1 / $6 / $0.10.",
+  "source": "2026-10-26 runs/2026-10-26/10_voice/report.md"
+ },
+ {
+  "id": "A07",
+  "group": "A",
+  "kind": "price list + date",
+  "text": "On September 22, OpenAI announced GPT-6 Sol at $2 / $10 / $0.20 and GPT-6 Luna at $0.10 / $0.50 / $0.01.",
+  "source": "2026-10-26 runs/2026-10-26/10_voice/report.md"
+ },
+ {
+  "id": "A08",
+  "group": "A",
+  "kind": "tiny percent",
+  "text": "The 4B model reached roughly 92% attack success, and success stayed positive at a 0.0005% poison rate.",
+  "source": "2026-11-03 runs/2026-11-03/10_voice/report.md"
+ },
+ {
+  "id": "A09",
+  "group": "A",
+  "kind": "tiny percent",
+  "text": "Police say that works out to an error rate of 0.00065%.",
+  "source": "2026-11-02 runs/2026-11-02/10_voice/report.md"
+ },
+ {
+  "id": "A10",
+  "group": "A",
+  "kind": "many figures",
+  "text": "At a $965 billion private valuation, a 1% stake is worth nearly $10 billion, so Menlo's roughly $14 billion position is only about 1.5% of the company.",
+  "source": "2026-10-28 runs/2026-10-28/10_voice/report.md"
+ },
+ {
+  "id": "A11",
+  "group": "A",
+  "kind": "date",
+  "text": "It's Wednesday, 28 October 2026, and I'm glad you're here.",
+  "source": "2026-10-28 runs/2026-10-28/10_voice/report.md"
+ },
+ {
+  "id": "A12",
+  "group": "A",
+  "kind": "date",
+  "text": "The New York Times announced an iOS-only beta on October 23 that lets subscribers modify recipes with AI.",
+  "source": "2026-11-09 runs/2026-11-09/10_voice/report.md"
+ },
+ {
+  "id": "A13",
+  "group": "A",
+  "kind": "price + decimal",
+  "text": "Then there's price. Google says it has dropped the price 30% from Omni 1.1, to $0.07 per second for 720p video.",
+  "source": "2026-11-07 runs/2026-11-07/10_voice/report.md"
+ },
+ {
+  "id": "A14",
+  "group": "A",
+  "kind": "price list",
+  "text": "A hundred 10-second clips at 768P come to $40 on Lite, $60 on Highspeed and $80 on H3.",
+  "source": "2026-11-04 runs/2026-11-04/10_voice/report.md"
+ },
+ {
+  "id": "A15",
+  "group": "A",
+  "kind": "number+unit",
+  "text": "The proofs hold only under strict conditions: a specific processor architecture, single-threaded programs, and inputs under 64 MB.",
+  "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+  "expect": [
+   "64"
+  ]
+ },
+ {
+  "id": "A16",
+  "group": "A",
+  "kind": "scale suffix",
+  "text": "Meta plans $95bn stock offering to help cover AI expansion.",
+  "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+  "expect": [
+   "meta"
+  ]
+ },
+ {
+  "id": "B01",
+  "group": "B",
+  "kind": "name-version-size",
+  "text": "Researchers tested Qwen3.8-27B with a simulated 403 error on a web page request.",
+  "source": "2026-10-28 runs/2026-10-28/10_voice/report.md",
+  "expect": [
+   "3.8"
+  ]
+ },
+ {
+  "id": "B02",
+  "group": "B",
+  "kind": "name-version-size",
+  "text": "Nous Research trained Qwen3.8-27B on about 53 million tokens.",
+  "source": "2026-11-08 runs/2026-11-08/10_voice/report.md",
+  "expect": [
+   "3.8"
+  ]
+ },
+ {
+  "id": "B03",
+  "group": "B",
+  "kind": "name-version-size",
+  "text": "And the locally served, open-weight Qwen3.8-27B rises from 66.8% to 92.4%.",
+  "source": "2026-10-25 runs/2026-10-25/10_voice/report.md",
+  "expect": [
+   "3.8"
+  ]
+ },
+ {
+  "id": "B04",
+  "group": "B",
+  "kind": "name-version-size",
+  "text": "They start with a small pre-trained Qwen3 0.6B model and implement evaluation, inference-time scaling, reinforcement learning and distillation in Python and PyTorch.",
+  "source": "2026-10-27 runs/2026-10-27/10_voice/report.md"
+ },
+ {
+  "id": "B05",
+  "group": "B",
+  "kind": "name-version-size",
+  "text": "Its new 164M-parameter vision encoder matches Qwen3.5-2B's encoder in accuracy with 2.2x fewer FLOPs.",
+  "source": "2026-10-28 runs/2026-10-28/10_voice/report.md"
+ },
+ {
+  "id": "B06",
+  "group": "B",
+  "kind": "model name K3.1",
+  "text": "Moonshot AI has released Kimi K3.1 Pro, a version of Kimi K3 with much more post-training compute.",
+  "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+  "expect": [
+   "kimi"
+  ]
+ },
+ {
+  "id": "B07",
+  "group": "B",
+  "kind": "model name K3.1",
+  "text": "Kimi K3.1 Pro is unconfirmed, and Ripple-65B is a company's own claim.",
+  "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+  "expect": [
+   "kimi"
+  ]
+ },
+ {
+  "id": "B08",
+  "group": "B",
+  "kind": "version v2.2",
+  "text": "Vals AI evaluated Tencent's new open-weight Hy4 on Vals Index v2.2.",
+  "source": "2026-11-05 runs/2026-11-05/10_voice/report.md"
+ },
+ {
+  "id": "B09",
+  "group": "B",
+  "kind": "version v1.1",
+  "text": "It is built on DharmaOCR-LITE v1.1 with a LoRA adapter trained on 43,384 examples.",
+  "source": "2026-11-05 runs/2026-11-05/10_voice/report.md"
+ },
+ {
+  "id": "B10",
+  "group": "B",
+  "kind": "versions + hyphen code",
+  "text": "Vals lists it as weaker on EMB v1.1, Legal Research Bench, and HLAB-Vals-1.1, where it scores 12.50%.",
+  "source": "2026-11-05 runs/2026-11-05/10_voice/report.md"
+ },
+ {
+  "id": "B11",
+  "group": "B",
+  "kind": "ALL_CAPS underscore",
+  "text": "Setting LLAMA_MOE_TOP_K to 5 or 4 is optional and trades a small perplexity change for faster decoding.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "forbid": [
+   "lalamao"
+  ]
+ },
+ {
+  "id": "B12",
+  "group": "B",
+  "kind": "arch code",
+  "text": "It is built to run sparse Mixture-of-Experts models entirely in system RAM on x86_64 and ARM64 processors.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "arm"
+  ],
+  "forbid": [
+   "adam64"
+  ]
+ },
+ {
+  "id": "B13",
+  "group": "B",
+  "kind": "code names",
+  "text": "llama-modchip is a set of ggml and llama.cpp kernel patches, quantization transcoders and runtime tools.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "ggml"
+  ],
+  "forbid": [
+   "monsheep",
+   "subpp"
+  ]
+ },
+ {
+  "id": "B14",
+  "group": "B",
+  "kind": "version + brand",
+  "text": "The project is on GitHub, with release v2.4.0 and models on Hugging Face.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "hugging face"
+  ],
+  "forbid": [
+   "hugging fate"
+  ]
+ },
+ {
+  "id": "B15",
+  "group": "B",
+  "kind": "path/endpoint",
+  "text": "Phonon works with the OpenAI-compatible /v1/audio/speech endpoint, so existing OpenAI SDK code only needs a new base URL.",
+  "source": "2026-10-25 runs/2026-10-25/10_voice/report.md"
+ },
+ {
+  "id": "B16",
+  "group": "B",
+  "kind": "chip code",
+  "text": "Huawei plans to launch the Ascend 960DT early next year.",
+  "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+  "expect": [
+   "960"
+  ]
+ },
+ {
+  "id": "C01",
+  "group": "C",
+  "kind": "surname Huang",
+  "text": "The New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based datacenter company Megaspeed, to gather information on American AI chips and potentially influence Nvidia.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "huang"
+  ]
+ },
+ {
+  "id": "C02",
+  "group": "C",
+  "kind": "surname Huang",
+  "text": "She is no relation to Jensen Huang.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "huang"
+  ]
+ },
+ {
+  "id": "C03",
+  "group": "C",
+  "kind": "surname Huang",
+  "text": "Three House committees have asked Huang for a closed-door briefing.",
+  "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+  "expect": [
+   "huang"
+  ]
+ },
+ {
+  "id": "C04",
+  "group": "C",
+  "kind": "surname Karpathy",
+  "text": "Andrej Karpathy says he built HackerTube, a curated video site drawn from 20 years of Hacker News, in one weekend using Claude.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "karpathy"
+  ]
+ },
+ {
+  "id": "C05",
+  "group": "C",
+  "kind": "surname Karpathy",
+  "text": "First, Andrej Karpathy and a weekend project.",
+  "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+  "expect": [
+   "karpathy"
+  ]
+ },
+ {
+  "id": "C06",
+  "group": "C",
+  "kind": "company Suno",
+  "text": "Rights holders of Elvis Presley and the publisher of Eminem records are suing AI music company Suno over music and lyrics that mimic the artists.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "suno"
+  ],
+  "forbid": [
+   "so no"
+  ]
+ },
+ {
+  "id": "C07",
+  "group": "C",
+  "kind": "company Suno",
+  "text": "The plaintiffs claim Suno illegally generates music and lyrics imitating the artists.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "suno"
+  ]
+ },
+ {
+  "id": "C08",
+  "group": "C",
+  "kind": "product Siri",
+  "text": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "siri"
+  ],
+  "forbid": [
+   "celie"
+  ]
+ },
+ {
+  "id": "C09",
+  "group": "C",
+  "kind": "place Thurrock",
+  "text": "The Thurrock Hammers motorcycle club wants to return to racing on the site, which was once a motorcycle stadium.",
+  "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+  "expect": [
+   "thurrock"
+  ]
+ },
+ {
+  "id": "C10",
+  "group": "C",
+  "kind": "place Thurrock",
+  "text": "Thurrock Council says many responses came from outside the local area.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "thurrock"
+  ]
+ },
+ {
+  "id": "C11",
+  "group": "C",
+  "kind": "org Foxglove",
+  "text": "Foxglove says the site would emit up to 570,000 tonnes of emissions each year.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "foxglove"
+  ],
+  "forbid": [
+   "fox club"
+  ]
+ },
+ {
+  "id": "C12",
+  "group": "C",
+  "kind": "outlet Gizmodo",
+  "text": "Gizmodo wonders if that will mean more bugs.",
+  "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+  "expect": [
+   "gizmodo"
+  ]
+ },
+ {
+  "id": "C13",
+  "group": "C",
+  "kind": "person names",
+  "text": "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab.",
+  "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+  "expect": [
+   "takehi",
+   "khattab"
+  ]
+ },
+ {
+  "id": "C14",
+  "group": "C",
+  "kind": "person name",
+  "text": "TechCrunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre Stock.",
+  "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+  "expect": [
+   "pierre stock"
+  ]
+ },
+ {
+  "id": "C15",
+  "group": "C",
+  "kind": "person name",
+  "text": "Daniel Jalkut argued that you can tweak the algorithm without reducing its randomness.",
+  "source": "2026-11-01 runs/2026-11-01/10_voice/report.md",
+  "expect": [
+   "jalkut"
+  ]
+ },
+ {
+  "id": "D01",
+  "group": "D",
+  "kind": "Claude Code respelling",
+  "text": "Karpathy then built TristanTube, which he says was \"one-shotted with Claude Code in 3 minutes,\" with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "expect": [
+   "claude code"
+  ],
+  "forbid_raw": [
+   "claude,\\s*code"
+  ]
+ },
+ {
+  "id": "D02",
+  "group": "D",
+  "kind": "Claude Code respelling",
+  "text": "Claude Code and OpenCode are examples.",
+  "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+  "expect": [
+   "claude code"
+  ],
+  "forbid_raw": [
+   "claude,\\s*code"
+  ]
+ },
+ {
+  "id": "D03",
+  "group": "D",
+  "kind": "Claude respelling",
+  "text": "Anthropic says Amazon, Google and Microsoft, the cloud partners that help sell Claude, increasingly see it as a competitor.",
+  "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+  "expect": [
+   "claude"
+  ],
+  "forbid": [
+   "clog",
+   "clod"
+  ]
+ },
+ {
+  "id": "D04",
+  "group": "D",
+  "kind": "Claude respelling",
+  "text": "Anthropic's text watermark is easy to bypass on several older Claude models.",
+  "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+  "expect": [
+   "claude"
+  ],
+  "forbid": [
+   "clog",
+   "clod"
+  ]
+ },
+ {
+  "id": "D05",
+  "group": "D",
+  "kind": "Anthropic respelling",
+  "text": "Anthropic published a revised S-1/A filing on Monday.",
+  "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+  "expect": [
+   "anthropic"
+  ]
+ },
+ {
+  "id": "D06",
+  "group": "D",
+  "kind": "Anthropic respelling",
+  "text": "Anthropic's filing talks about at least an estimated $808 billion in obligations if it follows through on all its agreements.",
+  "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+  "expect": [
+   "anthropic"
+  ]
+ },
+ {
+  "id": "D07",
+  "group": "D",
+  "kind": "ElevenLabs respelling",
+  "text": "It's available now in ElevenCreative and through ElevenAPI, and you can also try it in the ElevenLabs mobile app.",
+  "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+  "expect": [
+   "elevenlabs"
+  ]
+ },
+ {
+  "id": "D08",
+  "group": "D",
+  "kind": "Ollama respelling",
+  "text": "The custom quantized files use a tensor type that unpatched llama.cpp, Ollama and LM Studio reject, so users need the project's own binary.",
+  "source": "2026-11-09 out/2026-11-09/script.md",
+  "forbid": [
+   "a la moz"
+  ]
+ },
+ {
+  "id": "D09",
+  "group": "D",
+  "kind": "AIdea respelling",
+  "text": "That is all for today on AIdea Daily. Thanks for listening.",
+  "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+  "expect": [
+   "daily"
+  ],
+  "forbid": [
+   "adia"
+  ]
+ },
+ {
+  "id": "D10",
+  "group": "D",
+  "kind": "404 Media respelling",
+  "text": "404 Media reports on Proton, the Swiss company behind the encrypted email service Proton Mail.",
+  "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+  "forbid": [
+   "honed"
+  ]
+ },
+ {
+  "id": "E01",
+  "group": "E",
+  "kind": "short line",
+  "text": "Welcome to AIdea Daily.",
+  "source": "2026-11-02 runs/2026-11-02/10_voice/report.md"
+ },
+ {
+  "id": "E02",
+  "group": "E",
+  "kind": "short line",
+  "text": "Who confirmed the result?",
+  "source": "2026-10-24 runs/2026-10-24/10_voice/report.md"
+ },
+ {
+  "id": "E03",
+  "group": "E",
+  "kind": "short line",
+  "text": "Wired's point is narrower.",
+  "source": "2026-10-25 runs/2026-10-25/10_voice/report.md"
+ },
+ {
+  "id": "E04",
+  "group": "E",
+  "kind": "short line",
+  "text": "Before, you'd just click.",
+  "source": "2026-11-01 runs/2026-11-01/10_voice/report.md"
+ },
+ {
+  "id": "E05",
+  "group": "E",
+  "kind": "short line",
+  "text": "Now, there's a catch.",
+  "source": "2026-11-03 runs/2026-11-03/10_voice/report.md"
+ },
+ {
+  "id": "E06",
+  "group": "E",
+  "kind": "short line",
+  "text": "Those are their characterisations.",
+  "source": "2026-11-04 runs/2026-11-04/10_voice/report.md"
+ },
+ {
+  "id": "E07",
+  "group": "E",
+  "kind": "short line",
+  "text": "And there are sceptics.",
+  "source": "2026-11-04 runs/2026-11-04/10_voice/report.md"
+ },
+ {
+  "id": "E08",
+  "group": "E",
+  "kind": "short line",
+  "text": "You'd want a say.",
+  "source": "2026-11-05 runs/2026-11-05/10_voice/report.md"
+ },
+ {
+  "id": "E09",
+  "group": "E",
+  "kind": "short line",
+  "text": "First, the training terms.",
+  "source": "2026-11-06 runs/2026-11-06/10_voice/report.md"
+ },
+ {
+  "id": "E10",
+  "group": "E",
+  "kind": "short line",
+  "text": "Two bills stand out.",
+  "source": "2026-11-08 runs/2026-11-08/10_voice/report.md"
+ },
+ {
+  "id": "E11",
+  "group": "E",
+  "kind": "short line",
+  "text": "The repository ones do.",
+  "source": "2026-11-07 runs/2026-11-07/10_voice/report.md"
+ },
+ {
+  "id": "E12",
+  "group": "E",
+  "kind": "short line",
+  "text": "That's the trust problem.",
+  "source": "2026-11-06 runs/2026-11-06/10_voice/report.md"
+ },
+ {
+  "id": "R01",
+  "group": "R",
+  "kind": "random slip",
+  "text": "Claims are cheap, and some of them are very hard to check from the outside.",
+  "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+  "forbid": [
+   "games are cheap"
+  ]
+ },
+ {
+  "id": "R02",
+  "group": "R",
+  "kind": "random slip",
+  "text": "Analyst Patrick Moorhead says Anthropic owes investors more detail on risk odds.",
+  "source": "2026-10-27 runs/2026-10-27/10_voice/report.md"
+ },
+ {
+  "id": "R03",
+  "group": "R",
+  "kind": "random slip",
+  "text": "Worth a look if local agents are your thing.",
+  "source": "2026-10-28 runs/2026-10-28/10_voice/report.md"
+ },
+ {
+  "id": "R04",
+  "group": "R",
+  "kind": "random slip",
+  "text": "They are not equally solid, so I'll tell you which is which.",
+  "source": "2026-10-29 runs/2026-10-29/10_voice/report.md"
+ },
+ {
+  "id": "R05",
+  "group": "R",
+  "kind": "random slip",
+  "text": "They're also upfront about the downsides.",
+  "source": "2026-10-30 runs/2026-10-30/10_voice/report.md"
+ },
+ {
+  "id": "R06",
+  "group": "R",
+  "kind": "random slip",
+  "text": "The boot sector is hand-written assembly.",
+  "source": "2026-11-01 runs/2026-11-01/10_voice/report.md"
+ },
+ {
+  "id": "R07",
+  "group": "R",
+  "kind": "random slip",
+  "text": "Both stories today have that same flavour: ordinary people bumping up against automation, one with a flood of text, the other with a box on wheels.",
+  "source": "2026-11-08 runs/2026-11-08/10_voice/report.md"
+ },
+ {
+  "id": "R08",
+  "group": "R",
+  "kind": "random slip",
+  "text": "Waymo operates commercially in 15 US cities and faces opposition from labor unions, ride-hailing giants and others.",
+  "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+  "forbid": [
+   "right healing"
+  ]
+ }
+]
