@@ -3,7 +3,7 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
-## 2026-11-10 · `pending` · `voice-rules`
+## 2026-11-10 · `d4525d2` · `voice-rules`
 
 **Only the bench-confirmed lexicon entries stay live (AIdea, ElevenLabs); the other names go back to their old spellings**
 
