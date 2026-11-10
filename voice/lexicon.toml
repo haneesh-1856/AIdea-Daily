@@ -1,5 +1,7 @@
 # The pronunciation lexicon: see steps/step10_voice/lexicon.py. Entries are written by
 # experiments/voice_bench/lexicon.py after each spelling was voiced 5 times in real sentences.
+# On 2026-11-10 only AIdea and ElevenLabs held up when re-checked on the bench (groups C and D got worse overall),
+# so every other entry is turned off with status = "none" until a fresh bench run confirms it at 4 of 5.
 
 ["AIdea"]
 say = "I-dea"
@@ -21,6 +23,7 @@ sentence = "First, Andrej Karpathy and a weekend project."
 as_written = 1
 
 ["Anthropic"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Anthropic"
 passes = 5
 of = 5
@@ -30,6 +33,7 @@ sentence = "Anthropic claims the system anonymizes sessions."
 as_written = 5
 
 ["Claude"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Claw-d"
 passes = 4
 of = 5
@@ -78,6 +82,7 @@ sentence = "Federighi has been considered an AI skeptic, with concerns about pri
 as_written = 3
 
 ["Foxglove"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Fox glove"
 passes = 5
 of = 5
@@ -87,6 +92,7 @@ sentence = "Foxglove says the site would emit up to five hundred seventy thousan
 as_written = 4
 
 ["Gizmodo"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Giz-mo-dough"
 passes = 5
 of = 5
@@ -96,6 +102,7 @@ sentence = "Gizmodo wonders if that will mean more bugs."
 as_written = 3
 
 ["Huang"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Huang"
 passes = 4
 of = 5
@@ -105,6 +112,7 @@ sentence = "She is no relation to Jensen Huang."
 as_written = 4
 
 ["Jalkut"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Jall-cut"
 passes = 5
 of = 5
@@ -114,6 +122,7 @@ sentence = "Daniel Jalkut argued that tweaks need not reduce randomness."
 as_written = 2
 
 ["Karpathy"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Karpathy"
 passes = 4
 of = 5
@@ -133,6 +142,7 @@ sentence = "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Ja
 as_written = 3
 
 ["Ollama"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Uh-lah-muh"
 passes = 4
 of = 5
@@ -152,6 +162,7 @@ sentence = "TechCrunch stresses Mistral's argument that open weights cannot be c
 as_written = 0
 
 ["Rikiya"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Rick-ee-ya"
 passes = 5
 of = 5
@@ -161,6 +172,7 @@ sentence = "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Ja
 as_written = 4
 
 ["Suno"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Sue-no"
 passes = 4
 of = 5
@@ -170,6 +182,7 @@ sentence = "Elvis and Eminem rights holders are suing Suno"
 as_written = 4
 
 ["Takehi"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Tack-eh-hee"
 passes = 5
 of = 5
@@ -199,6 +212,7 @@ sentence = "Thurrock Council expects to rule early next year."
 as_written = 0
 
 ["Zhang"]
+status = "none"  # turned off 2026-11-10: not confirmed on the C/D bench (fresh 5 takes in the bench sentences)
 say = "Zhang"
 passes = 4
 of = 5

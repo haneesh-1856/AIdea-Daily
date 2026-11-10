@@ -3,6 +3,18 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `pending` · `voice-rules`
+
+**Only the bench-confirmed lexicon entries stay live (AIdea, ElevenLabs); the other names go back to their old spellings**
+
+- Why: on the C/D bench the lexicon made names worse overall (C 4/15 to 2/15 cases passing; Claude in D03 2 to 0, Foxglove 4 to 2, Suno C06 5 to 3). Only AIdea (4 to 5) and ElevenLabs (2 to 4) clearly improved.
+- `voice/lexicon.toml`: every entry except AIdea and ElevenLabs gets `status = "none"`, so it is spoken as written or by `[voice.say]`. Each entry keeps its test record, so a later bench run can turn it back on.
+- `settings.toml` `[voice.say]`: restored "Claude Code" = "Clawd, Code", "Claude" = "Clawd", "Anthropic" = "Ann Thropic", "Ollama" = "Oh llama", so the episodes say these names no worse than before. "ETH" = "ether" stays dropped (the agent's reason holds).
+- Kept: welcome-first, the fair judge, the lexicon mechanism and search tool, and the "names not yet tested" review list.
+- `steps/step10_voice/test_step.py`: the Claude Code lexicon test is replaced by one that checks only AIdea and ElevenLabs are live and that the old spellings are used.
+- Rule from now on: a spelling goes live only after a fresh bench run confirms it at 4 of 5, and as-written wins when it already scores 4 of 5.
+- Tests: 418 pass, plus 174/174 in step 10 after the test change; the known step 6 test is deselected.
+
 ## 2026-11-10 · `377c9f7` · `voice-rules`
 
 **Groups C and D re-run with the lexicon: not yet better (C 2/15, D 3/10 cases passing; before 4/15 and 2/10)**

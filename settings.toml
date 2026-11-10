@@ -158,12 +158,13 @@ story = 1.0               # before a new story or a new section
 longest_phrase = 1000     # a sentence with more words than this is spoken phrase by phrase; 1000 means never
 
 [voice.say]
-# How to say a word the voice gets wrong, for a word with NO tested entry in voice/lexicon.toml yet: the word as written =
-# the way to say it. Tested spellings (each voiced 5 times in real sentences, 4 of 5 needed) live in the lexicon, which
-# is applied first; move a word there with `experiments/voice_bench/lexicon.py search`. Moved on 2026-11-10: AIdea,
-# Claude, Claude Code, Anthropic, Ollama, ElevenLabs. Dropped: "ETH" = "ether" (the Exponential Time Hypothesis is in
-# today's stories and would be said "ether"; no real sentence about the coin to test it in).
-# The entries below were NOT retested on 2026-11-10: the GPU window ran out before them. Retest them next.
+# How to say a word the voice gets wrong, for a word with NO live entry in voice/lexicon.toml: the word as written =
+# the way to say it. Tested spellings (each voiced 5 times in real sentences, 4 of 5 needed, then confirmed on the
+# bench) live in the lexicon, which is applied first. Only AIdea and ElevenLabs are live there (2026-11-10).
+"Claude Code" = "Clawd, Code"  # heard "clod code" and "claw" (2026-10-29); 1 of 5 on 2026-11-10, kept until something beats it
+"Claude" = "Clawd"        # said "Clod" or "Clog" on 2026-10-17; "Claw-d" did worse on the 11-10 bench
+"Anthropic" = "Ann Thropic"  # slurred "Nthropic", "Enbropic" on 10-18 to 10-20
+"Ollama" = "Oh llama"     # said "Alama", "Olima" on 2026-10-20; right 4 times out of 5 this way
 "Show HN" = "Show H N"    # said "Shoei Gen" on 2026-10-18
 "Ep" = "Episode"          # "Ep 6" said "Ep 6th" on 2026-10-18
 "Claudes" = "Clawds"      # said "clods" three times on 2026-10-19; the lexicon's search found nothing better than 3 of 5 ("Clawd-iz")
