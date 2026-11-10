@@ -1,0 +1,1803 @@
+{
+ "cases_file": "experiments/voice_bench/cases.json",
+ "n": 5,
+ "started": "20261110-030349",
+ "voice_seconds": 636,
+ "total_seconds": 777,
+ "settings": {
+  "engine": "chatterbox-turbo",
+  "temperature": 0.5,
+  "clean": true,
+  "speed": 1.0
+ },
+ "retakes": 0,
+ "results": [
+  {
+   "id": "C01",
+   "group": "C",
+   "kind": "surname Huang",
+   "text": "The New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based datacenter company Megaspeed, to gather information on American AI chips and potentially influence Nvidia.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "huang"
+   ],
+   "spoken": "The New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based datacenter company Megaspeed, to gather information on American AI chips and potentially influence Nvidia.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Wong, an executive at the Singapore-based data center company Megaspede, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 12.17,
+     "file": "experiments\\voice_bench\\clips\\C01-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"huang\" was heard as \"wong\"",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "\"huang\" was heard as \"wong\""
+    },
+    {
+     "take": 2,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based data center company Megaspede, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 12.26,
+     "file": "experiments\\voice_bench\\clips\\C01-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "New York Times reported that China's Ministry of State Security recruited Alice Huang, an executive at the Singapore-based data center company Megaspade, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 11.68,
+     "file": "experiments\\voice_bench\\clips\\C01-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Wong, an executive at the Singapore-based data center company Megaspede, to gather information on American AI chips and potentially influence Nvidia.",
+     "seconds": 11.67,
+     "file": "experiments\\voice_bench\\clips\\C01-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"huang\" was heard as \"wong\"",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "\"huang\" was heard as \"wong\""
+    },
+    {
+     "take": 5,
+     "heard": "The New York Times reported that China's Ministry of State Security recruited Alice Wong, an executive at the Singapore-based data center company Megaspeed, to gather information on American AI chips and potentially influence NVIDIA.",
+     "seconds": 12.02,
+     "file": "experiments\\voice_bench\\clips\\C01-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"huang\" was heard as \"wong\"",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "\"huang\" was heard as \"wong\""
+    }
+   ]
+  },
+  {
+   "id": "C02",
+   "group": "C",
+   "kind": "surname Huang",
+   "text": "She is no relation to Jensen Huang.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "huang"
+   ],
+   "spoken": "She is no relation to Jensen Huang.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "She has no relation to Jensen Huang.",
+     "seconds": 1.78,
+     "file": "experiments\\voice_bench\\clips\\C02-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "She is no relation to Jensen Huang.",
+     "seconds": 1.81,
+     "file": "experiments\\voice_bench\\clips\\C02-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "She is no relation to Jensen Hong.",
+     "seconds": 2.28,
+     "file": "experiments\\voice_bench\\clips\\C02-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"huang\" was heard as \"hong\"",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "\"huang\" was heard as \"hong\""
+    },
+    {
+     "take": 4,
+     "heard": "She is no relation to Jensen Huang.",
+     "seconds": 2.24,
+     "file": "experiments\\voice_bench\\clips\\C02-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "She is no relation to Jensen Huang.",
+     "seconds": 1.78,
+     "file": "experiments\\voice_bench\\clips\\C02-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C03",
+   "group": "C",
+   "kind": "surname Huang",
+   "text": "Three House committees have asked Huang for a closed-door briefing.",
+   "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+   "expect": [
+    "huang"
+   ],
+   "spoken": "Three House committees have asked Huang for a closed-door briefing.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Three House committees have asked one for a closed-door briefing.",
+     "seconds": 2.88,
+     "file": "experiments\\voice_bench\\clips\\C03-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"huang\" was heard as \"1\"",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "\"huang\" was heard as \"1\""
+    },
+    {
+     "take": 2,
+     "heard": "Three House committees have asked Huang for a closed-door briefing.",
+     "seconds": 3.23,
+     "file": "experiments\\voice_bench\\clips\\C03-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Three House committees have asked Wong for a closed-door briefing.",
+     "seconds": 3.02,
+     "file": "experiments\\voice_bench\\clips\\C03-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"huang\" was heard as \"wong\"",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "\"huang\" was heard as \"wong\""
+    },
+    {
+     "take": 4,
+     "heard": "Three House committees have asked Huang for a closed-door briefing.",
+     "seconds": 2.74,
+     "file": "experiments\\voice_bench\\clips\\C03-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Three House committees have asked one for a closed-door briefing.",
+     "seconds": 2.69,
+     "file": "experiments\\voice_bench\\clips\\C03-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"huang\" was heard as \"1\"",
+      "expected \"huang\" not heard"
+     ],
+     "fault": "\"huang\" was heard as \"1\""
+    }
+   ]
+  },
+  {
+   "id": "C04",
+   "group": "C",
+   "kind": "surname Karpathy",
+   "text": "Andrej Karpathy says he built HackerTube, a curated video site drawn from 20 years of Hacker News, in one weekend using Claude.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "karpathy"
+   ],
+   "spoken": "Andrej Karpathy says he built Hacker-Tube, a curated video site drawn from 20 years of Hacker News, in one weekend using Claw-d.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Andres Carpathi says he built Hacker2, a curated video site drawn from 20 years of hacker news in one weekend using Clawdeep.",
+     "seconds": 7.86,
+     "file": "experiments\\voice_bench\\clips\\C04-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej karpathy\" was heard as \"andres carpathi\"; \"hackertube\" was heard as \"hacker 2\"; \"claude\" was heard as \"clawdeep\"",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "\"andrej karpathy\" was heard as \"andres carpathi\"; \"hackertube\" was heard as \"hacker 2\"; \"claude\" was heard as \"clawdeep\""
+    },
+    {
+     "take": 2,
+     "heard": "Andresh Karpathy says, he built HackerTube, a curated video site drawn from 20 years of hacker news, in one weekend using Claudia.",
+     "seconds": 7.69,
+     "file": "experiments\\voice_bench\\clips\\C04-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej\" was heard as \"andresh\""
+     ],
+     "fault": "\"andrej\" was heard as \"andresh\""
+    },
+    {
+     "take": 3,
+     "heard": "Andresh Karpati says he built Hacker2, a curated video site drawn from 20 years of hacker news in one weekend using claw art.",
+     "seconds": 9.34,
+     "file": "experiments\\voice_bench\\clips\\C04-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej karpathy\" was heard as \"andresh karpati\"; \"hackertube\" was heard as \"hacker 2\"; \"claude\" was heard as \"claw art\"",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "\"andrej karpathy\" was heard as \"andresh karpati\"; \"hackertube\" was heard as \"hacker 2\"; \"claude\" was heard as \"claw art\""
+    },
+    {
+     "take": 4,
+     "heard": "Andres Karpathy says he built Hacker2, a curated video site drawn from 20 years of hacker news, in one weekend using ClawD.",
+     "seconds": 7.86,
+     "file": "experiments\\voice_bench\\clips\\C04-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej\" was heard as \"andres\"; \"hackertube\" was heard as \"hacker 2\""
+     ],
+     "fault": "\"andrej\" was heard as \"andres\"; \"hackertube\" was heard as \"hacker 2\""
+    },
+    {
+     "take": 5,
+     "heard": "Andresh Karpathy says he built HackerTube, a curated video site drawn from 20 years of hacker news in one weekend using Kladi.",
+     "seconds": 8.04,
+     "file": "experiments\\voice_bench\\clips\\C04-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej\" was heard as \"andresh\"; \"claude\" was heard as \"kladi\""
+     ],
+     "fault": "\"andrej\" was heard as \"andresh\"; \"claude\" was heard as \"kladi\""
+    }
+   ]
+  },
+  {
+   "id": "C05",
+   "group": "C",
+   "kind": "surname Karpathy",
+   "text": "First, Andrej Karpathy and a weekend project.",
+   "source": "2026-11-09 runs/2026-11-09/10_voice/report.md",
+   "expect": [
+    "karpathy"
+   ],
+   "spoken": "First, Andrej Karpathy and a weekend project.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "First, Andres Carpathi and Weekend Project.",
+     "seconds": 2.3,
+     "file": "experiments\\voice_bench\\clips\\C05-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej karpathy\" was heard as \"andres carpathi\"",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "\"andrej karpathy\" was heard as \"andres carpathi\""
+    },
+    {
+     "take": 2,
+     "heard": "first Andresh Karpati and a weekend project.",
+     "seconds": 2.72,
+     "file": "experiments\\voice_bench\\clips\\C05-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej karpathy\" was heard as \"andresh karpati\"",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "\"andrej karpathy\" was heard as \"andresh karpati\""
+    },
+    {
+     "take": 3,
+     "heard": "First, under Scapati in a weekend project",
+     "seconds": 2.33,
+     "file": "experiments\\voice_bench\\clips\\C05-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej karpathy and\" was heard as \"under scapati in\"",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "\"andrej karpathy and\" was heard as \"under scapati in\""
+    },
+    {
+     "take": 4,
+     "heard": "first Andres Carpathi and a weekend project.",
+     "seconds": 2.34,
+     "file": "experiments\\voice_bench\\clips\\C05-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej karpathy\" was heard as \"andres carpathi\"",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "\"andrej karpathy\" was heard as \"andres carpathi\""
+    },
+    {
+     "take": 5,
+     "heard": "First Andresh Kapati and a weekend project.",
+     "seconds": 2.33,
+     "file": "experiments\\voice_bench\\clips\\C05-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"andrej karpathy\" was heard as \"andresh kapati\"",
+      "expected \"karpathy\" not heard"
+     ],
+     "fault": "\"andrej karpathy\" was heard as \"andresh kapati\""
+    }
+   ]
+  },
+  {
+   "id": "C06",
+   "group": "C",
+   "kind": "company Suno",
+   "text": "Rights holders of Elvis Presley and the publisher of Eminem records are suing AI music company Suno over music and lyrics that mimic the artists.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "suno"
+   ],
+   "forbid": [
+    "so no"
+   ],
+   "spoken": "Rights holders of Elvis Presley and the publisher of Eminem records are suing AI music company Sue-no over music and lyrics that mimic the artists.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "rights holders of Elvis Presley and the publisher of Eminem Records. Our suing AI music company, Sunol, over music and lyrics that mimic the artists.",
+     "seconds": 7.69,
+     "file": "experiments\\voice_bench\\clips\\C06-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"are\" was heard as \"our\"; \"suno\" was heard as \"sunol\""
+     ],
+     "fault": "\"are\" was heard as \"our\"; \"suno\" was heard as \"sunol\""
+    },
+    {
+     "take": 2,
+     "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Sueno over music and lyrics that mimic the artists.",
+     "seconds": 7.96,
+     "file": "experiments\\voice_bench\\clips\\C06-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Suno over music and lyrics that mimic the artists.",
+     "seconds": 8.57,
+     "file": "experiments\\voice_bench\\clips\\C06-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Swornore over music and lyrics that mimic the artists.",
+     "seconds": 8.48,
+     "file": "experiments\\voice_bench\\clips\\C06-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"suno\" was heard as \"swornore\"",
+      "expected \"suno\" not heard"
+     ],
+     "fault": "\"suno\" was heard as \"swornore\""
+    },
+    {
+     "take": 5,
+     "heard": "rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Sueno over music and lyrics that mimic the artists.",
+     "seconds": 8.66,
+     "file": "experiments\\voice_bench\\clips\\C06-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C07",
+   "group": "C",
+   "kind": "company Suno",
+   "text": "The plaintiffs claim Suno illegally generates music and lyrics imitating the artists.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "suno"
+   ],
+   "spoken": "The plaintiffs claim Sue-no illegally generates music and lyrics imitating the artists.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The plaintiff's claim soon-o illegally generates music and lyrics imitating the artists.",
+     "seconds": 4.36,
+     "file": "experiments\\voice_bench\\clips\\C07-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "The plaintiffs claim Sono illegally generates music and lyrics imitating the artists.",
+     "seconds": 5.04,
+     "file": "experiments\\voice_bench\\clips\\C07-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The plaintiff's claim soon-o illegally generates music and lyrics imitating the artist.",
+     "seconds": 4.24,
+     "file": "experiments\\voice_bench\\clips\\C07-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "The plaintiffs claim Suunno illegally generates music and lyrics imitating the artists.",
+     "seconds": 4.72,
+     "file": "experiments\\voice_bench\\clips\\C07-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "The plaintiffs claim Suno illegally generates music and lyrics imitating the artists.",
+     "seconds": 4.44,
+     "file": "experiments\\voice_bench\\clips\\C07-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C08",
+   "group": "C",
+   "kind": "product Siri",
+   "text": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "siri"
+   ],
+   "forbid": [
+    "celie"
+   ],
+   "spoken": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 6.64,
+     "file": "experiments\\voice_bench\\clips\\C08-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 6.18,
+     "file": "experiments\\voice_bench\\clips\\C08-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more agentic.",
+     "seconds": 6.44,
+     "file": "experiments\\voice_bench\\clips\\C08-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federighi to speed up Siri's roadmap and make the assistant more argentic.",
+     "seconds": 6.33,
+     "file": "experiments\\voice_bench\\clips\\C08-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"agentic\" was heard as \"argentic\""
+     ],
+     "fault": "\"agentic\" was heard as \"argentic\""
+    },
+    {
+     "take": 5,
+     "heard": "Apple CEO John Ternus is reportedly pressing Craig Federico's speed-up series road map and make the assistant more agentic.",
+     "seconds": 6.44,
+     "file": "experiments\\voice_bench\\clips\\C08-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"federighi to\" was heard as \"federico\"; \"siri roadmap\" was heard as \"series road map\"",
+      "expected \"siri\" not heard"
+     ],
+     "fault": "\"federighi to\" was heard as \"federico\"; \"siri roadmap\" was heard as \"series road map\""
+    }
+   ]
+  },
+  {
+   "id": "C09",
+   "group": "C",
+   "kind": "place Thurrock",
+   "text": "The Thurrock Hammers motorcycle club wants to return to racing on the site, which was once a motorcycle stadium.",
+   "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+   "expect": [
+    "thurrock"
+   ],
+   "spoken": "The Thurrock Hammers motorcycle club wants to return to racing on the site, which was once a motorcycle stadium.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The Thirak Hammers Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.67,
+     "file": "experiments\\voice_bench\\clips\\C09-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock\" was heard as \"thirak\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock\" was heard as \"thirak\""
+    },
+    {
+     "take": 2,
+     "heard": "The Turokama's Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.63,
+     "file": "experiments\\voice_bench\\clips\\C09-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock hammers\" was heard as \"turokama\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock hammers\" was heard as \"turokama\""
+    },
+    {
+     "take": 3,
+     "heard": "The Tara Kammres Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.32,
+     "file": "experiments\\voice_bench\\clips\\C09-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock hammers\" was heard as \"tara kammres\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock hammers\" was heard as \"tara kammres\""
+    },
+    {
+     "take": 4,
+     "heard": "The Turok Hammers Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.59,
+     "file": "experiments\\voice_bench\\clips\\C09-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock\" was heard as \"turok\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock\" was heard as \"turok\""
+    },
+    {
+     "take": 5,
+     "heard": "there are cameras Motorcycle Club wants to return to racing on the site, which was once a motorcycle stadium.",
+     "seconds": 5.62,
+     "file": "experiments\\voice_bench\\clips\\C09-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"the thurrock hammers\" was heard as \"there are cameras\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"the thurrock hammers\" was heard as \"there are cameras\""
+    }
+   ]
+  },
+  {
+   "id": "C10",
+   "group": "C",
+   "kind": "place Thurrock",
+   "text": "Thurrock Council says many responses came from outside the local area.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "thurrock"
+   ],
+   "spoken": "Thurrock Council says many responses came from outside the local area.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Total Consul says many responses came from outside the local area.",
+     "seconds": 3.22,
+     "file": "experiments\\voice_bench\\clips\\C10-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock council\" was heard as \"total consul\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock council\" was heard as \"total consul\""
+    },
+    {
+     "take": 2,
+     "heard": "The rock council says many responses came from outside the local area.",
+     "seconds": 3.8,
+     "file": "experiments\\voice_bench\\clips\\C10-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Turok Council says many responses came from outside the local area.",
+     "seconds": 3.41,
+     "file": "experiments\\voice_bench\\clips\\C10-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock\" was heard as \"turok\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock\" was heard as \"turok\""
+    },
+    {
+     "take": 4,
+     "heard": "The rock concert says many responses came from outside the local area.",
+     "seconds": 3.24,
+     "file": "experiments\\voice_bench\\clips\\C10-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock council\" was heard as \"the rock concert\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock council\" was heard as \"the rock concert\""
+    },
+    {
+     "take": 5,
+     "heard": "Dora Council says many responses came from outside the local area.",
+     "seconds": 3.32,
+     "file": "experiments\\voice_bench\\clips\\C10-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"thurrock\" was heard as \"dora\"",
+      "expected \"thurrock\" not heard"
+     ],
+     "fault": "\"thurrock\" was heard as \"dora\""
+    }
+   ]
+  },
+  {
+   "id": "C11",
+   "group": "C",
+   "kind": "org Foxglove",
+   "text": "Foxglove says the site would emit up to 570,000 tonnes of emissions each year.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "foxglove"
+   ],
+   "forbid": [
+    "fox club"
+   ],
+   "spoken": "Fox glove says the site would emit up to five hundred seventy thousand tonnes of emissions each year.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Fox clubs as the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.5,
+     "file": "experiments\\voice_bench\\clips\\C11-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"foxglove says\" was heard as \"fox clubs as\"",
+      "expected \"foxglove\" not heard"
+     ],
+     "fault": "\"foxglove says\" was heard as \"fox clubs as\""
+    },
+    {
+     "take": 2,
+     "heard": "Fox Bluff says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.72,
+     "file": "experiments\\voice_bench\\clips\\C11-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"foxglove\" was heard as \"fox bluff\"",
+      "expected \"foxglove\" not heard"
+     ],
+     "fault": "\"foxglove\" was heard as \"fox bluff\""
+    },
+    {
+     "take": 3,
+     "heard": "Foxglove says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.72,
+     "file": "experiments\\voice_bench\\clips\\C11-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Fox Club says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.4,
+     "file": "experiments\\voice_bench\\clips\\C11-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"foxglove\" was heard as \"fox club\"",
+      "expected \"foxglove\" not heard",
+      "forbidden \"fox club\" heard"
+     ],
+     "fault": "\"foxglove\" was heard as \"fox club\""
+    },
+    {
+     "take": 5,
+     "heard": "Foxglove says the site would emit up to 570,000 tons of emissions each year.",
+     "seconds": 4.99,
+     "file": "experiments\\voice_bench\\clips\\C11-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "C12",
+   "group": "C",
+   "kind": "outlet Gizmodo",
+   "text": "Gizmodo wonders if that will mean more bugs.",
+   "source": "2026-11-09 out/2026-11-09/podcast-script.md",
+   "expect": [
+    "gizmodo"
+   ],
+   "spoken": "Giz-mo-dough wonders if that will mean more bugs.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Kizmodo wonders if that will mean more bugs.",
+     "seconds": 2.99,
+     "file": "experiments\\voice_bench\\clips\\C12-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"gizmodo\" was heard as \"kizmodo\"",
+      "expected \"gizmodo\" not heard"
+     ],
+     "fault": "\"gizmodo\" was heard as \"kizmodo\""
+    },
+    {
+     "take": 2,
+     "heard": "Gizmondo wonders if that will mean more bugs.",
+     "seconds": 2.95,
+     "file": "experiments\\voice_bench\\clips\\C12-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"gizmodo\" was heard as \"gizmondo\"",
+      "expected \"gizmodo\" not heard"
+     ],
+     "fault": "\"gizmodo\" was heard as \"gizmondo\""
+    },
+    {
+     "take": 3,
+     "heard": "Gizmodo wonders if that will mean more bugs.",
+     "seconds": 3.14,
+     "file": "experiments\\voice_bench\\clips\\C12-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "Kizmonto wonders if that will mean more bugs.",
+     "seconds": 2.98,
+     "file": "experiments\\voice_bench\\clips\\C12-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"gizmodo\" was heard as \"kizmonto\"",
+      "expected \"gizmodo\" not heard"
+     ],
+     "fault": "\"gizmodo\" was heard as \"kizmonto\""
+    },
+    {
+     "take": 5,
+     "heard": "Kizmodo wonders if that will mean more bugs.",
+     "seconds": 3.12,
+     "file": "experiments\\voice_bench\\clips\\C12-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"gizmodo\" was heard as \"kizmodo\"",
+      "expected \"gizmodo\" not heard"
+     ],
+     "fault": "\"gizmodo\" was heard as \"kizmodo\""
+    }
+   ]
+  },
+  {
+   "id": "C13",
+   "group": "C",
+   "kind": "person names",
+   "text": "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab.",
+   "source": "2026-11-04 runs/2026-11-04/10_voice/report.md",
+   "expect": [
+    "takehi",
+    "khattab"
+   ],
+   "spoken": "It's called Sparks of Weight-Space Programming, by Rick-ee-ya Tack-eh-hee, Jayden Teoh, Alex Zhang and Omar Khattab.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "It's called Sparks of Wait Space Programming, by Rekia Takahi, Jayden Teoh, Alex Chong, and Omar Khatab.",
+     "seconds": 7.34,
+     "file": "experiments\\voice_bench\\clips\\C13-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"zhang\" was heard as \"chong\"",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "\"zhang\" was heard as \"chong\""
+    },
+    {
+     "take": 2,
+     "heard": "It's called Sparks of Waitspace Programming by Rigya Takahi, Jayden Teoh, Alex Zhang, and Omar Khatab.",
+     "seconds": 7.5,
+     "file": "experiments\\voice_bench\\clips\\C13-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"rikiya takehi\" was heard as \"rigya takahi\"",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "\"rikiya takehi\" was heard as \"rigya takahi\""
+    },
+    {
+     "take": 3,
+     "heard": "It's called Sparks of Wait Space Programming by Rekia Takehi, Jayden Teo, Alex Zhang and Omar Khatab.",
+     "seconds": 7.78,
+     "file": "experiments\\voice_bench\\clips\\C13-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"rikiya\" was heard as \"rekia\"; \"teoh\" was heard as \"teo\"",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "\"rikiya\" was heard as \"rekia\"; \"teoh\" was heard as \"teo\""
+    },
+    {
+     "take": 4,
+     "heard": "It's called Sparks of Wait Space Programming by Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khatab.",
+     "seconds": 7.83,
+     "file": "experiments\\voice_bench\\clips\\C13-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "It's called Sparks of Wait Space Programming by Rikiya Takahi, Jayden Tiu, Alex Zhang and Omar Khatab.",
+     "seconds": 7.84,
+     "file": "experiments\\voice_bench\\clips\\C13-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"teoh\" was heard as \"tiu\"",
+      "expected \"takehi\" not heard",
+      "expected \"khattab\" not heard"
+     ],
+     "fault": "\"teoh\" was heard as \"tiu\""
+    }
+   ]
+  },
+  {
+   "id": "C14",
+   "group": "C",
+   "kind": "person name",
+   "text": "TechCrunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre Stock.",
+   "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+   "expect": [
+    "pierre stock"
+   ],
+   "spoken": "Tech-Crunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre Stock.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "TechCrunch stresses Mistral's argument that open waits cannot be cut off, quoting B.S. Stock.",
+     "seconds": 5.2,
+     "file": "experiments\\voice_bench\\clips\\C14-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"pierre\" was heard as \"bs\"",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "\"pierre\" was heard as \"bs\""
+    },
+    {
+     "take": 2,
+     "heard": "TechCrunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre's talk.",
+     "seconds": 5.18,
+     "file": "experiments\\voice_bench\\clips\\C14-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"stock\" was heard as \"talk\"",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "\"stock\" was heard as \"talk\""
+    },
+    {
+     "take": 3,
+     "heard": "TechCrunch stresses Mistra's argument that open weights cannot be cut off quoting beer stock.",
+     "seconds": 4.67,
+     "file": "experiments\\voice_bench\\clips\\C14-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"mistral\" was heard as \"mistra\"; \"pierre\" was heard as \"beer\"",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "\"mistral\" was heard as \"mistra\"; \"pierre\" was heard as \"beer\""
+    },
+    {
+     "take": 4,
+     "heard": "TechCrunch stresses Mistral's argument that open-weights cannot be cut off, quoting Bierstein.",
+     "seconds": 4.48,
+     "file": "experiments\\voice_bench\\clips\\C14-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"pierre stock\" was heard as \"bierstein\"",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "\"pierre stock\" was heard as \"bierstein\""
+    },
+    {
+     "take": 5,
+     "heard": "Techrun stresses Mistral's argument that open weights cannot be cut off, quoting Bierstock.",
+     "seconds": 4.74,
+     "file": "experiments\\voice_bench\\clips\\C14-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"techcrunch\" was heard as \"techrun\"; \"pierre stock\" was heard as \"bierstock\"",
+      "expected \"pierre stock\" not heard"
+     ],
+     "fault": "\"techcrunch\" was heard as \"techrun\"; \"pierre stock\" was heard as \"bierstock\""
+    }
+   ]
+  },
+  {
+   "id": "C15",
+   "group": "C",
+   "kind": "person name",
+   "text": "Daniel Jalkut argued that you can tweak the algorithm without reducing its randomness.",
+   "source": "2026-11-01 runs/2026-11-01/10_voice/report.md",
+   "expect": [
+    "jalkut"
+   ],
+   "spoken": "Daniel Jall-cut argued that you can tweak the algorithm without reducing its randomness.",
+   "passes": 3,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Daniel Jalkar argued that you can tweak the algorithm without reducing its randomness.",
+     "seconds": 4.23,
+     "file": "experiments\\voice_bench\\clips\\C15-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"jalkut\" was heard as \"jalkar\"",
+      "expected \"jalkut\" not heard"
+     ],
+     "fault": "\"jalkut\" was heard as \"jalkar\""
+    },
+    {
+     "take": 2,
+     "heard": "Daniel Jalkut argued that you can tweak the algorithm without reducing its randomness.",
+     "seconds": 4.62,
+     "file": "experiments\\voice_bench\\clips\\C15-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "Daniel Jalkut argued that you can tweet the algorithm without reducing its randomness.",
+     "seconds": 4.25,
+     "file": "experiments\\voice_bench\\clips\\C15-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"tweak\" was heard as \"tweet\""
+     ],
+     "fault": "\"tweak\" was heard as \"tweet\""
+    },
+    {
+     "take": 4,
+     "heard": "Daniel Jalkut argued that you can tweak the algorithm without reducing its randomness.",
+     "seconds": 4.91,
+     "file": "experiments\\voice_bench\\clips\\C15-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "Daniel Jalkut argued that you can tweak the algorithm without reducing its randomness.",
+     "seconds": 4.43,
+     "file": "experiments\\voice_bench\\clips\\C15-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "D01",
+   "group": "D",
+   "kind": "Claude Code respelling",
+   "text": "Karpathy then built TristanTube, which he says was \"one-shotted with Claude Code in 3 minutes,\" with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "expect": [
+    "claude code"
+   ],
+   "forbid_raw": [
+    "claude,\\s*code"
+   ],
+   "spoken": "Karpathy then built Tristan-Tube, which he says was \"one-shotted with Claw-d Code in 3 minutes,\" with forty-seven thousand videos drawn from a You-Tube channel list by Tristan Hume.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Karpathy then built TristanTube, which he says was one-shotted with Claudine 3 minutes, with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+     "seconds": 8.64,
+     "file": "experiments\\voice_bench\\clips\\D01-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"claude code in\" was heard as \"claudine\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"claude code in\" was heard as \"claudine\""
+    },
+    {
+     "take": 2,
+     "heard": "Karpathy then built Tristan 2, which he says was one-shotted with Claudio code in 3 minutes. The 47,000 videos drawn from a YouTube channel list by Tristan Hume",
+     "seconds": 10.32,
+     "file": "experiments\\voice_bench\\clips\\D01-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"tristantube\" was heard as \"tristan 2\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"tristantube\" was heard as \"tristan 2\""
+    },
+    {
+     "take": 3,
+     "heard": "Kapati then built TristanTube, which he says was one-shotted with Claude in three minutes. With 47,000 videos drawn from a YouTube channel list by Tristan Hume,",
+     "seconds": 9.78,
+     "file": "experiments\\voice_bench\\clips\\D01-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"karpathy\" was heard as \"kapati\"; \"code\" was not heard",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"karpathy\" was heard as \"kapati\"; \"code\" was not heard"
+    },
+    {
+     "take": 4,
+     "heard": "Kapati then built TristanTube, which he says was one-shotted with claw decode in 3 minutes, with 47,000 videos drawn from a YouTube channel list by Tristan Hume.",
+     "seconds": 9.95,
+     "file": "experiments\\voice_bench\\clips\\D01-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"karpathy\" was heard as \"kapati\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"karpathy\" was heard as \"kapati\""
+    },
+    {
+     "take": 5,
+     "heard": "Karpathy then built TristanTube, which he says was one-shotted with clogged code in three minutes.",
+     "seconds": 9.6,
+     "file": "experiments\\voice_bench\\clips\\D01-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"claude\" was heard as \"clogged\"; \"with 47000 videos drawn from a youtube channel list by tristan hume\" was not heard",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"claude\" was heard as \"clogged\"; \"with 47000 videos drawn from a youtube channel list by tristan hume\" was not heard"
+    }
+   ]
+  },
+  {
+   "id": "D02",
+   "group": "D",
+   "kind": "Claude Code respelling",
+   "text": "Claude Code and OpenCode are examples.",
+   "source": "2026-10-24 runs/2026-10-24/10_voice/report.md",
+   "expect": [
+    "claude code"
+   ],
+   "forbid_raw": [
+    "claude,\\s*code"
+   ],
+   "spoken": "Claw-d Code and Open-Code are examples.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Cloud, code, and open code are examples.",
+     "seconds": 2.36,
+     "file": "experiments\\voice_bench\\clips\\D02-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"claude\" was heard as \"cloud\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"claude\" was heard as \"cloud\""
+    },
+    {
+     "take": 2,
+     "heard": "Cloud Code and Open Code are examples.",
+     "seconds": 2.5,
+     "file": "experiments\\voice_bench\\clips\\D02-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"claude\" was heard as \"cloud\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"claude\" was heard as \"cloud\""
+    },
+    {
+     "take": 3,
+     "heard": "Cloud Code and Open Code are examples.",
+     "seconds": 2.54,
+     "file": "experiments\\voice_bench\\clips\\D02-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"claude\" was heard as \"cloud\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"claude\" was heard as \"cloud\""
+    },
+    {
+     "take": 4,
+     "heard": "cluttered code and open code are examples.",
+     "seconds": 2.73,
+     "file": "experiments\\voice_bench\\clips\\D02-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"claude\" was heard as \"cluttered\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"claude\" was heard as \"cluttered\""
+    },
+    {
+     "take": 5,
+     "heard": "Cloud Code and Open Code are examples.",
+     "seconds": 2.56,
+     "file": "experiments\\voice_bench\\clips\\D02-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"claude\" was heard as \"cloud\"",
+      "expected \"claude code\" not heard"
+     ],
+     "fault": "\"claude\" was heard as \"cloud\""
+    }
+   ]
+  },
+  {
+   "id": "D03",
+   "group": "D",
+   "kind": "Claude respelling",
+   "text": "Anthropic says Amazon, Google and Microsoft, the cloud partners that help sell Claude, increasingly see it as a competitor.",
+   "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+   "expect": [
+    "claude"
+   ],
+   "forbid": [
+    "clog",
+    "clod"
+   ],
+   "spoken": "Anthropic says Amazon, Google and Microsoft, the cloud partners that help sell Claw-d, increasingly see it as a competitor.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropix says Amazon, Google and Microsoft, the cloud partners that help sell blog, increasingly see it as a competitor.",
+     "seconds": 7.23,
+     "file": "experiments\\voice_bench\\clips\\D03-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic\" was heard as \"anthropix\"; \"claude\" was heard as \"blog\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic\" was heard as \"anthropix\"; \"claude\" was heard as \"blog\""
+    },
+    {
+     "take": 2,
+     "heard": "Entropic says Amazon, Google and Microsoft.",
+     "seconds": 3.25,
+     "file": "experiments\\voice_bench\\clips\\D03-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"the cloud partners that help sell claude increasingly see it as a competitor\" was not heard",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"the cloud partners that help sell claude increasingly see it as a competitor\" was not heard"
+    },
+    {
+     "take": 3,
+     "heard": "Anthropic says Amazon, Google and Microsoft, the cloud partners that help sell Claw, increasingly see it as a competitor.",
+     "seconds": 6.37,
+     "file": "experiments\\voice_bench\\clips\\D03-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"claude\" was heard as \"claw\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"claude\" was heard as \"claw\""
+    },
+    {
+     "take": 4,
+     "heard": "Anthropix as Amazon, Google, and Microsoft, the cloud partners that helps us all increasingly see it as a competitor.",
+     "seconds": 7.48,
+     "file": "experiments\\voice_bench\\clips\\D03-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic says\" was heard as \"anthropix as\"; \"help sell claude\" was heard as \"helps us all\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic says\" was heard as \"anthropix as\"; \"help sell claude\" was heard as \"helps us all\""
+    },
+    {
+     "take": 5,
+     "heard": "Anthropix as Amazon, Google and Microsoft, the cloud partners that help sell Claw, increasingly see it as a competitor.",
+     "seconds": 6.8,
+     "file": "experiments\\voice_bench\\clips\\D03-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic says\" was heard as \"anthropix as\"; \"claude\" was heard as \"claw\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic says\" was heard as \"anthropix as\"; \"claude\" was heard as \"claw\""
+    }
+   ]
+  },
+  {
+   "id": "D04",
+   "group": "D",
+   "kind": "Claude respelling",
+   "text": "Anthropic's text watermark is easy to bypass on several older Claude models.",
+   "source": "2026-11-05 runs/2026-11-05/10_voice/report.md",
+   "expect": [
+    "claude"
+   ],
+   "forbid": [
+    "clog",
+    "clod"
+   ],
+   "spoken": "Anthropic's text watermark is easy to bypass on several older Claw-d models.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropix Texwatermark is easy to bypass on several older claw doddles.",
+     "seconds": 4.7,
+     "file": "experiments\\voice_bench\\clips\\D04-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic text watermark\" was heard as \"anthropix texwatermark\"; \"claude models\" was heard as \"claw doddles\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic text watermark\" was heard as \"anthropix texwatermark\"; \"claude models\" was heard as \"claw doddles\""
+    },
+    {
+     "take": 2,
+     "heard": "Anthropix Tex Watermark is easy to bypass on several older claw doors.",
+     "seconds": 4.2,
+     "file": "experiments\\voice_bench\\clips\\D04-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic text\" was heard as \"anthropix tex\"; \"claude models\" was heard as \"claw doors\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic text\" was heard as \"anthropix tex\"; \"claude models\" was heard as \"claw doors\""
+    },
+    {
+     "take": 3,
+     "heard": "Anthropix Text Watermark is easy to bypass on several older ClawDot models.",
+     "seconds": 4.23,
+     "file": "experiments\\voice_bench\\clips\\D04-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic\" was heard as \"anthropix\"; \"claude\" was heard as \"clawdot\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic\" was heard as \"anthropix\"; \"claude\" was heard as \"clawdot\""
+    },
+    {
+     "take": 4,
+     "heard": "Anthropix TEX watermark is easy to bypass on several older Claw-D models.",
+     "seconds": 4.53,
+     "file": "experiments\\voice_bench\\clips\\D04-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic text\" was heard as \"anthropix tex\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic text\" was heard as \"anthropix tex\""
+    },
+    {
+     "take": 5,
+     "heard": "Anthropix TEX watermark is easy to bypass on several older clodder models.",
+     "seconds": 4.04,
+     "file": "experiments\\voice_bench\\clips\\D04-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic text\" was heard as \"anthropix tex\"; \"claude\" was heard as \"clodder\"",
+      "expected \"claude\" not heard"
+     ],
+     "fault": "\"anthropic text\" was heard as \"anthropix tex\"; \"claude\" was heard as \"clodder\""
+    }
+   ]
+  },
+  {
+   "id": "D05",
+   "group": "D",
+   "kind": "Anthropic respelling",
+   "text": "Anthropic published a revised S-1/A filing on Monday.",
+   "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+   "expect": [
+    "anthropic"
+   ],
+   "spoken": "Anthropic published a revised S-1/A filing on Monday.",
+   "passes": 1,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropic published a revised S1A filing on Monday.",
+     "seconds": 3.32,
+     "file": "experiments\\voice_bench\\clips\\D05-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "Anthropic published a revised S1S assay filing on Monday.",
+     "seconds": 3.46,
+     "file": "experiments\\voice_bench\\clips\\D05-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"a\" was heard as \"s assay\""
+     ],
+     "fault": "\"a\" was heard as \"s assay\""
+    },
+    {
+     "take": 3,
+     "heard": "Anthropic published a revised S1 essay filing on Monday.",
+     "seconds": 3.22,
+     "file": "experiments\\voice_bench\\clips\\D05-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"a\" was heard as \"essay\""
+     ],
+     "fault": "\"a\" was heard as \"essay\""
+    },
+    {
+     "take": 4,
+     "heard": "Entropic published a revised S1-SAS filing on Monday.",
+     "seconds": 3.49,
+     "file": "experiments\\voice_bench\\clips\\D05-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"a\" was heard as \"sas\"",
+      "expected \"anthropic\" not heard"
+     ],
+     "fault": "\"a\" was heard as \"sas\""
+    },
+    {
+     "take": 5,
+     "heard": "Anthropic publisher revised S1SSA filing on Monday.",
+     "seconds": 3.71,
+     "file": "experiments\\voice_bench\\clips\\D05-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"published a\" was heard as \"publisher\"; \"a\" was heard as \"ssa\""
+     ],
+     "fault": "\"published a\" was heard as \"publisher\"; \"a\" was heard as \"ssa\""
+    }
+   ]
+  },
+  {
+   "id": "D06",
+   "group": "D",
+   "kind": "Anthropic respelling",
+   "text": "Anthropic's filing talks about at least an estimated $808 billion in obligations if it follows through on all its agreements.",
+   "source": "2026-10-27 runs/2026-10-27/10_voice/report.md",
+   "expect": [
+    "anthropic"
+   ],
+   "spoken": "Anthropic's filing talks about at least an estimated 808 billion dollars in obligations if it follows through on all its agreements.",
+   "passes": 0,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "Anthropics filing talks about at least an estimated $888 billion in obligations, if it follows through on all its agreements.",
+     "seconds": 8.32,
+     "file": "experiments\\voice_bench\\clips\\D06-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"808000000000\" was heard as \"888000000000\""
+     ],
+     "fault": "\"808000000000\" was heard as \"888000000000\""
+    },
+    {
+     "take": 2,
+     "heard": "Anthropics filing talks about at least an estimated 888 billion dollars in obligations if it follows through on all its agreements.",
+     "seconds": 7.89,
+     "file": "experiments\\voice_bench\\clips\\D06-t2.wav",
+     "pass": false,
+     "problems": [
+      "\"808000000000\" was heard as \"888000000000\""
+     ],
+     "fault": "\"808000000000\" was heard as \"888000000000\""
+    },
+    {
+     "take": 3,
+     "heard": "Anthropix filing talks about at least an estimated $888 billion in obligations if it follows through on all its agreements.",
+     "seconds": 7.8,
+     "file": "experiments\\voice_bench\\clips\\D06-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic\" was heard as \"anthropix\"; \"808000000000\" was heard as \"888000000000\"",
+      "expected \"anthropic\" not heard"
+     ],
+     "fault": "\"anthropic\" was heard as \"anthropix\"; \"808000000000\" was heard as \"888000000000\""
+    },
+    {
+     "take": 4,
+     "heard": "Anthropix filing talks about at least an estimated $880 billion in obligations, if it follows through on all its agreements.",
+     "seconds": 8.05,
+     "file": "experiments\\voice_bench\\clips\\D06-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic\" was heard as \"anthropix\"; \"808000000000\" was heard as \"880000000000\"",
+      "expected \"anthropic\" not heard"
+     ],
+     "fault": "\"anthropic\" was heard as \"anthropix\"; \"808000000000\" was heard as \"880000000000\""
+    },
+    {
+     "take": 5,
+     "heard": "Anthropix filing talks about at least an estimated $818 billion in obligations, if it follows through on all its agreements.",
+     "seconds": 7.72,
+     "file": "experiments\\voice_bench\\clips\\D06-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"anthropic\" was heard as \"anthropix\"; \"808000000000\" was heard as \"818000000000\"",
+      "expected \"anthropic\" not heard"
+     ],
+     "fault": "\"anthropic\" was heard as \"anthropix\"; \"808000000000\" was heard as \"818000000000\""
+    }
+   ]
+  },
+  {
+   "id": "D07",
+   "group": "D",
+   "kind": "ElevenLabs respelling",
+   "text": "It's available now in ElevenCreative and through ElevenAPI, and you can also try it in the ElevenLabs mobile app.",
+   "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+   "expect": [
+    "elevenlabs"
+   ],
+   "spoken": "It's available now in Eleven-Creative and through Eleven-API, and you can also try it in the Eleven Labs mobile app.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "It's available now in 11 Creative and through 11 API, and you can also try it in the 11 Labs mobile app.",
+     "seconds": 6.88,
+     "file": "experiments\\voice_bench\\clips\\D07-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "It's available now in 11 Creative and through 11 API, and you can also try it in the 11 Labs mobile app.",
+     "seconds": 6.47,
+     "file": "experiments\\voice_bench\\clips\\D07-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "It's available now in 11 Creative and through 11 API, and you can also try it in the 11 Labs mobile app.",
+     "seconds": 6.64,
+     "file": "experiments\\voice_bench\\clips\\D07-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "It's available now in 11 creative and through 11 API and you can also try it in the 11 labs mobile app.",
+     "seconds": 6.41,
+     "file": "experiments\\voice_bench\\clips\\D07-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "It's available now in E11 Creative and through E11 API, and you can also try it in the E11 Labs mobile app.",
+     "seconds": 6.77,
+     "file": "experiments\\voice_bench\\clips\\D07-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"elevencreative\" was heard as \"e 11 creative\"; \"elevenapi\" was heard as \"e 11 api\"; \"elevenlabs\" was heard as \"e 11 labs\"",
+      "expected \"elevenlabs\" not heard"
+     ],
+     "fault": "\"elevencreative\" was heard as \"e 11 creative\"; \"elevenapi\" was heard as \"e 11 api\"; \"elevenlabs\" was heard as \"e 11 labs\""
+    }
+   ]
+  },
+  {
+   "id": "D08",
+   "group": "D",
+   "kind": "Ollama respelling",
+   "text": "The custom quantized files use a tensor type that unpatched llama.cpp, Ollama and LM Studio reject, so users need the project's own binary.",
+   "source": "2026-11-09 out/2026-11-09/script.md",
+   "forbid": [
+    "a la moz"
+   ],
+   "spoken": "The custom quantized files use a tensor type that unpatched llama dot cpp, Uh-lah-muh and LM Studio reject, so users need the project's own binary.",
+   "passes": 2,
+   "n": 5,
+   "result": "FAIL",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "The custom quantized files use a tensor type that unpatched llama.cpp a llama-assassins-lm-studio-reject, so users need the project's own binary.",
+     "seconds": 9.62,
+     "file": "experiments\\voice_bench\\clips\\D08-t1.wav",
+     "pass": false,
+     "problems": [
+      "\"ollama and\" was heard as \"a llama assassins\""
+     ],
+     "fault": "\"ollama and\" was heard as \"a llama assassins\""
+    },
+    {
+     "take": 2,
+     "heard": "The custom quantized files use a tensor type that unpatched llama.cpp. A llama and lmstudio reject, so users need the project's own binary.",
+     "seconds": 10.23,
+     "file": "experiments\\voice_bench\\clips\\D08-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "The custom quantized files use a tensor type that unpatched llama.summa.cpp, Allama, and lmstudio reject, so users need the project's own binary.",
+     "seconds": 9.78,
+     "file": "experiments\\voice_bench\\clips\\D08-t3.wav",
+     "pass": false,
+     "problems": [
+      "\"summa\" was heard but is not in the sentence"
+     ],
+     "fault": "\"summa\" was heard but is not in the sentence"
+    },
+    {
+     "take": 4,
+     "heard": "The custom quantize files use a tensor type that unpatched llama.cpp, a llama and lmstudio reject, so users need the project's own binary.",
+     "seconds": 8.92,
+     "file": "experiments\\voice_bench\\clips\\D08-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "The custom quantized files use a tensor type that unpatched llama.cpp, a llamaMA, and lmStudioReject so users need the project's own binary.",
+     "seconds": 8.6,
+     "file": "experiments\\voice_bench\\clips\\D08-t5.wav",
+     "pass": false,
+     "problems": [
+      "\"ollama\" was heard as \"a llamama\""
+     ],
+     "fault": "\"ollama\" was heard as \"a llamama\""
+    }
+   ]
+  },
+  {
+   "id": "D09",
+   "group": "D",
+   "kind": "AIdea respelling",
+   "text": "That is all for today on AIdea Daily. Thanks for listening.",
+   "source": "2026-11-03 runs/2026-11-03/10_voice/report.md",
+   "expect": [
+    "daily"
+   ],
+   "forbid": [
+    "adia"
+   ],
+   "spoken": "That is all for today on I-dea Daily. Thanks for listening.",
+   "passes": 5,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "That is all for today on IDEA Daily. Thanks for listening.",
+     "seconds": 2.86,
+     "file": "experiments\\voice_bench\\clips\\D09-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "That is all for today on IDEA Daily. Thanks for listening.",
+     "seconds": 3.12,
+     "file": "experiments\\voice_bench\\clips\\D09-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "That is all for today on IDEA Daily, thanks for listening.",
+     "seconds": 3.07,
+     "file": "experiments\\voice_bench\\clips\\D09-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "That is all for today on IDEA Daily. Thanks for listening.",
+     "seconds": 3.27,
+     "file": "experiments\\voice_bench\\clips\\D09-t4.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 5,
+     "heard": "That is all for today on Idea Daily. Thanks for listening.",
+     "seconds": 3.14,
+     "file": "experiments\\voice_bench\\clips\\D09-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  },
+  {
+   "id": "D10",
+   "group": "D",
+   "kind": "404 Media respelling",
+   "text": "404 Media reports on Proton, the Swiss company behind the encrypted email service Proton Mail.",
+   "source": "2026-10-30 runs/2026-10-30/10_voice/report.md",
+   "forbid": [
+    "honed"
+   ],
+   "spoken": "four oh four Media reports on Proton, the Swiss company behind the encrypted email service Proton Mail.",
+   "passes": 4,
+   "n": 5,
+   "result": "PASS",
+   "takes": [
+    {
+     "take": 1,
+     "heard": "404 Media reports on Proton, the Swiss company behind the encrypted email service ProtonMail.",
+     "seconds": 5.15,
+     "file": "experiments\\voice_bench\\clips\\D10-t1.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 2,
+     "heard": "404 Media reports on Proton, the Swiss company behind the encrypted email service ProtonMail.",
+     "seconds": 5.32,
+     "file": "experiments\\voice_bench\\clips\\D10-t2.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 3,
+     "heard": "404 Media reports on Proton, the Swiss company behind the encrypted email service ProtonMail.",
+     "seconds": 5.09,
+     "file": "experiments\\voice_bench\\clips\\D10-t3.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    },
+    {
+     "take": 4,
+     "heard": "404 Media reports on Proton. This was company behind the encrypted email service ProtonMail.",
+     "seconds": 5.37,
+     "file": "experiments\\voice_bench\\clips\\D10-t4.wav",
+     "pass": false,
+     "problems": [
+      "\"the swiss\" was heard as \"this was\""
+     ],
+     "fault": "\"the swiss\" was heard as \"this was\""
+    },
+    {
+     "take": 5,
+     "heard": "404 Media reports on Proton, the Swiss company behind the encrypted email service ProtonMail.",
+     "seconds": 5.15,
+     "file": "experiments\\voice_bench\\clips\\D10-t5.wav",
+     "pass": true,
+     "problems": [],
+     "fault": null
+    }
+   ]
+  }
+ ]
+}
