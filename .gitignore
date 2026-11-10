@@ -19,3 +19,4 @@ voice/*.wav
 # Claude Code: personal settings, and copies of the session transcripts (whole conversations)
 .claude/
 claude-sessions/
+experiments/voice_bench/clips-lexicon/

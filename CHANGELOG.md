@@ -3,6 +3,16 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `HASH3` · `voice-rules`
+
+**The lexicon search tool: candidate spellings, voiced 5 times in real sentences, judged strictly, kept at 4 of 5**
+
+- `experiments/voice_bench/lexicon.py`: `find` (real sentences with a name, from the bench cases, the live folder's scripts and older reports), `candidates`, `search terms.json` (two attempts per name, then "no reliable spelling" and escalation), `new <day>` (the names of that day's script not yet in the lexicon, as a terms file). Candidates: the name as written, the existing entry, a syllable split with hyphens, a phonetic respelling from espeak-ng's IPA (Huang -> Hwahng), and five respellings from the pipeline's model; the second attempt shows the model what Whisper heard for the first.
+- Judging: each candidate is voiced 5 times, each in one of the real sentences (the bench's worker, retakes off), heard by Whisper, judged by `check.fault()`. A real name (Title-case words) is judged against its own spelling only, so a respelling that makes the voice say another name does not pass (the first search run accepted "Wong" for Huang because the judge also accepted the spoken form; it was stopped, its results discarded and the search run again). Abbreviations and codes (AWS, tpu, 404 Media, Ep, AIdea) may be said differently, so the spoken form counts for them. A take is right when nothing found wrong concerns the name; `clean` counts takes with nothing wrong anywhere. The best candidate with at least 4 right takes is kept, ties going to the plainest.
+- `experiments/voice_bench/bench.py`: speaks with the lexicon (`--no-lexicon` for the old way). `expect` is now only asked for when `fault()` has found something (a clean verdict already proves every word and name was heard, and `expect` was stricter than the fair judge: it failed Whisper's own spelling of a name).
+- `lexicon-terms*.json` are the terms searched, `results/lexicon-search*.json` hold every candidate, every take and what Whisper heard. Model cost of the searches: $0.0271 (claude-sonnet-5-5, 36 requests of about 1,000 tokens).
+- Searched on 2026-11-10 in four runs (GPU: about 3 hours, voice and Whisper). The last run, for the codes and abbreviations, was cancelled when the GPU window closed.
+
 ## 2026-11-10 · `HASH2` · `voice-rules`
 
 **A tested pronunciation lexicon that `spoken()` uses, and a list of names not yet tested in each review sheet**

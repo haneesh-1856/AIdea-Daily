@@ -2527,9 +2527,9 @@
     "so no"
    ],
    "spoken": "Rights holders of Elvis Presley and the publisher of Eminem records are suing AI music company Suno over music and lyrics that mimic the artists.",
-   "passes": 3,
+   "passes": 5,
    "n": 5,
-   "result": "FAIL",
+   "result": "PASS",
    "takes": [
     {
      "take": 1,
@@ -2563,10 +2563,8 @@
      "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Sono over music and lyrics that mimic the artist.",
      "seconds": 7.94,
      "file": "experiments\\voice_bench\\clips\\C06-t4.wav",
-     "pass": false,
-     "problems": [
-      "expected \"suno\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     },
     {
@@ -2574,10 +2572,8 @@
      "heard": "Rights holders of Elvis Presley and the publisher of Eminem Records are suing AI music company Sono over music and lyrics that mimic the artists.",
      "seconds": 7.46,
      "file": "experiments\\voice_bench\\clips\\C06-t5.wav",
-     "pass": false,
-     "problems": [
-      "expected \"suno\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     }
    ]
@@ -2592,9 +2588,9 @@
     "suno"
    ],
    "spoken": "The plaintiffs claim Suno illegally generates music and lyrics imitating the artists.",
-   "passes": 2,
+   "passes": 4,
    "n": 5,
-   "result": "FAIL",
+   "result": "PASS",
    "takes": [
     {
      "take": 1,
@@ -2619,10 +2615,8 @@
      "heard": "The plaintiffs claim Sono illegally generates music and lyrics imitating the artists.",
      "seconds": 4.57,
      "file": "experiments\\voice_bench\\clips\\C07-t3.wav",
-     "pass": false,
-     "problems": [
-      "expected \"suno\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     },
     {
@@ -2630,10 +2624,8 @@
      "heard": "The plaintiffs claim Sono illegally generates music and lyrics imitating the artists.",
      "seconds": 4.29,
      "file": "experiments\\voice_bench\\clips\\C07-t4.wav",
-     "pass": false,
-     "problems": [
-      "expected \"suno\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     },
     {
@@ -2804,7 +2796,7 @@
     "thurrock"
    ],
    "spoken": "Thurrock Council says many responses came from outside the local area.",
-   "passes": 0,
+   "passes": 3,
    "n": 5,
    "result": "FAIL",
    "takes": [
@@ -2813,10 +2805,8 @@
      "heard": "The rock council says many responses came from outside the local area.",
      "seconds": 3.3,
      "file": "experiments\\voice_bench\\clips\\C10-t1.wav",
-     "pass": false,
-     "problems": [
-      "expected \"thurrock\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     },
     {
@@ -2824,10 +2814,8 @@
      "heard": "The Rock Council says many responses came from outside the local area.",
      "seconds": 3.23,
      "file": "experiments\\voice_bench\\clips\\C10-t2.wav",
-     "pass": false,
-     "problems": [
-      "expected \"thurrock\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     },
     {
@@ -2859,10 +2847,8 @@
      "heard": "The rock council says many responses came from outside the local area.",
      "seconds": 3.3,
      "file": "experiments\\voice_bench\\clips\\C10-t5.wav",
-     "pass": false,
-     "problems": [
-      "expected \"thurrock\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     }
    ]
@@ -3691,7 +3677,7 @@
     "elevenlabs"
    ],
    "spoken": "It's available now in Eleven-Creative and through Eleven-API, and you can also try it in the Eleven Labs mobile app.",
-   "passes": 0,
+   "passes": 2,
    "n": 5,
    "result": "FAIL",
    "takes": [
@@ -3736,10 +3722,8 @@
      "heard": "It's available now in 11 Creative and through 11 API, and you can also try it in the 11 Labs mobile app.",
      "seconds": 5.65,
      "file": "experiments\\voice_bench\\clips\\D07-t4.wav",
-     "pass": false,
-     "problems": [
-      "expected \"elevenlabs\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     },
     {
@@ -3747,10 +3731,8 @@
      "heard": "It's available now in 11 Creative and through 11 API and you can also try it in the 11 Labs mobile app.",
      "seconds": 6.59,
      "file": "experiments\\voice_bench\\clips\\D07-t5.wav",
-     "pass": false,
-     "problems": [
-      "expected \"elevenlabs\" not heard"
-     ],
+     "pass": true,
+     "problems": [],
      "fault": null
     }
    ]
