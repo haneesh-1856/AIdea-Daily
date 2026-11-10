@@ -258,7 +258,10 @@ def test_it_needs_step_nine_first_and_does_not_run_twice(root):
     assert (again.state, again.clips, fake.calls) == ("already_done", 12, [])
 
 
-def test_claude_code_is_said_as_two_words_before_claude_alone_is_respelled():
+def test_claude_code_is_not_said_as_a_list_with_the_tested_lexicon():
+    from steps.step10_voice import lexicon
+    from common.settings import ROOT
     say = settings.load()["voice"]["say"]
-    assert spoken("Claude Code's agents and Claude Duet, from Anthropic's team.", say) == \
-        "Clawd, Code's agents and Clawd Duet, from Ann Thropic's team."
+    said = spoken("Claude Code's agents and Claude Duet, from Anthropic's team.", say, lexicon.load(ROOT))
+    assert said == "Claw-d Code's agents and Claw-d Duet, from Anthropic's team."
+    assert "," not in said.split("agents")[0]  # "Claude, Code" came out as a list on 2026-10-29

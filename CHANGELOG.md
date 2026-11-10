@@ -3,15 +3,17 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
-## 2026-11-10 · `HASH5` · `voice-rules`
+## 2026-11-10 · `377c9f7` · `voice-rules`
 
 **Groups C and D re-run with the lexicon: not yet better (C 2/15, D 3/10 cases passing; before 4/15 and 2/10)**
 
 - `experiments/voice_bench/results/cases-20261110-030349.*` (25 cases x 5 raw takes, 03:03 to 03:20) and `lexicon-before-after-C-D.md` (per case, before to after). All 25 cases were re-run; the search of the codes and abbreviations (`lexicon-terms-run4.json`) was not, because the GPU window closed.
-- Better: C07 Suno 4 to 5, D07 ElevenLabs 2 to 4, D09 AIdea 4 to 5 (after 4 of 5 passing in the search), D10 stays. Worse or no change: Karpathy 0/5 (Whisper writes "Andresh"/"Kapati" in full sentences), Thurrock 0 to 1/5, Claude 0/5 in D03 and D04 ("Claw-d" heard "blog", "claw"), Claude Code 0/5 ("Claudine"), Foxglove 4 to 2/5 and Gizmodo 2 to 1/5 (entries that scored 5/5 in the search but not here: the search picks the best of about 9 spellings on 5 takes, so its score is optimistic; as-written had 4/5 for Foxglove and should have been kept).
+- Better: C07 Suno 4 to 5, D07 ElevenLabs 2 to 4, D09 AIdea 4 to 5; D10 404 Media 5 to 4 (still passing). Worse or no change: Karpathy 0/5 (Whisper writes "Andresh"/"Kapati" in full sentences), Thurrock 0 to 1/5, Claude 0/5 in D03 and D04 ("Claw-d" heard "blog", "claw"), Claude Code 0/5 ("Claudine"), Foxglove 4 to 2/5 and Gizmodo 2 to 1/5 (entries that scored 5/5 in the search but not here: the search picks the best of about 9 spellings on 5 takes, so its score is optimistic; as-written had 4/5 for Foxglove and should have been kept).
+- `steps/step10_voice/test_step.py`: the Claude Code test now checks the lexicon's "Claw-d Code", not a list.
+- Full suite: 419 pass; the step 6 test fails as before.
 - Lesson for the next step: a spelling should be confirmed on a fresh set of takes (the bench) before it counts, and as-written should be kept when it already scores 4 of 5.
 
-## 2026-11-10 · `HASH4` · `voice-rules`
+## 2026-11-10 · `601b03e` · `voice-rules`
 
 **The first tested entries in voice/lexicon.toml, and the old `[voice.say]` names moved into it**
 
@@ -19,7 +21,7 @@ Every commit to the project, newest first: when, which commit, which branch, and
 - "Claude Code" has no entry of its own: the old "Clawd, Code" made a list ("Claude, code"; 1 of 5); "Claude Code" now becomes "Claw-d Code" through the Claude entry.
 - `settings.toml` `[voice.say]`: AIdea, Claude, Claude Code, Anthropic, Ollama and ElevenLabs moved to the lexicon; "ETH" = "ether" dropped (the Exponential Time Hypothesis is in the news and would be said "ether"; no real sentence about the coin). Left in for now, not retested because the GPU window ran out: Show HN, Ep, Claudes, AWS, COBOL, tpu, robots.txt, 404 Media, WSE-3T, GR00T (`lexicon-terms-run4.json` has the next search).
 
-## 2026-11-10 · `HASH3` · `voice-rules`
+## 2026-11-10 · `a3c6e60` · `voice-rules`
 
 **The lexicon search tool: candidate spellings, voiced 5 times in real sentences, judged strictly, kept at 4 of 5**
 
@@ -29,7 +31,7 @@ Every commit to the project, newest first: when, which commit, which branch, and
 - `lexicon-terms*.json` are the terms searched, `results/lexicon-search*.json` hold every candidate, every take and what Whisper heard. Model cost of the searches: $0.0271 (claude-sonnet-5-5).
 - Searched on 2026-11-10 from 00:27 to 03:03 on the GPU (the discarded first run, then two runs that kept their results). A run for the codes and abbreviations was cancelled when the GPU window was closing.
 
-## 2026-11-10 · `HASH2` · `voice-rules`
+## 2026-11-10 · `3b9ebde` · `voice-rules`
 
 **A tested pronunciation lexicon that `spoken()` uses, and a list of names not yet tested in each review sheet**
 
@@ -39,7 +41,7 @@ Every commit to the project, newest first: when, which commit, which branch, and
 - `steps/step10_voice/test_lexicon.py`: save and load, only tested spellings used, longest-first single pass, say cannot respell a respelling, empty lexicon changes nothing, untested names and the review section, plus tests of the search tool's candidates and judge (they need the tool in the next commit).
 - `steps/step10_voice/README.md` points to the lexicon.
 
-## 2026-11-10 · `HASH1` · `voice-rules`
+## 2026-11-10 · `b56b560` · `voice-rules`
 
 **The podcast always opens with the welcome, then the hook**
 
