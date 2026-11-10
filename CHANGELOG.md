@@ -3,6 +3,18 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `PENDING` · `voice-rules`
+
+**Make the Whisper check fair: the same plain tokens on both sides, spoken form accepted, real errors still fail**
+
+- `steps/step10_voice/check.py`: `fault(sentence, heard, spoken=None)`. A clip is fine if it says the sentence as written or as the voice was given it (`item["text"]`, which step 10 and the bench now pass), so "I-dea" / "Clawd" / "Ann Thropic" need no special case.
+- Both sides are written as plain tokens (`words()`): ordinals (28th = 28), figures in words and thousands (forty-seven thousand = 47,000), trailing zeros ($5.00 = $5, 1.00000 = 1), % = percent, scale letters and words (256K = 256 thousand = 256,000; 284B = 284 billion), currency symbols and cents ($95bn = 95 billion dollars, £100m = 100 million pounds, $0.07 = 7 cents), GB = GiB = gigabytes (also MB, TB, KB), x = times, v1.1 = version 1.1, letters and digits split (64GB = 64 GB, S1A = S-1/A), contractions (you'd = you would, possessive 's dropped), U.S. = us.
+- Words are compared by what is different, not by a share of words matched: joined or spaced compounds are equal (hand-written, handwritten, hand written; ProtonMail); British and American spelling by endings (our/or, ise/ize, yse/yze, tre/ter, ence/ense, elled/eled, ogue/og, dgement, scept/skept); inflections (test/tests, confirm/confirmed); homophones by espeak-ng phonemes when it is installed (weight/wait, tonnes/tons); a name (a capitalised word) may be spelt Whisper's way only if letters agree 3/4 and consonants 9/10 (Ollama/Allama, Claude/Clawed pass; Huang/Wang, Huang/Hong, Karpathy/Kaipathy, Claude/Clog fail). An ordinary word must match (boot is not boat).
+- Anything else that differs is a fault: a wrong, dropped or added figure, a wrong or missing word or name, a missing clause or ending, a stutter, extra speech. Small words (a, the, to, of, is, ...) may slip once per sentence and once more for every 12 words; not, no, he/she, who/what and every figure and name may not. The "3 of 4 words heard" rule, the figure check and the ending check are gone; this does the same job and no more.
+- `steps/step10_voice/test_check.py`: 41 writing-only differences that must pass, 5 spoken-form cases, 41 real errors that must fail (wrong figure, dropped figure, Wang for Huang, Kaipathy, Clog, Games for Claims, boat for boot, missing clause, who who, not dropped, he for she, ...), and the token rules.
+- `experiments/voice_bench/bench.py`: judges with the spoken form too, and `--rejudge <results.json>` judges the stored Whisper text of an earlier run again without voice or GPU. Baseline re-judged: `results/cases-20261109-233815-rejudged.md`, with every changed take listed in `-flips.md` (66 fail to pass, 28 pass to fail).
+- 407 tests pass; the step 6 test fails as before.
+
 ## 2026-11-10 · `c1b3320` · `voice-rules`
 
 **Add the voice test bench and a 77-case list of real mistakes, with the "before" baseline**

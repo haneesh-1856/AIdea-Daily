@@ -6,11 +6,13 @@ environments, the models and the reference voice:
     $env:PYTHONPATH = "<worktree>"
     "<live>\\.venv\\Scripts\\python.exe" experiments/voice_bench/bench.py experiments/voice_bench/cases.json [--n 5]
         [--text-only] [--group A,B] [--ids A01,C03] [--live "<live folder>"] [--force]
+    "<live>\\.venv\\Scripts\\python.exe" experiments/voice_bench/bench.py --rejudge experiments/voice_bench/results/<run>.json
+        (judges the stored Whisper text of an earlier run again with the current check.py: no voice, no GPU)
 
 It does what step 10 does, with the real code: `step10_voice.step.spoken` (with `[voice.say]` from settings.toml),
 `phrases`, the real worker (one job for every case x take, so the model loads once; its own retakes are switched off
 with retakes = 0, so every take is an independent raw take), the real listener, and `check.fault` against the
-sentence as written. A case may also have "expect" (words that must be heard), "forbid" (words that must not be
+sentence as written and as spoken (a take is fine if it says either). A case may also have "expect" (words that must be heard), "forbid" (words that must not be
 heard) and "forbid_raw" (regular expressions that must not match what Whisper wrote, punctuation included).
 A take passes when fault() finds nothing and every expect/forbid holds. A case passes with 4 of 5 takes.
 """
@@ -70,7 +72,7 @@ def forbidden(heard: list[str], banned: list[str]) -> list[bool]:
 def judge(case: dict, heard_text: str) -> dict:
     heard = words(heard_text)
     problems = []
-    found = fault(case["text"], heard_text)
+    found = fault(case["text"], heard_text, case.get("spoken"))
     if found:
         problems.append(found)
     for text, ok in zip(case.get("expect", []), mentions(heard, case.get("expect", []))):
@@ -111,7 +113,8 @@ def speak(items: list[dict], voice: dict, live: Path, folder: Path) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("cases")
+    ap.add_argument("cases", nargs="?")
+    ap.add_argument("--rejudge", metavar="RESULTS", help="judge the stored takes of this results .json again; no voice, no GPU")
     ap.add_argument("--n", type=int, default=5, help="takes per case")
     ap.add_argument("--text-only", action="store_true", help="only print text -> spoken form; no voice, no GPU")
     ap.add_argument("--group", help="only these groups, e.g. A,B")
@@ -119,6 +122,10 @@ def main() -> int:
     ap.add_argument("--live", default=str(DEFAULT_LIVE), help="the live folder: environments, models, reference voice")
     ap.add_argument("--force", action="store_true", help="skip the GPU guard")
     args = ap.parse_args()
+    if args.rejudge:
+        return rejudge(Path(args.rejudge))
+    if not args.cases:
+        ap.error("cases file needed unless --rejudge is given")
 
     live = Path(args.live)
     settings = tomllib.loads((ROOT / "settings.toml").read_text(encoding="utf-8"))["voice"]
@@ -193,6 +200,29 @@ def main() -> int:
     (out / f"{name}-{stamp}.md").write_text(markdown(summary), encoding="utf-8")
     print(markdown(summary, brief=True))
     print(f"wrote {out / f'{name}-{stamp}.md'}")
+    return 0
+
+
+def rejudge(path: Path) -> int:
+    """Judge the stored Whisper text of an earlier run again with the current judge. Writes <run>-rejudged.json/.md and
+    prints each case's old and new passes."""
+    summary = json.loads(path.read_text(encoding="utf-8"))
+    n = summary["n"]
+    lines = ["| Case | Group | Old | New | Result |", "| --- | --- | --- | --- | --- |"]
+    for case in summary["results"]:
+        old = case["passes"]
+        for take in case["takes"]:
+            if take.get("heard") is not None:
+                take.update(judge(case, take["heard"]))
+        case["passes"] = sum(t["pass"] for t in case["takes"])
+        case["result"] = "PASS" if case["passes"] >= PASS_RATIO * n - 1e-9 else "FAIL"
+        lines.append(f"| {case['id']} | {case['group']} | {old}/{n} | {case['passes']}/{n} | {case['result']} |")
+    out = path.with_name(path.stem + "-rejudged")
+    out.with_suffix(".json").write_text(json.dumps(summary, indent=1, ensure_ascii=False), encoding="utf-8")
+    out.with_suffix(".md").write_text(markdown(summary), encoding="utf-8")
+    print(markdown(summary, brief=True))
+    print("\n".join(lines))
+    print(f"wrote {out.with_suffix('.md')}")
     return 0
 
 
