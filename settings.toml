@@ -158,18 +158,16 @@ story = 1.0               # before a new story or a new section
 longest_phrase = 1000     # a sentence with more words than this is spoken phrase by phrase; 1000 means never
 
 [voice.say]
-# How to say a word the voice gets wrong: the word as written = the way to say it. Add to this as you hear mistakes.
-"AIdea" = "I-dea"         # the show's name, said like "idea": "Aidea" was heard "Adia" and "80" on 2026-10-20 and 10-21; "I-dea" 5 times out of 5
-"Claude Code" = "Clawd, Code"  # heard "clod code" and "claw" (2026-10-29): the d of "Clawd" ran into the C of "Code"; first test 2026-10-31
-"Claude" = "Clawd"        # said "Clod" or "Clog" on 2026-10-17, five times out of five
-"Anthropic" = "Ann Thropic"  # slurred "Nthropic", "Enbropic", "Inverpick" on 10-18 to 10-20, dropping the "An"; hyphened spellings did no better; first test 2026-10-31
+# How to say a word the voice gets wrong, for a word with NO tested entry in voice/lexicon.toml yet: the word as written =
+# the way to say it. Tested spellings (each voiced 5 times in real sentences, 4 of 5 needed) live in the lexicon, which
+# is applied first; move a word there with `experiments/voice_bench/lexicon.py search`. Moved on 2026-11-10: AIdea,
+# Claude, Claude Code, Anthropic, Ollama, ElevenLabs. Dropped: "ETH" = "ether" (the Exponential Time Hypothesis is in
+# today's stories and would be said "ether"; no real sentence about the coin to test it in).
+# The entries below were NOT retested on 2026-11-10: the GPU window ran out before them. Retest them next.
 "Show HN" = "Show H N"    # said "Shoei Gen" on 2026-10-18
 "Ep" = "Episode"          # "Ep 6" said "Ep 6th" on 2026-10-18
-"ETH" = "ether"           # said "8H" on 2026-10-18
-"Claudes" = "Clawds"      # said "clods" three times on 2026-10-19
+"Claudes" = "Clawds"      # said "clods" three times on 2026-10-19; the lexicon's search found nothing better than 3 of 5 ("Clawd-iz")
 "AWS" = "A-W-S"           # said "Ossebusian" and "Allsagas" on 2026-10-20; right 5 times out of 5 spelled this way
-"Ollama" = "Oh llama"     # said "Alama", "Olima" and "a la Moz" five times on 2026-10-20; right 4 times out of 5 this way
-"ElevenLabs" = "Eleven Labs"  # said "11 Ls" or "11 Mobs" five times on 2026-10-21; right 4 times out of 5 with a space
 "COBOL" = "Cobol"         # said "seal-ball" on 2026-10-21; right 5 times out of 5 this way
 "tpu" = "T-P-U"           # code's lower-case "tpu" said "tupu" three times on 2026-10-21
 "robots.txt" = "robots dot T X T"  # said "robots docs" and "robot stocks" on 2026-10-20 and 10-21

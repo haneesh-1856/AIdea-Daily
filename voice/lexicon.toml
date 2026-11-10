@@ -1,0 +1,208 @@
+# The pronunciation lexicon: see steps/step10_voice/lexicon.py. Entries are written by
+# experiments/voice_bench/lexicon.py after each spelling was voiced 5 times in real sentences.
+
+["AIdea"]
+say = "I-dea"
+passes = 5
+of = 5
+clean = 5
+tested = "2026-11-10"
+sentence = "Hello, and welcome to AIdea Daily."
+as_written = 3
+
+["Andrej"]
+status = "none"
+best = "Andrehj"
+passes = 2
+of = 5
+clean = 1
+tested = "2026-11-10"
+sentence = "First, Andrej Karpathy and a weekend project."
+as_written = 1
+
+["Anthropic"]
+say = "Anthropic"
+passes = 5
+of = 5
+clean = 5
+tested = "2026-11-10"
+sentence = "Anthropic claims the system anonymizes sessions."
+as_written = 5
+
+["Claude"]
+say = "Claw-d"
+passes = 4
+of = 5
+clean = 4
+tested = "2026-11-10"
+sentence = "Claude Code and OpenCode are examples."
+as_written = 1
+
+["Claude Code"]
+status = "none"
+best = "Clawd, Code"
+passes = 1
+of = 5
+clean = 1
+tested = "2026-11-10"
+sentence = "Claude Code and OpenCode are examples."
+as_written = 0
+
+["Claudes"]
+status = "none"
+best = "Clawd-iz"
+passes = 3
+of = 5
+clean = 3
+tested = "2026-11-10"
+sentence = "She joked that the two Claudes were probably chatting behind the scenes."
+as_written = 0
+
+["ElevenLabs"]
+say = "Eleven Labs"
+passes = 5
+of = 5
+clean = 5
+tested = "2026-11-10"
+sentence = "Voice, music and games from ElevenLabs"
+as_written = 0
+
+["Federighi"]
+status = "none"
+best = "Federighi"
+passes = 3
+of = 5
+clean = 2
+tested = "2026-11-10"
+sentence = "Federighi has been considered an AI skeptic, with concerns about privacy, security, and the effect on jobs."
+as_written = 3
+
+["Foxglove"]
+say = "Fox glove"
+passes = 5
+of = 5
+clean = 5
+tested = "2026-11-10"
+sentence = "Foxglove says the site would emit up to five hundred seventy thousand tonnes of emissions each year."
+as_written = 4
+
+["Gizmodo"]
+say = "Giz-mo-dough"
+passes = 5
+of = 5
+clean = 5
+tested = "2026-11-10"
+sentence = "Gizmodo wonders if that will mean more bugs."
+as_written = 3
+
+["Huang"]
+say = "Huang"
+passes = 4
+of = 5
+clean = 4
+tested = "2026-11-10"
+sentence = "She is no relation to Jensen Huang."
+as_written = 4
+
+["Jalkut"]
+say = "Jall-cut"
+passes = 5
+of = 5
+clean = 3
+tested = "2026-11-10"
+sentence = "Daniel Jalkut argued that tweaks need not reduce randomness."
+as_written = 2
+
+["Karpathy"]
+say = "Karpathy"
+passes = 4
+of = 5
+clean = 2
+tested = "2026-11-10"
+sentence = "First, Andrej Karpathy and a weekend project."
+as_written = 4
+
+["Khattab"]
+status = "none"
+best = "Khattab"
+passes = 3
+of = 5
+clean = 1
+tested = "2026-11-10"
+sentence = "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab."
+as_written = 3
+
+["Ollama"]
+say = "Uh-lah-muh"
+passes = 4
+of = 5
+clean = 4
+tested = "2026-11-10"
+sentence = "Ollama can now turn text into speech."
+as_written = 2
+
+["Pierre Stock"]
+status = "none"
+best = "Pee-air Stock"
+passes = 1
+of = 5
+clean = 0
+tested = "2026-11-10"
+sentence = "TechCrunch stresses Mistral's argument that open weights cannot be cut off, quoting Pierre Stock."
+as_written = 0
+
+["Rikiya"]
+say = "Rick-ee-ya"
+passes = 5
+of = 5
+clean = 1
+tested = "2026-11-10"
+sentence = "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab."
+as_written = 4
+
+["Suno"]
+say = "Sue-no"
+passes = 4
+of = 5
+clean = 3
+tested = "2026-11-10"
+sentence = "Elvis and Eminem rights holders are suing Suno"
+as_written = 4
+
+["Takehi"]
+say = "Tack-eh-hee"
+passes = 5
+of = 5
+clean = 1
+tested = "2026-11-10"
+sentence = "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab."
+as_written = 0
+
+["Teoh"]
+status = "none"
+best = "Teoh"
+passes = 2
+of = 5
+clean = 0
+tested = "2026-11-10"
+sentence = "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab."
+as_written = 2
+
+["Thurrock"]
+status = "none"
+best = "Thur-rock"
+passes = 2
+of = 5
+clean = 2
+tested = "2026-11-10"
+sentence = "Thurrock Council expects to rule early next year."
+as_written = 0
+
+["Zhang"]
+say = "Zhang"
+passes = 4
+of = 5
+clean = 2
+tested = "2026-11-10"
+sentence = "It's called Sparks of Weight-Space Programming, by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab."
+as_written = 4

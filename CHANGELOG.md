@@ -3,6 +3,14 @@
 Every commit to the project, newest first: when, which commit, which branch, and what changed.
 `git log` has the full detail. Add an entry with each commit.
 
+## 2026-11-10 · `HASH4` · `voice-rules`
+
+**The first tested entries in voice/lexicon.toml, and the old `[voice.say]` names moved into it**
+
+- `voice/lexicon.toml`: 22 entries, each with its passes out of 5, the date and a real sentence. Used (4 or 5 of 5): AIdea "I-dea", Anthropic (as written, 5/5: "Ann Thropic" is no longer needed), Claude "Claw-d" (4/5; as written 1/5), ElevenLabs "Eleven Labs", Ollama "Uh-lah-muh" (4/5; "Oh llama" 2/5), Foxglove, Gizmodo "Giz-mo-dough", Huang, Karpathy, Suno, Zhang, Jalkut "Jall-cut", Rikiya "Rick-ee-ya", Takehi "Tack-eh-hee". No reliable spelling after two attempts, spoken as written and listed for escalation: Andrej, Claude Code, Claudes, Federighi, Khattab, Pierre Stock, Teoh, Thurrock.
+- "Claude Code" has no entry of its own: the old "Clawd, Code" made a list ("Claude, code"; 1 of 5); "Claude Code" now becomes "Claw-d Code" through the Claude entry.
+- `settings.toml` `[voice.say]`: AIdea, Claude, Claude Code, Anthropic, Ollama and ElevenLabs moved to the lexicon; "ETH" = "ether" dropped (the Exponential Time Hypothesis is in the news and would be said "ether"; no real sentence about the coin). Left in for now, not retested because the GPU window ran out: Show HN, Ep, Claudes, AWS, COBOL, tpu, robots.txt, 404 Media, WSE-3T, GR00T (`lexicon-terms-run4.json` has the next search).
+
 ## 2026-11-10 · `HASH3` · `voice-rules`
 
 **The lexicon search tool: candidate spellings, voiced 5 times in real sentences, judged strictly, kept at 4 of 5**
@@ -10,8 +18,8 @@ Every commit to the project, newest first: when, which commit, which branch, and
 - `experiments/voice_bench/lexicon.py`: `find` (real sentences with a name, from the bench cases, the live folder's scripts and older reports), `candidates`, `search terms.json` (two attempts per name, then "no reliable spelling" and escalation), `new <day>` (the names of that day's script not yet in the lexicon, as a terms file). Candidates: the name as written, the existing entry, a syllable split with hyphens, a phonetic respelling from espeak-ng's IPA (Huang -> Hwahng), and five respellings from the pipeline's model; the second attempt shows the model what Whisper heard for the first.
 - Judging: each candidate is voiced 5 times, each in one of the real sentences (the bench's worker, retakes off), heard by Whisper, judged by `check.fault()`. A real name (Title-case words) is judged against its own spelling only, so a respelling that makes the voice say another name does not pass (the first search run accepted "Wong" for Huang because the judge also accepted the spoken form; it was stopped, its results discarded and the search run again). Abbreviations and codes (AWS, tpu, 404 Media, Ep, AIdea) may be said differently, so the spoken form counts for them. A take is right when nothing found wrong concerns the name; `clean` counts takes with nothing wrong anywhere. The best candidate with at least 4 right takes is kept, ties going to the plainest.
 - `experiments/voice_bench/bench.py`: speaks with the lexicon (`--no-lexicon` for the old way). `expect` is now only asked for when `fault()` has found something (a clean verdict already proves every word and name was heard, and `expect` was stricter than the fair judge: it failed Whisper's own spelling of a name).
-- `lexicon-terms*.json` are the terms searched, `results/lexicon-search*.json` hold every candidate, every take and what Whisper heard. Model cost of the searches: $0.0271 (claude-sonnet-5-5, 36 requests of about 1,000 tokens).
-- Searched on 2026-11-10 in four runs (GPU: about 3 hours, voice and Whisper). The last run, for the codes and abbreviations, was cancelled when the GPU window closed.
+- `lexicon-terms*.json` are the terms searched, `results/lexicon-search*.json` hold every candidate, every take and what Whisper heard. Model cost of the searches: $0.0271 (claude-sonnet-5-5).
+- Searched on 2026-11-10 from 00:27 to 03:03 on the GPU (the discarded first run, then two runs that kept their results). A run for the codes and abbreviations was cancelled when the GPU window was closing.
 
 ## 2026-11-10 · `HASH2` · `voice-rules`
 
